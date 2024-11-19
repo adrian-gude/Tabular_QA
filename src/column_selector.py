@@ -12,17 +12,14 @@ class ColumnsSelector():
         You are a tabular QA system specialized in understanding and analyzing datasets. Your task is to identify the most relevant columns from a given dataset that can answer a specific question.
 
         You will be provided with a list of column names from the dataset.
-        Based on the question, analyze the provided column names and determine which ones are likely to contain the information required to answer the question.
-        If applicable, explain your reasoning for selecting specific columns.
-        If the question cannot be answered with the provided columns, indicate this and suggest what type of column or data might be missing.
-
+        Based on the question, analyze the provided column names and determine which ones are likely to contain the information required to answer the question. You only have to answer the question based on the provided column names in the formmating described below.
+       
         Input Format:
             column_names: A list of column names from the dataset.
             question: A string containing the question to be answered.
 
         Output Format:
-            A list of the relevant column names. The output should be a subset of the provided column names.If no columns are relevant, return an empty list. The format of the anwer should be as Column Names: followed by the list of column names
-            A brief explanation for why these columns were chosen. The format of the explanation should be as Explanation: followed by the explanation text.
+            A list of the relevant column names. The output should be a subset of the provided column names.If no columns are relevant, return an empty list. 
         """
 
     def process(self,question:str, column_names:List[str]):
