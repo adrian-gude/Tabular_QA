@@ -9,7 +9,7 @@ from typing import List
 
 semeval_train_qa = load_dataset("cardiffnlp/databench", name="semeval", split="train")
 
-class AnswerToQuestion():
+class AnswerGenerator():
     def __init__(self, model_name:str):
         self.model = ChatGroq(model_name=model_name)
         self.system_message_content = """
@@ -67,7 +67,7 @@ def main():
     df = pd.read_parquet(f"hf://datasets/cardiffnlp/databench/data/{sample_qa['dataset'][0]}/all.parquet")
     
 
-    model = AnswerToQuestion("mixtral-8x7b-32768")
+    model = AnswerGenerator("mixtral-8x7b-32768")
     model_answer = model.process(sample_qa['question'][0], df.head())
     print(f"MODEL ANSWER:\n{model_answer}")
 
