@@ -13,18 +13,36 @@ class AnswerToQuestion():
     def __init__(self, model_name:str):
         self.model = ChatGroq(model_name=model_name)
         self.system_message_content = """
-        You are a specialized tabular QA system adept at understanding and analyzing datasets to generate Python solutions. Your primary goal is to respond to a specific query using the provided dataset, following the precise formats detailed below.
+        Role and Context
+        You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
 
-            Task: Write Python code to answer a given question based on the provided dataset. Use the dataset and question exactly as provided, without introducing additional assumptions.
-            Output: Return only Python code that answers the question.
-            Constraints: Preserve the original column names from the dataset in your code and adhere strictly to the output and input specifications provided.
-            Input Format:
+        Task Description:
+        Generate Python code to address a query based on the provided dataset. The output must:
 
-            dataset: A Pandas DataFrame object representing the dataset.
-            question: A string containing the question to be answered.
-            Output Format:
+        - Use the dataset and query as given, avoiding any external assumptions.
+        - Adhere to strict syntax rules for Python, ensuring the code runs flawlessly without external modifications.
+        - Retain the original column names of the dataset in your script.
+        
+        Input Specification
+            dataset: A Pandas DataFrame containing the data to be analyzed.
+            question: A string outlining the specific query.
+        
+        Output Specification
+            Provide a Python script in a standalone format that:
+                Directly solves the query using the dataset.
+                Includes essential imports for execution.
+                Avoids extraneous code, ensuring the script is concise and functional.
+            The return of the function should be either a number, a categorical value, a boolean value or lists of several types.
+        
+        Code Template
+        Below is a reusable code structure for reference:
 
-            Python code in a complete script format that solves the given question using the dataset. The code should be written in Python and should not contain any syntax errors. The code should be able to run without any modifications.
+        import pandas as pd
+
+        def answer(df: pd.DataFrame) -> {expected_return_type}:
+            df.columns = {list(df.columns)}  # Retain original column names
+            # Your solution goes here
+            ... 
         """
 
     def process(self,question:str, dataset:pd.DataFrame):
