@@ -1,4 +1,5 @@
 from datasets import load_dataset
+from databench_eval.utils import load_table 
 import pandas as pd
 from typing import List
 import ast
@@ -6,8 +7,6 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
 import pandas as pd
 from typing import List
-
-semeval_train_qa = load_dataset("cardiffnlp/databench", name="semeval", split="train")
 
 class AnswerGenerator():
     def __init__(self, model_name:str):
@@ -28,21 +27,22 @@ class AnswerGenerator():
             question: A string outlining the specific query.
         
         Output Specification
-            Provide a Python script in a standalone format that:
-                Directly solves the query using the dataset.
-                Includes essential imports for execution.
-                Avoids extraneous code, ensuring the script is concise and functional.
-            The return of the function should be either a number, a categorical value, a boolean value or lists of several types.
-        
+            Return only the Python code that solves the query in the function, excluding any introductory explanations or comments. The function must:
+                Include all essential imports.
+                Be concise and functional, ensuring the script can be executed without additional modifications.
+                Use the dataset and return a result of type number, categorical value, boolean value, or a list of values.
+
         Code Template
-        Below is a reusable code structure for reference:
-
+            Below is a reusable code structure for reference:
+            Return only the code inside the function, without any outer indentation.
+            Complete the function with your solution, ensuring the code is functional and concise.
+        
         import pandas as pd
-
         def answer(df: pd.DataFrame) -> {expected_return_type}:
             df.columns = {list(df.columns)}  # Retain original column names
             # Your solution goes here
             ... 
+       
         """
 
     def process(self,question:str, dataset:pd.DataFrame):
@@ -55,21 +55,24 @@ class AnswerGenerator():
 
         return self.model.invoke(messages).content
     
+    def write_response_to_file(self, response:str, output_path:str):
+
+        with open(output_path, "a") as f:
+            f.write(response)
+            f.write("-"*50)
+            f.write("\n")
+        f.close()
+            
+        
 def main():
-    # args -> whole dataset, specfic dataset, specific question, model
-    sample_qa = semeval_train_qa[:10]
-    print(sample_qa)
-
-    # load questions
-    print(sample_qa['question'])
-
-    # read forbes dataset
-    df = pd.read_parquet(f"hf://datasets/cardiffnlp/databench/data/{sample_qa['dataset'][0]}/all.parquet")
+    semeval_train_qa = load_dataset("cardiffnlp/databench", name="semeval", split="train")
     
-
-    model = AnswerGenerator("mixtral-8x7b-32768")
-    model_answer = model.process(sample_qa['question'][0], df.head())
-    print(f"MODEL ANSWER:\n{model_answer}")
-
+    model = AnswerGenerator("gemma2-9b-it")
+  
+    for row in semeval_train_qa:
+        df = load_table(row["dataset"])
+        model_answer = model.process(row['question'], df.head())
+        model.write_response_to_file(model_answer, f"example.txt")
+    
 if __name__ == "__main__":
     main()
