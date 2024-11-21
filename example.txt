@@ -1,0 +1,223 @@
+```python
+    df = df.sort_values(by='Net Worth', ascending=False)
+    return df.iloc[0]['Self Made'] 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = {list(df.columns)}  
+    youngest_billionaire = df.loc[df['Age'].idxmin()]
+    return youngest_billionaire['Gender'] == 'Male' 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+  df.columns = {list(df.columns)}  
+  return df[df['Country'] == 'United States'].groupby('City')['Billionaires'].sum().idxmax() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+  df.columns = {list(df.columns)}  
+  top_5 = df.sort_values(by='Net Worth', ascending=False).head(5)
+  return (top_5['Self Made'].isin(['No']).any()) 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+  oldest_billionaire = df['Age'].idxmin()
+  return df.loc[oldest_billionaire, 'Philanthropy Score'] == 5 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+  df.columns = {list(df.columns)}  
+  return df[df['Net Worth'] >= 1000000000]['Age'].min() 
+```--------------------------------------------------
+```python
+    return df[df['Category'] == 'Technology'][df['Net Worth'] >= 1000000000000].shape[0] 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+  return df[df['Category'] == 'Automotive']['Worth'].sum() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+  df.columns = {list(df.columns)}  
+  return df[df['Philanthropy Score'] > 3]['Billionaires'].count() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {int}:
+  df.columns = {list(df.columns)} 
+  wealthiest_non_self_made = df[df['Self-Made'] == False].nlargest(1, 'Net Worth')['Rank'].iloc[0]
+  return int(wealthiest_non_self_made) 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+  df.columns = {list(df.columns)}  
+  return df.loc[df['Net Worth'].idxmax(), 'Category'] 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+  df.columns = {list(df.columns)}  
+  oldest_billionaire = df.loc[df['Age'].idxmin()]
+  return oldest_billionaire['Country'] 
+```--------------------------------------------------
+```python
+    return df[df['Philanthropy Score'] == df['Philanthropy Score'].max()]['Gender'].iloc[0]
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+  df.columns = {list(df.columns)} 
+  return df[df['Age'] == df['Age'].min()]['Source'].iloc[0] 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+  df.columns = {list(df.columns)}  
+  return df[df['Rank'] == df['Rank'].min()]['Title'].iloc[0]
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {list}:
+  return df.groupby('Country').size().nlargest(3).index.tolist() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {list}:
+  return df['Source of Wealth'].value_counts().head(5).index.tolist() 
+```--------------------------------------------------
+```python
+    df['Age'] = pd.to_numeric(df['Age'])
+    df = df.sort_values(by=['Age', 'City'], ascending=[True, True])
+    return df['City'].unique()[:4].tolist() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = {list(df.columns)}  
+    return df.groupby('Category')['Billionaires'].min().sort_values().tail(3).index.tolist()
+```--------------------------------------------------
+```python
+    return df.sort_values(by='Billionaires', ascending=True).tail(2)['Country'].tolist() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+  df.columns = {list(df.columns)}  
+  return df[df['Self-Made'] == False].nlargest(5, 'Rank')['Name'].tolist() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+  return df[df['Philanthropy Score'] == 5]['Age'].sort_values().tail(3).tolist() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {list}:
+    df.columns = {list(df.columns)}  
+    return df[df['Industry'] == 'Technology']['Final Worth'].nlargest(6).tolist()
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {list}:
+  df.columns = {list(df.columns)}  
+  return df[df['Gender'] == 'Female'].sort_values('Rank').head(4)['Name'].tolist()
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {list}:
+    df.columns = {list(df.columns)}  
+    return df[df['Industry'] == 'Automotive']['Final Worth'].sort_values(ascending=False).head(2).tolist()
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+  return (df['Survived'] == 1) & (df['Age'] < 18).any() 
+```--------------------------------------------------
+```python
+    return (df['Fare'] > 500).any() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+  df.columns = {list(df.columns)}  
+  return df['Name'].nunique() == len(df)
+```--------------------------------------------------
+```python
+    return (df[df['PassengerClass'] == 3]
+            [df['Sex'] == 'female']
+            ['Survived'].any())
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+  df.columns = {list(df.columns)}  
+  return len(df['PassengerClass'].unique())
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+  df.columns = {list(df.columns)}
+  return df['Age'].max()
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+  df.columns = {list(df.columns)}  
+  return len(df[df['SibSp'] == 0][df['Parch'] == 0]) 
+```--------------------------------------------------
+```python
+    return df['fare'].mean()
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+  df.columns = {list(df.columns)}  
+  return df['PassengerClass'].value_counts().idxmax()
+```--------------------------------------------------
+```python
+    return df[df['Survived'] == 1]['Sex'].value_counts().index[0]
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+  df.columns = {list(df.columns)} 
+  return df[df['Survived'] == 1]['Fare'].value_counts().index[0] 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = {list(df.columns)}
+    age_groups = pd.cut(df['Age'], bins=[0, 18, 30, 50, float('inf')], labels=['0-18', '18-30', '30-50', '50+'])
+    return age_groups.mode()[0] 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {list}:
+    df.columns = {list(df.columns)}  
+    return df[df['Survived'] == 1]['Pclass'].value_counts().index[:3].tolist() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {list}:
+    df['Fare Range'] = pd.cut(df['Fare'], bins=[0, 50, 100, 150, float('inf')], labels=['0-50', '50-100', '100-150', '150+'])
+    return df.groupby('Fare Range')['Survived'].sum().sort_values(ascending=False).head(3).index.tolist() 
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {list}:
+  df.columns = {list(df.columns)}  
+  return df.groupby('Age Range')['Survived'].value_counts().nlargest(4).index.tolist()
+```--------------------------------------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> {str}:
+  return df.groupby('Gender')['Fare'].mean().sort_values(ascending=False).index.tolist()[:2] 
+```--------------------------------------------------
