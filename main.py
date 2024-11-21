@@ -1,9 +1,12 @@
+import re
 import zipfile
 
 import pandas as pd
 import torch
 from databench_eval import Evaluator, Runner, utils
 from datasets import Dataset
+from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_groq import ChatGroq
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
 
@@ -19,32 +22,15 @@ tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 
 def call_model(prompts):
     results = []
+    model = ChatGroq(model_name="llama3-70b-8192")
     for p in tqdm(prompts, total=len(prompts)):
-        inputs = tokenizer(p, return_tensors="pt")
-        input_ids = inputs["input_ids"].to(device)
-        attention_mask = inputs["attention_mask"].to(device)
-        generation_config = GenerationConfig(
-            do_sample=True,
-            temperature=0.4,
-            top_p=0.5,
-            top_k=10,
-            num_beams=4,
-            pad_token_id=tokenizer.eos_token_id,
-            return_legacy_cache=True,
-        )
-        with torch.no_grad():
-            generation_output = model.generate(
-                input_ids=input_ids,
-                attention_mask=attention_mask,
-                generation_config=generation_config,
-                return_dict_in_generate=True,
-                output_scores=True,
-                max_new_tokens=128,
-                early_stopping=True,
-            )
-        seq = generation_output.sequences[0]
-        output = tokenizer.decode(seq, skip_special_tokens=True)
-        results.append(output)
+        content, question = p.split(">>>")
+        messages = [
+            SystemMessage(content=content),
+            HumanMessage(content=question),
+        ]
+        result = model.invoke(messages).content
+        results.append(result)
     return results
 
 
@@ -58,72 +44,107 @@ def example_generator(row: dict) -> str:
     question = row["question"]
     df = utils.load_table(dataset)
     return f"""
-# TODO: complete the following function in one line. It should give the answer to: How many rows are there in this dataframe? 
-def example(df: pd.DataFrame) -> int:
-    df.columns=["A"]
-    return df.shape[0]
+        Role and Context
+        You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
 
-# TODO: complete the following function in one line. It should give the answer to: {question}
-def answer(df: pd.DataFrame) -> {row["type"]}:
-    df.columns = {list(df.columns)}
-    return"""
+        Task Description:
+        Generate Python code to address a query based on the provided dataset. The output must:
+
+        - Use the dataset and query as given, avoiding any external assumptions.
+        - Adhere to strict syntax rules for Python, ensuring the code runs flawlessly without external modifications.
+        - Retain the original column names of the dataset in your script.
+        
+        Input Specification
+            dataset: A Pandas DataFrame containing the data to be analyzed.
+            question: A string outlining the specific query.
+        
+        Output Specification
+            Return only the Python code that solves the query in the function, excluding any introductory explanations or comments. The function must:
+                Include all essential imports.
+                Be concise and functional, ensuring the script can be executed without additional modifications.
+                Use the dataset and return a result of type number, categorical value, boolean value, or a list of values.
+
+        Code Template
+            Below is a reusable code structure for reference:
+            Return only the code inside the function, without any outer indentation.
+            Complete the function with your solution, ensuring the code is functional and concise.
+        
+        import pandas as pd
+        def answer(df: pd.DataFrame) -> None:
+            df.columns = {list(df.columns)}  # Retain original column names
+            # Your solution goes here
+            ... 
+            >>>{question}
+        """
 
 
 def example_postprocess(response: str, dataset: str, loader):
+    re.match(r"```python()```")
     try:
         df = loader(dataset)
-        lead = """
-def answer(df):
-    return """
         exec(
-            "global ans\n"
-            + lead
-            + response.split("return")[2]
-            .split("\n")[0]
-            .strip()
-            .replace("[end of text]", "")
-            + f"\nans = answer(df)"
+            f"""
+global ans
+{response}
+ans = answer(df)
+            """
         )
+        #         lead = """
+        # def answer(df):
+        #     return """
+        #         exec(
+        #             "global ans\n"
+        #             + lead
+        #             + response.split("return")[2]
+        #             .split("\n")[0]
+        #             .strip()
+        #             .replace("[end of text]", "")
+        #             + "\nans = answer(df)"
+        #         )
         # no true result is > 1 line atm, needs 1 line for txt format
         return ans.split("\n")[0] if "\n" in str(ans) else ans
     except Exception as e:
         return f"__CODE_ERROR__: {e}"
 
 
-qa = utils.load_qa(name="semeval", split="dev")
-qa = Dataset.from_pandas(pd.DataFrame(qa).head())
-evaluator = Evaluator(qa=qa)
+def main():
+    qa = utils.load_qa(name="semeval", split="dev")
+    qa = Dataset.from_pandas(pd.DataFrame(qa).head())
+    evaluator = Evaluator(qa=qa)
 
-runner = Runner(
-    model_call=call_model,
-    prompt_generator=example_generator,
-    postprocess=lambda response, dataset: example_postprocess(
-        response, dataset, utils.load_table
-    ),
-    qa=qa,
-    batch_size=10,
-)
+    runner = Runner(
+        model_call=call_model,
+        prompt_generator=example_generator,
+        postprocess=lambda response, dataset: example_postprocess(
+            response, dataset, utils.load_table
+        ),
+        qa=qa,
+        batch_size=10,
+    )
 
-runner_lite = Runner(
-    model_call=call_model,
-    prompt_generator=example_generator,
-    postprocess=lambda response, dataset: example_postprocess(
-        response, dataset, utils.load_sample
-    ),
-    qa=qa,
-    batch_size=10,
-)
+    # runner_lite = Runner(
+    #     model_call=call_model,
+    #     prompt_generator=example_generator,
+    #     postprocess=lambda response, dataset: example_postprocess(
+    #         response, dataset, utils.load_sample
+    #     ),
+    #     qa=qa,
+    #     batch_size=10,
+    # )
 
-responses = runner.run(save="predictions.txt")
-responses_lite = runner_lite.run(save="predictions_lite.txt")
-print(f"DataBench accuracy is {evaluator.eval(responses)}")  # ~0.16
-print(
-    f"DataBench_lite accuracy is {evaluator.eval(responses_lite, lite=True)}"
-)  # ~0.08
+    responses = runner.run(save="predictions.txt")
+    # responses_lite = runner_lite.run(save="predictions_lite.txt")
+    print(f"DataBench accuracy is {evaluator.eval(responses)}")  # ~0.16
+    # print(
+    #     f"DataBench_lite accuracy is {evaluator.eval(responses_lite, lite=True)}"
+    # )  # ~0.08
+
+    # with zipfile.ZipFile("submission.zip", "w") as zipf:
+    #     zipf.write("predictions.txt")
+    #     zipf.write("predictions_lite.txt")
+
+    print("Created submission.zip containing predictions.txt and predictions_lite.txt")
 
 
-with zipfile.ZipFile("submission.zip", "w") as zipf:
-    zipf.write("predictions.txt")
-    zipf.write("predictions_lite.txt")
-
-print("Created submission.zip containing predictions.txt and predictions_lite.txt")
+if __name__ == "__main__":
+    main()
