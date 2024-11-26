@@ -1,15 +1,12 @@
-from datasets import load_dataset
-from databench_eval.utils import load_table 
 import pandas as pd
-from typing import List
-import ast
+from databench_eval.utils import load_table
+from datasets import load_dataset
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
-import pandas as pd
-from typing import List
 
-class AnswerGenerator():
-    def __init__(self, model_name:str):
+
+class AnswerGenerator:
+    def __init__(self, model_name: str):
         self.model = ChatGroq(model_name=model_name)
         self.system_message_content = """
         Role and Context
@@ -38,41 +35,45 @@ class AnswerGenerator():
             Complete the function with your solution, ensuring the code is functional and concise.
         
         import pandas as pd
-        def answer(df: pd.DataFrame) -> {expected_return_type}:
-            df.columns = {list(df.columns)}  # Retain original column names
+        def answer(df: pd.DataFrame) -> None:
+            df.columns = {expected_columns}  # Retain original column names
             # Your solution goes here
             ... 
        
         """
 
-    def process(self,question:str, dataset:pd.DataFrame):
+    def process(self, question: str, dataset: pd.DataFrame):
+        system_message = self.system_message_content.format(
+            expected_columns=str(list(dataset.columns))
+        )
         messages = [
-            SystemMessage(content=self.system_message_content),
+            SystemMessage(content=system_message),
             HumanMessage(content=question),
         ]
 
         print(f"Processing a question {question} with this dataset {dataset}\n\n")
 
         return self.model.invoke(messages).content
-    
-    def write_response_to_file(self, response:str, output_path:str):
 
+    @staticmethod
+    def write_response_to_file(response: str, output_path: str):
         with open(output_path, "a") as f:
-            f.write(response)
-            f.write("-"*50)
-            f.write("\n")
+            f.write(f"{response}\n{'-'*50}\n")
         f.close()
-            
-        
+
+
 def main():
-    semeval_train_qa = load_dataset("cardiffnlp/databench", name="semeval", split="train")
-    
-    model = AnswerGenerator("gemma2-9b-it")
-  
+    semeval_train_qa = load_dataset(
+        "cardiffnlp/databench", name="semeval", split="train"
+    )
+
+    model = AnswerGenerator("llama3-70b-8192")
+
     for row in semeval_train_qa:
         df = load_table(row["dataset"])
-        model_answer = model.process(row['question'], df.head())
-        model.write_response_to_file(model_answer, f"example.txt")
-    
+        model_answer = model.process(row["question"], df.head())
+        model.write_response_to_file(model_answer, "example.txt")
+
+
 if __name__ == "__main__":
     main()
