@@ -33,4 +33,3 @@ def process_model_json(response):
 
 if __name__ == "__main__":
     print(get_models())
-    # print(process_model_json(get_models()))

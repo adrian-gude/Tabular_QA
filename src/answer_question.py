@@ -55,7 +55,8 @@ class AnswerGenerator:
 
         return self.model.invoke(messages).content
 
-    def write_response_to_file(self, response: str, output_path: str):
+    @staticmethod
+    def write_response_to_file(response: str, output_path: str):
         with open(output_path, "a") as f:
             f.write(f"{response}\n{'-'*50}\n")
         f.close()
