@@ -167,7 +167,7 @@ def main():
             open("predictions_lite.txt", "w", encoding="utf-8") as f1,
             open("debug_lite.txt", "w", encoding="utf-8") as f2,
         ):
-            for code, response in responses:
+            for code, response in responses_lite:
                 f1.write(str(response) + "\n")
                 if debug:
                     f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
