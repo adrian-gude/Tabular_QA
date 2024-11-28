@@ -1,0 +1,320 @@
+True
+True
+True
+True
+3943
+61
+1243
+__CODE_ERROR__: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+Lavincompae
+es
+juan prin
+reply
+['Lavincompae', '#NI UNA MENOS \xa0♐\xa0✊\xa0🚺', 'SFC The World']
+['es', 'es', 'es', 'es', 'es']
+['Correctorada', 'El Joker', 'Xenia Viladas', 'DrJaus \xa0🇪🇸']
+['reply', 'original']
+[0, 0, 0, 0, 3]
+[61, 60, 59]
+[0, 0, 1, 0]
+[1, 1, 1, 1, 1, 1]
+True
+None
+False
+True
+20
+1125
+160
+80.93843283582089
+Poison
+Shuckle
+Psychic
+None
+[['Eternamax Eternatus', 1125], ['Mega Mewtwo X', 780], ['Mega Mewtwo Y', 780]]
+[['Shedinja', 1], ['Diglett', 10], ['Alolan Diglett', 10], ['Magikarp', 20], ['Pichu', 20]]
+['Water', 'Normal']
+['Mega Heracross', 'Mega Tyranitar', 'Mega Scizor', 'Tyranitar', 'Scizor', 'Ursaring']
+[250, 230, 200, 160, 160]
+[20, 31]
+[135, 127]
+[('Wishiwashi Solo Forme', 175), ('Sunkern', 180), ('Blipbug', 180), ('Snom', 185), ('Azurill', 190), ('Kricketot', 194)]
+True
+False
+False
+__CODE_ERROR__: name 'np' is not defined
+0.7826336180787501
+1002
+0.5681795163371143
+0.035364139619357415
+Policy Officer
+Governor
+Mortgage Banker
+Zone Manager
+['Book Publisher', 'Bureau Chief', 'Publisher', '.Net Architect', '.NET Developer', '.NET Programmer', '.NET Web Developer', 'Academic Coordinator', 'Academic Dean', 'Academic Director', 'Academic Vice President', 'Account Director', 'Account Executive', 'Account Manager', 'Account Specialist', 'Account Supervisor', 'Accountant', 'Accountant Manager', 'Accounting Consultant', 'Accounting Manager', 'Accounts Manager', 'Actuary', 'Adjuster', 'Administrative Assistant', 'Administrative Officer', 'Administrator', 'Admissions Counselor', 'Admissions Director', 'Advertising Account Manager', 'Advertising Analyst', 'Advertising Director', 'Advertising Executive', 'Advertising Manager', 'Advisor', 'Aeronautical Engineer', 'Aerospace Engineer', 'Agent', 'Agriculture Manager', 'Aircraft Engineer', 'Alderman', 'Analyst', 'Analyst Programmer', 'Analyst Sales', 'Analytics Consultant', 'Android Developer', 'Application Architect', 'Application Developer', 'Applications Developer', 'Applications Engineer', 'Applied Mathematician', 'Appraiser', 'Architect', 'Architect Manager', 'Architectural Designer', 'Area Sales Manager', 'Art Coordinator', 'Art Dealer', 'Art Director', 'Artist Agent', 'Artist Manager', 'Artist Representative', "Artist's Manager", 'Arts Administrator', 'Assembly Member', 'Assessor', 'Asset Manager', 'Assistant Dean', 'Assistant Manager', 'Assistant Principal', 'Assistant Superintendent', 'Associate Dean', 'Associate Vice President', 'Association Executive', 'Athlete Manager', 'Athletic Coordinator', 'Athletic Director', 'Athletics Director', 'Attache', 'Audit Manager', 'Auditor', "Author's Agent", 'Automation Engineer', 'Aviation Consultant', 'Aviation Engineer', 'Aviation Manager', 'Band Manager', 'Bank Advisor', 'Bank Analyst', 'Bank Consultant', 'Bank Manager', 'Bank Officer', 'Bank President', 'Banking Analyst', 'Banking Manager', 'Beef Farmer', 'Benefits Consultant', 'Benefits Specialist', 'Beta Tester', 'Bioinformatician', 'Biostatistician', 'Booker', 'Booking Agent', 'Booking Manager', 'Bookkeeper', 'Bookmaker', 'Boxing Promoter', 'Branch Manager', 'Brand Manager', 'Brewing Director', 'Bridal Consultant', 'Broker', 'Building Architect', 'Building Consultant', 'Building Principal', 'Bureau Director', 'Bursar', 'Business Administrator', 'Business Agent', 'Business Analyst', 'Business Banker', 'Business Consultant', 'Business Coordinator', 'Business Dean', 'Business Developer', 'Business Development Analyst', 'Business Development Director', 'Business Development Executive', 'Business Development Manager', 'Business Development Officer', 'Business Development Specialist', 'Business Executive', 'Business Intelligence Analyst', 'Business Intelligence Manager', 'Business Management Analyst', 'Business Management Consultant', 'Business Manager', 'Business Planner', 'Business Process Consultant', 'Business Programmer', 'Business Representative', 'Business Services Director', 'Business Systems Analyst', 'Buyer', 'Buyer Assistant', 'Buying Agent', 'Camp Director', 'Camp Manager', 'Campaign Director', 'Campaign Manager', 'Campaigner', 'Campus Coordinator', 'Campus Director', 'Car Dealer', 'Career Development Director', 'Career Specialist', 'Cartographer', 'Case Manager', 'Caseworker', 'Cash Manager', 'Casino Manager', 'Category Manager', 'Catering Director', 'Catering Manager', 'Cattle Farmer', 'Cattleman', 'Celebrity Manager', 'Certified Financial Planner (CFP)', 'Certified Public Accountant', 'Chairman', 'Chairperson', 'Chancellor', 'Channel Manager', 'Chartered Accountant', 'Chief Administrative Officer', 'Chief Deputy', 'Chief Engineer', 'Chief Executive Officer (CEO)', 'Chief Innovation Officer', 'Chief Learning Officer', 'Chief of Staff', 'Chief Pilot', 'City Administrator', 'City Alderman', 'City Collector', 'City Council Member', 'City Councilman', 'City Designer', 'City Manager', 'City Superintendent', 'Client Services Director', 'Clinic Director', 'Clinical Director', 'Clinical Manager', 'Clinical Researcher', 'Clothier', 'Club Manager', 'Coffee Farmer', 'Collections Manager', 'Collector', 'College Administrator', 'College Dean', 'College Director', 'College of Education Dean', 'College President', 'College Recruiter', 'Commandant', 'Commercial Banker', 'Commercial Director', 'Commercial Lender', 'Commercial Specialist', 'Communication Manager', 'Communications Analyst', 'Communications Consultant', 'Communications Coordinator', 'Communications Director', 'Communications Manager', 'Communications Specialist', 'Community Center Director', 'Community Fundraiser', 'Community Manager', 'Community Relations Director', 'Compiler', 'Compliance Analyst', 'Compliance Consultant', 'Compliance Director', 'Compliance Manager', 'Compliance Officer', 'Compliance Specialist', 'Comptroller', 'Computational Linguist', 'Computational Scientist', 'Computer Analyst', 'Computer Architect', 'Computer Consultant', 'Computer Engineer', 'Computer Graphic Designer', 'Computer Instructor', 'Computer Programmer', 'Computer Science Professor', 'Computer Scientist', 'Computer Software Engineer', 'Computer Specialist', 'Computer Systems Engineer', 'Computer Technician', 'Computer Technologist', 'Computer Trainer', 'Concert Manager', 'Concert Promoter', 'Conference Manager', 'Conference Organizer', 'Conference Producer', 'Congressional Representative', 'Congressman', 'Construction Consultant', 'Construction Contractor', 'Construction Director', 'Construction Engineer', 'Construction Manager', 'Construction Project Manager', 'Constructor', 'Consul', 'Consultant', 'Content Manager', 'Content Specialist', 'Content Strategist', 'Contract Manager', 'Contract Specialist', 'Contractor', 'Controller', 'Cook Manager', 'Coordinator', 'Coroner', 'Corporate Event Planner', 'Corporate Executive', 'Corporate Manager', 'Corporate Officer', 'Corporate Planner', 'Corporate Recruiter', 'Corporate Trainer', 'Council Member', 'Councilman', 'Councilor', 'Counseling Director', 'Counselor', 'County Commissioner', 'County Superintendent of Schools', 'County Supervisor', 'County Treasurer', 'Course Developer', 'Creative Director', 'Credit Manager', 'Credit Specialist', 'Crew Leader', 'Cropper', 'Cryptographer', 'Curriculum Developer', 'Curriculum Director', 'Curriculum Writer', 'Customer Engineer', 'Customer Service Manager', 'Cyber Security Analyst', 'Cyber Security Engineer', 'Dairy Farmer', 'Dairyman', 'Data Analyst', 'Data Architect', 'Data Coordinator', 'Data Engineer', 'Data Manager', 'Data Miner', 'Data Officer', 'Data Scientist', 'Database Architect', 'Database Consultant', 'Database Engineer', 'Database Manager', 'Dealer', 'Dean', 'Dean of Students', 'Delegate', 'Delivery Manager', 'Department Chair', 'Department Director', 'Department Head', 'Department Manager', 'Deputy Commissioner', 'Design Architect', 'Design Director', 'Design Engineer', 'Designer', 'Designer/Writer', 'Developer', 'Development Associate', 'Development Coordinator', 'Development Director', 'Development Manager', 'Development Officer', 'Development Vice President', 'DevOps Engineer', 'Digital Marketing Manager', 'Digital Marketing Strategist', 'Digital Strategist', 'Director', 'Director of Admissions', 'Director of Athletics', 'Director of Communications', 'Director of Compliance', 'Director of Development', 'Director of Education', 'Director of Engineering', 'Director of Entertainment', 'Director of Finance', 'Director of Fundraising', 'Director of Health Education', 'Director of Housing', 'Director of Information', 'Director of Marketing', 'Director of Operations', 'Director of Personnel', 'Director of Product Development', 'Director of Professional Services', 'Director of Public Affairs', 'Director of Public Relations', 'Director of Quality', 'Director of Research', 'Director of Sales and Marketing', 'Director of Sales Marketing', 'Director of Social Services', 'Director of Sustainability', 'Director of Technology', 'Director of Training', 'Dispatcher', 'Distribution Manager', 'District Leader', 'District Manager', 'Diversity Manager', 'Division Chair', 'Division Chief', 'Division Director', 'Division Head', 'Division Manager', 'E-Business Manager', 'Ecommerce Marketing Manager', 'Education Coordinator', 'Education Dean', 'Education Director', 'Education Specialist', 'Education Supervisor', 'Educational Administrator', 'Educational Director', 'Electrical Contractor', 'Elementary Assistant Principal', 'Elementary Principal', 'Elementary School Principal', 'Email Marketing Specialist', 'Emergency Management Director', 'Emergency Responder', 'Employment Advisor', 'Employment Consultant', 'Employment Manager', 'Employment Specialist', 'Energy Analyst', 'Energy Consultant', 'Enforcement Officer', 'Engagement Director', 'Engineer', 'Engineering Director', 'Engineering Manager', 'Engineering Programmer', 'Enterprise Architect', 'Entertainment Agent', 'Entertainment Director', 'Entertainment Manager', 'Environmental Analyst', 'Environmental Designer', 'Environmental Planner', 'Environmental Scientist', 'Environmental Specialist', 'Equity Analyst', 'Estate Planner', 'Estimator', 'Event Coordinator', 'Event Manager', 'Event Organizer', 'Event Planner', 'Event Promoter', 'Event Specialist', 'Events Director', 'Events Manager', 'Examiner', 'Executive Administrator', 'Executive Chef', 'Executive Coach', 'Executive Director', 'Executive Recruiter', 'Executive Vice President', 'Exhibitor', 'Export Manager', 'Exporter', 'External Relations Director', 'Facilities Director', 'Facilities Manager', 'Facility Manager', 'Factor', 'Factory Manager', 'Faculty Dean', 'Faculty Member', 'Farm Manager', 'Farm Specialist', 'Farmer', 'Fashion Buyer', 'Fashion Coordinator', 'Fashion Marketer', 'Field Agent', 'Field Director', 'Field Manager', 'Field Organizer', 'Fight Manager', 'Finance Analyst', 'Finance Associate', 'Finance Consultant', 'Finance Director', 'Finance Manager', 'Finance Officer', 'Finance Specialist', 'Finance Vice President', 'Financial Accountant', 'Financial Adviser', 'Financial Advisor', 'Financial Agent', 'Financial Analyst', 'Financial Coach', 'Financial Consultant', 'Financial Director', 'Financial Engineer', 'Financial Officer', 'Financial Planner', 'Financial Professional', 'Financial Services Director', 'Financier', 'Fire Assistant', 'Fire Chief', 'Fitness Coordinator', 'Fitness Director', 'Fitness Manager', 'Food Broker', 'Food General Manager', 'Food Manager', 'Foreign Diplomat', 'Foreign Service Officer', 'Forensic Accountant', 'Foundation Director', 'Front End Developer', 'Front End Web Developer', 'Fruit Grower', 'Fund Raiser', 'Fundraiser', 'Fundraising Consultant', 'Fundraising Director', 'Fundraising Manager', 'Fundraising Specialist', 'Futures Trader', 'Game Designer', 'Game Developer', 'Game Engineer', 'Game Programmer', 'Game Tester', 'Gaming Director', 'Gaming Manager', 'Gauger', 'General Agent', 'General Contractor', 'General Manager', 'General Manager (GM)', 'Generation Manager', 'Geologist', 'Golf Club Manager', 'Golf Course Manager', 'Governor', 'Graduate School Dean', 'Grain Farmer', 'Grant Manager', 'Grant Officer', 'Grant Writer', 'Graphic Engineer', 'Green Marketer', 'Group Manager', 'Grower', 'Gym Manager', 'Head of Advertising', 'Head of Marketing', 'Headhunter', 'Headmaster', 'Health Administrator', 'Health Care Manager', 'Health Commissioner', 'Health Director', 'Health Education Director', 'Health Manager', 'Health Services Director', 'Healthcare Consultant', 'Healthcare Manager', 'Healthcare Recruiter', 'Hedge Fund Manager', 'High School Assistant Principal', 'High School Principal', 'Home Designer', 'Horse Racing Manager', 'Horse Trader', 'Horticulturist', 'Hospital Director', 'Hospital Manager', 'Hospitality Manager', 'Hotel Director', 'Hotel General Manager', 'Hotel Manager', 'House Designer', 'House Manager', 'House Principal', 'Housing Director', 'Housing Manager', 'Housing Officer', 'Human Resources Director', 'Human Resources Manager', 'Image Consultant', 'Implementation Consultant', 'Implementation Specialist', 'Importer', 'Importer Exporter', 'Informaticist', 'Information Analyst', 'Information Architect', 'Information Director', 'Information Engineer', 'Information Officer', 'Information Scientist', 'Information Security Analyst', 'Information Security Engineer', 'Information Specialist', 'Information Technology Consultant', 'Information Technology Director', 'Information Technology Manager', 'Information Technology Specialist', 'Infrastructure Architect', 'Infrastructure Engineer', 'Inspector', 'Inspector General', 'Instructor', 'Insurance Consultant', 'Insurance Writer', 'Intelligence Analyst', 'Interface Designer', 'Internal Auditor', 'Internet Architect', 'Internet Consultant', 'Internet Designer', 'Internet Developer', 'Internet Marketer', 'Internet Marketing Consultant', 'Internet Marketing Manager', 'Internet Marketing Specialist', 'Internet Marketing Strategist', 'Internet Programmer', 'Internet Project Manager', 'Internet Researcher', 'Internet Retailer', 'Internet Specialist', 'Internet Webmaster', 'Investigator', 'Investment Advisor', 'Investment Analyst', 'Investment Banker', 'Investment Consultant', 'Investment Fund Manager', 'Investment Manager', 'Investment Officer', 'Investments Manager', 'Investor', 'iOS Developer', 'IT Manager', 'IT Project Manager', 'IT Specialist', 'Java Developer', 'Java Programmer', 'Java Software Developer', 'Java Software Engineer', 'Job Developer', 'Job Recruiter', 'Jobber', 'Journeyman', 'Key Account Manager', 'Kitchen Manager', 'Knowledge Engineer', 'Knowledge Manager', 'Lab Manager', 'Laboratory Director', 'Laboratory Scientist', 'Land Agent', 'Land Developer', 'Land Surveyor', 'Landlady', 'Landlord', 'Landman', 'Landscape Architect', 'Landscape Designer', 'Lead Designer', 'Lead Game Designer', 'Learning Administrator', 'Learning and Development Consultant', 'Learning Consultant', 'Learning Coordinator', 'Learning Manager', 'Learning Officer', 'Learning Specialist', 'Legislative Assistant', 'Legislator', 'Lender', 'Liaison Officer', 'Library Consultant', 'Library Director', 'Lieutenant Governor', 'Lifestyle Director', 'Linux Administrator', 'Linux Engineer', 'Liquidator', 'Literary Agent', 'Loan Officer', 'Loan Originator', 'Location Manager', 'Logistician', 'Logistics Coordinator', 'Logistics Director', 'Logistics Manager', 'Logistics Specialist', 'Magazine Publisher', 'Maintenance Specialist', 'Management Analyst', 'Management Consultant', 'Management Development Specialist', 'Management Scientist', 'Manager', 'Manager of IT', 'Managing Director', 'Manufacturer', 'Manufacturing Director', 'Manufacturing Manager', 'Map Maker', 'Mapper', 'Market Analyst', 'Market Manager', 'Market Master', 'Market Research Analyst', 'Market Researcher', 'Marketer', 'Marketing Administrator', 'Marketing Agent', 'Marketing Analyst', 'Marketing Assistant', 'Marketing Associate', 'Marketing Communications Manager', 'Marketing Communications Specialist', 'Marketing Consultant', 'Marketing Coordinator', 'Marketing Director', 'Marketing Executive', 'Marketing Manager', 'Marketing Officer', 'Marketing Planner', 'Marketing Representative', 'Marketing Researcher', 'Marketing Specialist', 'Marketing Strategist', 'Mathematician', 'Mayor', 'Media Buyer', 'Media Director', 'Media Executive', 'Media Marketing Director', 'Media Planner', 'Media Promoter', 'Media Relations Director', 'Mediator', 'Medical Director', 'Medical Manager', 'Medical Officer', 'Meeting Manager', 'Meeting Planner', 'Member of Congress', 'Membership Director', 'Merchandise Manager', 'Merchandiser', 'Merchandising Manager', 'Merchant', 'Middle School Principal', 'Money Manager', 'Mortgage Banker', 'Mortgage Broker', 'Mortgage Consultant', 'Mortgage Loan Officer', 'Mortgage Originator', 'Mortgage Specialist', 'Multimedia Developer', 'Music Agent', 'Music Executive', 'Music Promoter', 'Music Publisher', 'Mystery Shopper', 'National Sales Manager', 'Network Administrator', 'Network Analyst', 'Network Architect', 'Network Consultant', 'Network Coordinator', 'Network Designer', 'Network Developer', 'Network Director', 'Network Engineer', 'Network Manager', 'Network Security Engineer', 'Network Specialist', 'Networking Engineer', 'Networking Specialist', 'New Media Strategist', 'Newspaper Manager', 'Newspaper Publisher', 'Night Manager', 'Nonprofit Director', 'Nonprofit Fundraiser', 'Nonprofit Manager', 'Nurse Manager', 'Nursing Director', 'Office Manager', 'Oil Producer', 'Online Facilitator', 'Online Marketing Manager', 'Online Marketing Strategist', 'Online Merchant', 'Online Retailer', 'Opener', 'Operations Analyst', 'Operations Assistant', 'Operations Coordinator', 'Operations Director', 'Operations Manager', 'Operations Officer', 'Operations Specialist', 'Operations Supervisor', 'Operations Vice President', 'Oracle Developer', 'Organizational Development Consultant', 'Outreach Coordinator', 'Paramedic', 'Party Planner', 'Performance Consultant', 'Personal Banker', 'Personal Financial Planner', 'Personnel Director', 'Pharmacy Manager', 'PHP Developer', 'PHP Web Developer', 'Pig Farmer', 'Planner', 'Planning Analyst', 'Plant Manager', 'Poker Manager', 'Police Commissioner', 'Policy Advisor', 'Policy Analyst', 'Policy Officer', 'Portfolio Manager', 'Postmaster', 'Practice Manager', 'President', 'President of the United States', 'Principal', 'Principal Architect', 'Principal Consultant', 'Principal Engineer', 'Principal Strategist', 'Process Analyst', 'Process Engineer', 'Procurement Specialist', 'Product Manager', 'Product Marketing Manager', 'Product Scientist', 'Product Trainer', 'Production Coordinator', 'Production Manager', 'Production Supervisor', 'Professor', 'Program Analyst', 'Program Coordinator', 'Program Director', 'Program Manager', 'Program Officer', 'Program Strategist', 'Programmer', 'Programmer Analyst', 'Project Administrator', 'Project Architect', 'Project Coordinator', 'Project Developer', 'Project Development Director', 'Project Director', 'Project Engineer', 'Project Executive', 'Project Leader', 'Project Manager', 'Project Specialist', 'Promoter', 'Promotion Manager', 'Promotions Coordinator', 'Promotions Director', 'Promotions Manager', 'Promotions Producer', 'Property Developer', 'Property Manager', 'Provost', 'Public Accountant', 'Public Affairs Director', 'Public Affairs Specialist', 'Public Health Director', 'Public Information Director', 'Public Information Officer', 'Public Relations Coordinator', 'Public Relations Director', 'Public Safety Director', 'Publication Director', 'Publicity Director', 'Publicity Manager', 'Purchaser', 'Purchasing Manager', 'Purser', 'Purveyor', 'QA Manager', 'Quality Analyst', 'Quality Control', 'Quality Engineer', 'Quality Manager', 'Quantity Surveyor', 'Racing Manager', 'Radio Station Manager', 'Rancher', 'Real Estate Agent', 'Real Estate Analyst', 'Real Estate Appraiser', 'Real Estate Developer', 'Real Estate Investor', 'Real Estate Manager', 'Real Estate Officer', 'Records Manager', 'Recruiter', 'Recruiting Coordinator', 'Recruiting Manager', 'Recruiting Specialist', 'Recruitment Consultant', 'Recruitment Director', 'Recruitment Manager', 'Regional Director', 'Regional Manager', 'Regional Sales Director', 'Regional Sales Manager', 'Registrar', 'Regulatory Consultant', 'Rehabilitation Director', 'Relations Specialist', 'Relationship Manager', 'Release Manager', 'Renewable Energy Consultant', 'Representative', 'Research Analyst', 'Research and Development Director', 'Research Associate', 'Research Associate Professor', 'Research Coordinator', 'Research Development Director', 'Research Development Manager', 'Research Director', 'Research Manager', 'Research Scientist', 'Research Specialist', 'Researcher', 'Reserve Officer', 'Resident Manager', 'Residential Designer', 'Resort Manager', 'Restaurant General Manager', 'Restaurant Manager', 'Restaurant Owner', 'Restauranteur', 'Resume Writer', 'Revenue Director', 'Revenue Manager', 'Revenue Officer', 'Reviewer', 'Risk Analyst', 'Risk Management Specialist', 'Risk Manager', 'Roofing Contractor', 'Safety Coordinator', 'Safety Director', 'Safety Instructor', 'Safety Manager', 'Safety Specialist', 'Sales Account Manager', 'Sales and Marketing Director', 'Sales Coordinator', 'Sales Director', 'Sales Engineer', 'Sales Manager', 'Sales Marketing Director', 'Sales Officer', 'Sales Recruiter', 'Sales Representative', 'Sales Trainer', 'Sales Vice President', 'Salon Manager', 'School Administrator', 'School Business Manager', 'School Commissioner', 'School Coordinator', 'School Principal', 'School Superintendent', 'School Supervisor', 'Scientist', 'Scout Executive', 'Scrum Master', 'Search Consultant', 'Search Marketing Specialist', 'Search Strategist', 'Secondary School Principal', 'Secretary', 'Secretary of State', 'Security Analyst', 'Security Architect', 'Security Consultant', 'Security Director', 'Security Engineer', 'Security Manager', 'Security Specialist', 'Selectman', 'Senator', 'Senior Consultant', 'Senior Game Designer', 'Senior Group Manager', 'Senior Instructor', 'Senior Planner', 'Senior Program Manager', 'Senior Project Manager', 'Senior Research Associate', 'Senior Research Scientist', 'Senior Scientist', 'Senior Software Engineer', 'Server Engineer', 'Service Advisor', 'Service Director', 'SharePoint Architect', 'Sharepoint Developer', 'Shipper', 'Site Coordinator', 'Site Manager', 'Skills Trainer', 'Social Media Director', 'Social Media Manager', 'Social Media Specialist', 'Social Media Strategist', 'Social Services Director', 'Social Services Manager', 'Software Analyst', 'Software Architect', 'Software Consultant', 'Software Design Engineer', 'Software Designer', 'Software Developer', 'Software Development Engineer', 'Software Engineer', 'Software Programmer', 'Software Project Manager', 'Software Publisher', 'Software Quality Engineer', 'Software Systems Engineer', 'Software Tester', 'Software Trainer', 'Software Writer', 'Solution Architect', 'Solutions Architect', 'Sommelier', 'Sourcing Manager', 'Sourcing Specialist', 'Space Officer', 'Special Agent', 'Special Events Coordinator', 'Special Events Director', 'Sports Agent', 'Sports Marketer', 'Sports Statistician', 'Sports Team Manager', 'SQL Developer', 'SQL Server Developer', 'Staff Analyst', 'Staff Assistant', 'Staffing Manager', 'State Auditor', 'Station Manager', 'Statistician', 'Stock Analyst', 'Stock Trader', 'Stockman', 'Storage Engineer', 'Storage Manager', 'Store Manager', 'Strategic Marketing Manager', 'Strategic Planner', 'Strategic Planning Director', 'Strategist', 'Student Affairs Dean', 'Student Affairs Vice President', 'Student Dean', 'Student Services Director', 'Superintendent', 'Superintendent of Schools', 'Supervisor', 'Supply Chain Manager', 'Supply Chain Specialist', 'Support Specialist', 'Surveyor', 'Sustainability Analyst', 'Sustainability Coach', 'Sustainability Consultant', 'Sustainability Coordinator', 'Sustainability Director', 'Sustainability Manager', 'Sustainability Officer', 'Sustainability Specialist', 'System Administrator', 'System Architect', 'System Engineer', 'System Programmer', 'System Software Developer', 'Systems Administrator', 'Systems Analyst', 'Systems Architect', 'Systems Consultant', 'Systems Developer', 'Systems Development Manager', 'Systems Engineer', 'Systems Integrator', 'Systems Manager', 'Systems Programmer', 'Systems Software Engineer', 'Systems Specialist', 'Talent Acquisition Manager', 'Talent Acquisition Specialist', 'Talent Agent', 'Talent Buyer', 'Talent Manager', 'Talent Recruiter', 'Talent Scout', 'Tax Accountant', 'Tax Advisor', 'Tax Agent', 'Tax Collector', 'Tax Consultant', 'Tax Expert', 'Tax Manager', 'Tax Preparer', 'Tax Professional', 'Tax Specialist', 'Teacher', 'Teacher Education Director', 'Team Coordinator', 'Team Leader', 'Technical Account Manager', 'Technical Analyst', 'Technical Architect', 'Technical Consultant', 'Technical Director', 'Technical Instructor', 'Technical Project Manager', 'Technical Recruiter', 'Technical Specialist', 'Technical Trainer', 'Technology Consultant', 'Technology Coordinator', 'Technology Director', 'Technology Manager', 'Technology Project Manager', 'Telecom Engineer', 'Telecommunications Engineer', 'Territory Manager', 'Test Engineer', 'Testing Director', 'Theater Manager', 'Theatre Manager', 'Theatrical Agent', 'Top Executive', 'Trade Analyst', 'Trade Specialist', 'Trader', 'Tradesman', 'Traffic Director', 'Traffic Manager', 'Train Master', 'Trainer', 'Training Assistant', 'Training Consultant', 'Training Coordinator', 'Training Developer', 'Training Development Director', 'Training Director', 'Training Executive', 'Training Facilitator', 'Training Manager', 'Training Officer', 'Training Specialist', 'Transportation Director', 'Transportation Engineer', 'Transportation Manager', 'Transportation Specialist', 'Treasurer', 'Trust Officer', 'Trustee', 'U.S. Representative', 'U.S. Senator', 'Underwriter', 'Union Organizer', 'Union Representative', 'University Administrator', 'University Dean', 'University President', 'University Relations Director', 'User Experience Designer (UX Designer)', 'User Interface Designer', 'Venue Manager', 'Vice Chancellor', 'Vice President', 'Vice President of Marketing', 'Vice President of Operations', 'Vice Principal', 'Video Game Creator', 'Video Game Designer', 'Video Game Developer', 'Video Game Engineer', 'Video Game Maker', 'Video Game Programmer', 'Videogame Designer', 'Voice Engineer', 'VP Marketing', 'Warehouse Manager', 'Wealth Management Advisor', 'Web Administrator', 'Web Analyst', 'Web Application Developer', 'Web Applications Developer', 'Web Architect', 'Web Content Developer', 'Web Content Manager', 'Web Designer', 'Web Developer', 'Web Editor', 'Web Engineer', 'Web Graphic Designer', 'Web Manager', 'Web Marketing Strategist', 'Web Producer', 'Web Programmer', 'Web Site Designer', 'Web Site Developer', 'Web Software Engineer', 'Web Specialist', 'Webmaster', 'Website Designer', 'Website Developer', 'Wedding Designer', 'Wedding Planner', 'Welfare Director', 'Welfare Manager', 'Welfare Officer', 'Wellness Ambassador', 'Wellness Coach', 'Wellness Director', 'Wellness Manager', 'Wine Maker', 'Wireless Engineer', 'World Designer', 'Wrecker', 'Zone Manager']
+['.Net Architect', 'Android Developer', 'Principal Engineer', 'Game Engineer']
+['Director of Athletics', 'Recruiting Coordinator', 'Athletic Coordinator', 'Director of Personnel', 'Skills Trainer']
+['U.S. Senator', 'Congressman']
+[0.7557249985959847, 0.7413189187628788, 0.7034528053640179]
+[0.16523815696640565, 0.20054280643241226, 0.22155461168552476, 0.2506791678499942]
+[0.9794365922809227, 0.9723660656030668, 0.954299437125917, 0.9362989453985364, 0.9307917067583288]
+[0.035364139619357415, 0.035579296052633214, 0.0399752446723049, 0.05732806625856246, 0.059109906308533855, 0.05927817925717627]
+False
+False
+False
+False
+3574
+14.745974597459746
+100
+8848
+Massachusetts Institute of Technology
+None
+en
+member, portion, body, end
+['Samsung Electronics Co., Ltd.', 'Google Inc.', 'International Business Machines Corporation']
+['utility', 'design']
+['B2', 'S1']
+__CODE_ERROR__: name 'Counter' is not defined
+[20, 1, 18, 19]
+[9479771.0, 9325365.0, 9323284.0]
+__CODE_ERROR__: name 'np' is not defined
+[9480195.0, 9480194.0, 9480193.0]
+__CODE_ERROR__: 'user_followers_count'
+__CODE_ERROR__: 'favorites'
+__CODE_ERROR__: 'mention_names'
+__CODE_ERROR__: 'retweets'
+__CODE_ERROR__: 'user_followers_count'
+__CODE_ERROR__: 'user_favourites_count'
+__CODE_ERROR__: 'retweets'
+__CODE_ERROR__: 'author_id'
+__CODE_ERROR__: 'user_followers_count'
+__CODE_ERROR__: 'favorites'
+__CODE_ERROR__: 'mention_names'
+__CODE_ERROR__: 'retweets'
+__CODE_ERROR__: 'author_id'
+__CODE_ERROR__: 'author_id'
+__CODE_ERROR__: 'mention_names'
+__CODE_ERROR__: 'author_name'
+__CODE_ERROR__: 'user_followers_count'
+__CODE_ERROR__: 'favorites'
+__CODE_ERROR__: name 'Counter' is not defined
+__CODE_ERROR__: 'retweets'
+False
+False
+False
+False
+18424
+367
+72
+113
+Radio/TV
+__CODE_ERROR__: expected an indented block after function definition on line 3 (<string>, line 5)
+Existing Credits Paid Back Duly Till Now
+Less than 100 DM
+None
+['Skilled', 'Highly Skilled', 'Unskilled - Resident', 'Unemployed / Unskilled  - Non-Resident']
+['Skilled', 'Unskilled - Resident', 'Highly Skilled', 'Unemployed / Unskilled  - Non-Resident']
+['Highly Skilled', 'Highly Skilled']
+[18424, 15945, 15857]
+[24, 12, 18, 36]
+[4, 4, 4]
+[75, 75]
+False
+False
+True
+2
+0
+0.08465
+18
+0.2748
+bacon
+honey
+honey
+beef
+['bacon', 'peanuts', 'chocolate bar', 'popcorn', 'cookie']
+['chestnut', 'pancakes', 'cheese']
+['bacon', 'peanuts', 'cheese', 'popcorn']
+['candy', 'black tea', 'bacon', 'champagne', 'red wine', 'red apple']
+[8.98, 5.67, 5.18, 5.0, 4.97]
+[0.0, 0.0, 0.0]
+[('bacon', 0.995), ('peanuts', 0.4924), ('cheese', 0.3099), ('popcorn', 0.281)]
+[0.0, 0.0, 0.0007, 0.0007, 0.0007, 0.002]
+0
+__CODE_ERROR__: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+__CODE_ERROR__: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+True
+372
+37.420120593188116
+1795
+86.0
+['Ciudadanos']
+The party ideas are close to my own
+Ciudadanos
+__CODE_ERROR__: name 'Counter' is not defined
+[array(['Ciudadanos'], dtype=object), array(['I am undeceided'], dtype=object), array(['Podemos'], dtype=object), array(['PP'], dtype=object), array(['I prefer not to say'], dtype=object)]
+__CODE_ERROR__: name 'Counter' is not defined
+['Ciudadanos', 'PP', 'I prefer not to say']
+None
+[38.0, 23.0, 39.0]
+[5.0, 3.0, 6.0]
+[5.0, 3.0, 4.0, 0.0]
+[2.0, 3.0, 4.0]
+0
+0
+0
+__CODE_ERROR__: Categoricals can only be compared if 'categories' are the same.
+1315
+__CODE_ERROR__: 'Joe Biden'
+__CODE_ERROR__: 'High School or Less'
+0
+65+
+I don’t know
+Some college, no degree
+South Atlantic
+['CA', 'TX', 'NY', 'FL', 'GA', 'PA']
+['Healthcare', 'Other']
+['White (not Hispanic, Latino or Spanish origin)', 'Black or African American (not Hispanic, Latino or Spanish origin)']
+['65+', '55-64', '45-54', '35-44', '18-24', '25-34']
+[6037, 13121, 48201]
+[12.25830409560021, 11.12470053778552, 10.76484201273817, 9.469101617885023]
+[1, 2, 3, 4]
+__CODE_ERROR__: name 'Counter' is not defined
+True
+None
+True
+True
+940
+16.19912
+549900
+None
+Supergarage
+__CODE_ERROR__: name 'Counter' is not defined
+Diésel
+Madrid
+['Melilla', 'Ceuta', 'Zamora']
+['Blanco', 'Gris / Plata', 'Negro']
+['VOLKSWAGEN', 'BMW', 'MERCEDES-BENZ', 'AUDI', 'PEUGEOT']
+['Gas natural (CNG)', 'Gas licuado (GLP)']
+[2016.0, 2017.0, 2019.0, 2020.0]
+[5000000, 4000006, 3500000]
+[54, 54, 54, 54, 54]
+[800.0, 800.0, 796.0, 772.0, 720.0, 720.0]
+False
+None
+False
+__CODE_ERROR__: 'Series' object has no attribute 'split'
+94
+__CODE_ERROR__: Can only use .dt accessor with datetimelike values
+9684
+11569
+afternoon
+__CODE_ERROR__: name 'Counter' is not defined
+Basket
+None
+['Coffee', 'Bread', 'Pastry']
+['Coffee', 'Bread']
+['Coffee']
+['Vegan mincepie', 'Mortimer', 'Art Tray', 'Mighty Protein']
+[6279, 6412, 6474, 6716]
+[6474, 6412, 6716, 6279, 6045]
+[8328, 6240, 5986, 3058, 7329, 6936]
+[9665, 9665]
+False
+False
+True
+True
+162
+4.204158004158004
+670801367
+786
+United States
+Disneyland_Paris
+2019-3
+Mali
+['United States', 'United Kingdom', 'Australia']
+['Disneyland_Paris', 'Disneyland_HongKong']
+['missing', '2015-8', '2015-7', '2015-12']
+['Turks and Caicos Islands', 'South Sudan', 'Suriname']
+[670585330, 670570869, 670443403, 670435886, 670324965]
+[662641193, 658624005, 649615606, 647822351]
+[5, 4, 3]
+[1, 1]
+False
+True
+True
+True
+1
+__CODE_ERROR__: expected an indented block after function definition on line 3 (<string>, line 5)
+589793
+2891
+Donald J. Trump
+Such a beautiful and important evening! The forgotten man and woman will never be forgotten again. We will all come together as never before
+und
+__CODE_ERROR__: name 'Counter' is not defined
+['realDonaldTrump']
+['pt', 'pl']
+__CODE_ERROR__: 'float' object is not iterable
+['Donald J. Trump']
+None
+__CODE_ERROR__: expected an indented block after function definition on line 3 (<string>, line 5)
+[589793, 589750, 557779, 539249, 476457, 376626]
+[1, 1, 2]
+False
+True
+True
+True
+9
+0.08848033260794515
+770.5
+651
+David McCandless
+Mike Bostock
+https://storage.googleapis.com/pics.contexto.io/photos/paperclips/000/016/457/thumb/Saw-whet_Owl_10_normal.jpg?1517502050
+The Gibson Project
+['Lynn Cherny', 'Alberto Cairo', 'Sinan Aral']
+[['LIFE', 0.0], ['New Options Project', 0.0]]
+[['Detective.io', 2252.6290667868097], ['The Thrust', 2126.6106714372613], ['Open Budgets', 2062.7915869014705], ['NewsFuturist', 2028.2436127158085]]
+[-1543.3173448435427, -1514.887126261893, -1494.6062525215345]
+[568, 423, 6392, 4548, 579]
+[177, 240, 294, 369]
+[1.0, 0.6029751067034804, 0.5666707687637932, 0.5202348027491394, 0.5110606617858531, 0.5081183103684572]
+[1.0, 1.0, 1.0]
+True
+True
+None
+True
+7
+2.8415841584158414
+8
+None
+1
+octopus
+7
+frog
+['octopus', 'crayfish', 'starfish']
+[23]
+[1, 2, 4, 7]
+[5, 3, 6]
+[1, 6, 2, 7, 5]
+[4, 3, 5, 7]
+[4, 2, 0, 6]
+[5, 8, 6]
+False
+False
+False
+True
+4070
+4.611113626088513
+80995
+None
+None
+Manual
+PAPER CRAFT , LITTLE BIRDIE
+United Kingdom
+['PAPER CRAFT , LITTLE BIRDIE', 'MEDIUM CERAMIC TOP STORAGE JAR', 'ASSTD DESIGN 3D PAPER STICKERS']
+['MEDIUM CERAMIC TOP STORAGE JAR', 'PAPER CRAFT , LITTLE BIRDIE']
+['United Kingdom', 'Germany']
+None
+[581483.0, 541431.0, 578841.0, 542504.0, 573008.0]
+['23843', '23166', '23005', '23005']
+[1, 2, 12, 6]
+[('WHITE HANGING HEART T-LIGHT HOLDER', 2369), ('REGENCY CAKESTAND 3 TIER', 2200)]

@@ -1,0 +1,3199 @@
+Here's the Python code that answers the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    favorite_author = df.groupby('author_name')['favorites'].sum().idxmax()
+    lang = df[df['author_name'] == favorite_author]['lang'].mode().values[0]
+    return lang == 'es'
+```
+Response: True
+--------------------
+Here is the Python code that answers the query:
+
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    author_with_longest_name = df.loc[df['author_name'].apply(len).idxmax()]
+    return author_with_longest_name['type'] == 'original'
+```
+Response: True
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    return df.groupby('author_id')['retweets'].min().eq(0).any()
+```
+Response: True
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    return df['links'].isnull().any() or df['links_first'].isnull().any() or df['image_links'].isnull().any() or df['image_links_first'].isnull().any() or df['links'].eq('').any() or df['links_first'].eq('').any() or df['image_links'].eq('').any() or df['image_links_first'].eq('').any()
+```
+Response: True
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    return df['author_id'].nunique()
+```
+Response: 3943
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    return df['text'].apply(lambda x: len(x.split())).max()
+```
+Response: 61
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    return df['retweets'].sum()
+```
+Response: 1243
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    return df[df['mention_ids'].isna() | (df['mention_ids'] == '') | (df['mention_ids'] == '[]')].shape[0]
+```
+Response: __CODE_ERROR__: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    most_retweeted_author = df.loc[df['retweets'].idxmax()]['author_name']
+    return most_retweeted_author
+```
+Response: Lavincompae
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    max_favorites = df.loc[df['favorites'].idxmax()]
+    return max_favorites['lang']
+```
+Response: es
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    max_words_author = df.loc[df['text'].apply(lambda x: len(x.split())).idxmax()]['author_name']
+    return max_words_author
+```
+Response: juan prin
+--------------------
+Here is the Python code that solves the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    return df['type'].mode().values[0]
+```
+Response: reply
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    top_3_retweeted_posts = df.nlargest(3, 'retweets')
+    top_3_authors = top_3_retweeted_posts['author_name'].tolist()
+    return top_3_authors
+```
+Response: ['Lavincompae', '#NI UNA MENOS \xa0♐\xa0✊\xa0🚺', 'SFC The World']
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    least_favorited_posts = df.nsmallest(5, 'favorites')
+    languages = least_favorited_posts['lang'].tolist()
+    return languages
+```
+Response: ['es', 'es', 'es', 'es', 'es']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    shortest_posts = df.nsmallest(4, 'word_count')
+    return shortest_posts['author_name'].tolist()
+```
+Response: ['Correctorada', 'El Joker', 'Xenia Viladas', 'DrJaus \xa0🇪🇸']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    type_counts = df['type'].value_counts().nlargest(6)
+    return type_counts.index.tolist()
+```
+Response: ['reply', 'original']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    top_5_fav_tweets = df.nlargest(5, 'favorites')
+    retweet_counts = top_5_fav_tweets['retweets'].tolist()
+    return retweet_counts
+```
+Response: [0, 0, 0, 0, 3]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    word_counts = df['text'].apply(lambda x: len(x.split()))
+    longest_posts = word_counts.nlargest(3)
+    return longest_posts.tolist()
+```
+Response: [61, 60, 59]
+--------------------
+Here is the Python code to solve the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    least_favorited = df.nsmallest(4, 'favorites')
+    retweet_counts = least_favorited['retweets'].tolist()
+    return retweet_counts
+```
+Response: [0, 0, 1, 0]
+--------------------
+Here is the Python code to solve the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'type', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link', 'search']
+    word_counts = df['text'].apply(lambda x: len(x.split()))
+    return word_counts.nsmallest(6).tolist()
+```
+Response: [1, 1, 1, 1, 1, 1]
+--------------------
+Here is the Python code that solves the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return 'Pikachu' in df['name'].values
+```
+Response: True
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return (df['total'] > 700).any()
+Response: None
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return (df['generation'] == 1).all() and (df['legendary'] == True).all()
+```
+Response: False
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return df['speed'].max() > 150
+```
+Response: True
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return df['type1'].nunique()
+```
+Response: 20
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return df['total'].max()
+```
+Response: 1125
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return len(df[df['generation'] == 3])
+```
+Response: 160
+--------------------
+Here is the Python code that solves the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return df['attack'].mean()
+```
+Response: 80.93843283582089
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    max_defense_row = df.loc[df['defense'].idxmax()]
+    primary_type = max_defense_row['type1']
+    return primary_type
+```
+Response: Poison
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    return df.loc[df['speed'].idxmin()]['name']
+```
+Response: Shuckle
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    legendary_pokemon = df[df['legendary'] == True]
+    type1_counts = legendary_pokemon['type1'].value_counts()
+    most_common_type = type1_counts.index[0]
+    return most_common_type
+```
+Response: Psychic
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    pokemon_with_highest_sp_attack = df.loc[df['sp_attack'].idxmax()]
+    return pokemon_with_highest_sp_attack['name']
+Response: None
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    top_3_pokemon = df.nlargest(3, 'total')[['name', 'total']]
+    return top_3_pokemon.values.tolist()
+```
+Response: [['Eternamax Eternatus', 1125], ['Mega Mewtwo X', 780], ['Mega Mewtwo Y', 780]]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    lowest_hp_pokemon = df.nsmallest(5, 'hp')[['name', 'hp']].values.tolist()
+    return lowest_hp_pokemon
+```
+Response: [['Shedinja', 1], ['Diglett', 10], ['Alolan Diglett', 10], ['Magikarp', 20], ['Pichu', 20]]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    type1_counts = df['type1'].value_counts().head(2).index.tolist()
+    return type1_counts
+```
+Response: ['Water', 'Normal']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    second_gen_pokemon = df[df['generation'] == 2]
+    top_attackers = second_gen_pokemon.nlargest(6, 'attack')
+    return top_attackers['name'].tolist()
+```
+Response: ['Mega Heracross', 'Mega Tyranitar', 'Mega Scizor', 'Tyranitar', 'Scizor', 'Ursaring']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    top_5_sp_defense = df.nlargest(5, 'sp_defense')['sp_defense'].tolist()
+    return top_5_sp_defense
+```
+Response: [250, 230, 200, 160, 160]
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    legendary_pokemons = df[df['legendary'] == True]
+    lowest_defense = legendary_pokemons.nsmallest(2, 'defense')['defense'].tolist()
+    return lowest_defense
+```
+Response: [20, 31]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    fourth_gen_pokemon = df[df['generation'] == 4]
+    top_two_speed = fourth_gen_pokemon.nlargest(2, 'speed')
+    return top_two_speed['speed'].tolist()
+```
+Response: [135, 127]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['number', 'name', 'type1', 'type2', 'total', 'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed', 'generation', 'legendary']
+    non_legendary = df[df['legendary'] == False]
+    lowest_total_stats = non_legendary.nsmallest(6, 'total')[['name', 'total']]
+    return list(lowest_total_stats.itertuples(index=False, name=None))
+```
+Response: [('Wishiwashi Solo Forme', 175), ('Sunkern', 180), ('Blipbug', 180), ('Snom', 185), ('Azurill', 190), ('Kricketot', 194)]
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    return df['Extraversion'].max() > df['Agreeableness'].max()
+```
+Response: True
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    max_openness_profession = df.loc[df['Openness'].idxmax()]['Profession']
+    max_conscientousness_profession = df.loc[df['Conscientousness'].idxmax()]['Profession']
+    return max_openness_profession == max_conscientousness_profession
+```
+Response: False
+--------------------
+Here is the Python code to answer the question:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    min_emotional_range_profession = df.loc[df['Emotional_Range'].idxmin()]['Profession']
+    min_conversation_profession = df.loc[df['Conversation'].idxmin()]['Profession']
+    return min_emotional_range_profession == min_conversation_profession
+```
+Response: False
+--------------------
+Here is the Python code that solves the query:
+
+```
+import pandas as pd
+import numpy as np
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    avg_openness_to_change = np.mean(df['Openness to Change'])
+    avg_hedonism = np.mean(df['Hedonism'])
+    return avg_openness_to_change > avg_hedonism
+```
+Response: __CODE_ERROR__: name 'np' is not defined
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    return df['Self-enhancement'].max()
+```
+Response: 0.7826336180787501
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    return df[df['Emotional_Range'] > 0.5]['Profession'].nunique()
+```
+Response: 1002
+--------------------
+Here is the Python code that addresses the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    most_common_profession = df['Profession'].value_counts().index[0]
+    avg_extraversion = df[df['Profession'] == most_common_profession]['Extraversion'].mean()
+    return avg_extraversion
+```
+Response: 0.5681795163371143
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    return df['Self-transcendence'].min()
+```
+Response: 0.035364139619357415
+--------------------
+Here is the Python code that addresses the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    max_conscientiousness_profession = df.loc[df['Conscientousness'].idxmax()]['Profession']
+    return max_conscientiousness_profession
+```
+Response: Policy Officer
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    return df.loc[df['Hedonism'].idxmin()]['Profession']
+```
+Response: Governor
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    return df.loc[df['Emotional_Range'].idxmax()]['Profession']
+```
+Response: Mortgage Banker
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    profession_with_max_records = df['Profession'].value_counts().index[0]
+    return profession_with_max_records
+```
+Response: Zone Manager
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    top_3_professions = df.nlargest(3, 'Openness').groupby('Profession')['Openness'].mean().sort_values(ascending=False).index.tolist()
+    return top_3_professions
+```
+Response: ['Book Publisher', 'Bureau Chief', 'Publisher', '.Net Architect', '.NET Developer', '.NET Programmer', '.NET Web Developer', 'Academic Coordinator', 'Academic Dean', 'Academic Director', 'Academic Vice President', 'Account Director', 'Account Executive', 'Account Manager', 'Account Specialist', 'Account Supervisor', 'Accountant', 'Accountant Manager', 'Accounting Consultant', 'Accounting Manager', 'Accounts Manager', 'Actuary', 'Adjuster', 'Administrative Assistant', 'Administrative Officer', 'Administrator', 'Admissions Counselor', 'Admissions Director', 'Advertising Account Manager', 'Advertising Analyst', 'Advertising Director', 'Advertising Executive', 'Advertising Manager', 'Advisor', 'Aeronautical Engineer', 'Aerospace Engineer', 'Agent', 'Agriculture Manager', 'Aircraft Engineer', 'Alderman', 'Analyst', 'Analyst Programmer', 'Analyst Sales', 'Analytics Consultant', 'Android Developer', 'Application Architect', 'Application Developer', 'Applications Developer', 'Applications Engineer', 'Applied Mathematician', 'Appraiser', 'Architect', 'Architect Manager', 'Architectural Designer', 'Area Sales Manager', 'Art Coordinator', 'Art Dealer', 'Art Director', 'Artist Agent', 'Artist Manager', 'Artist Representative', "Artist's Manager", 'Arts Administrator', 'Assembly Member', 'Assessor', 'Asset Manager', 'Assistant Dean', 'Assistant Manager', 'Assistant Principal', 'Assistant Superintendent', 'Associate Dean', 'Associate Vice President', 'Association Executive', 'Athlete Manager', 'Athletic Coordinator', 'Athletic Director', 'Athletics Director', 'Attache', 'Audit Manager', 'Auditor', "Author's Agent", 'Automation Engineer', 'Aviation Consultant', 'Aviation Engineer', 'Aviation Manager', 'Band Manager', 'Bank Advisor', 'Bank Analyst', 'Bank Consultant', 'Bank Manager', 'Bank Officer', 'Bank President', 'Banking Analyst', 'Banking Manager', 'Beef Farmer', 'Benefits Consultant', 'Benefits Specialist', 'Beta Tester', 'Bioinformatician', 'Biostatistician', 'Booker', 'Booking Agent', 'Booking Manager', 'Bookkeeper', 'Bookmaker', 'Boxing Promoter', 'Branch Manager', 'Brand Manager', 'Brewing Director', 'Bridal Consultant', 'Broker', 'Building Architect', 'Building Consultant', 'Building Principal', 'Bureau Director', 'Bursar', 'Business Administrator', 'Business Agent', 'Business Analyst', 'Business Banker', 'Business Consultant', 'Business Coordinator', 'Business Dean', 'Business Developer', 'Business Development Analyst', 'Business Development Director', 'Business Development Executive', 'Business Development Manager', 'Business Development Officer', 'Business Development Specialist', 'Business Executive', 'Business Intelligence Analyst', 'Business Intelligence Manager', 'Business Management Analyst', 'Business Management Consultant', 'Business Manager', 'Business Planner', 'Business Process Consultant', 'Business Programmer', 'Business Representative', 'Business Services Director', 'Business Systems Analyst', 'Buyer', 'Buyer Assistant', 'Buying Agent', 'Camp Director', 'Camp Manager', 'Campaign Director', 'Campaign Manager', 'Campaigner', 'Campus Coordinator', 'Campus Director', 'Car Dealer', 'Career Development Director', 'Career Specialist', 'Cartographer', 'Case Manager', 'Caseworker', 'Cash Manager', 'Casino Manager', 'Category Manager', 'Catering Director', 'Catering Manager', 'Cattle Farmer', 'Cattleman', 'Celebrity Manager', 'Certified Financial Planner (CFP)', 'Certified Public Accountant', 'Chairman', 'Chairperson', 'Chancellor', 'Channel Manager', 'Chartered Accountant', 'Chief Administrative Officer', 'Chief Deputy', 'Chief Engineer', 'Chief Executive Officer (CEO)', 'Chief Innovation Officer', 'Chief Learning Officer', 'Chief of Staff', 'Chief Pilot', 'City Administrator', 'City Alderman', 'City Collector', 'City Council Member', 'City Councilman', 'City Designer', 'City Manager', 'City Superintendent', 'Client Services Director', 'Clinic Director', 'Clinical Director', 'Clinical Manager', 'Clinical Researcher', 'Clothier', 'Club Manager', 'Coffee Farmer', 'Collections Manager', 'Collector', 'College Administrator', 'College Dean', 'College Director', 'College of Education Dean', 'College President', 'College Recruiter', 'Commandant', 'Commercial Banker', 'Commercial Director', 'Commercial Lender', 'Commercial Specialist', 'Communication Manager', 'Communications Analyst', 'Communications Consultant', 'Communications Coordinator', 'Communications Director', 'Communications Manager', 'Communications Specialist', 'Community Center Director', 'Community Fundraiser', 'Community Manager', 'Community Relations Director', 'Compiler', 'Compliance Analyst', 'Compliance Consultant', 'Compliance Director', 'Compliance Manager', 'Compliance Officer', 'Compliance Specialist', 'Comptroller', 'Computational Linguist', 'Computational Scientist', 'Computer Analyst', 'Computer Architect', 'Computer Consultant', 'Computer Engineer', 'Computer Graphic Designer', 'Computer Instructor', 'Computer Programmer', 'Computer Science Professor', 'Computer Scientist', 'Computer Software Engineer', 'Computer Specialist', 'Computer Systems Engineer', 'Computer Technician', 'Computer Technologist', 'Computer Trainer', 'Concert Manager', 'Concert Promoter', 'Conference Manager', 'Conference Organizer', 'Conference Producer', 'Congressional Representative', 'Congressman', 'Construction Consultant', 'Construction Contractor', 'Construction Director', 'Construction Engineer', 'Construction Manager', 'Construction Project Manager', 'Constructor', 'Consul', 'Consultant', 'Content Manager', 'Content Specialist', 'Content Strategist', 'Contract Manager', 'Contract Specialist', 'Contractor', 'Controller', 'Cook Manager', 'Coordinator', 'Coroner', 'Corporate Event Planner', 'Corporate Executive', 'Corporate Manager', 'Corporate Officer', 'Corporate Planner', 'Corporate Recruiter', 'Corporate Trainer', 'Council Member', 'Councilman', 'Councilor', 'Counseling Director', 'Counselor', 'County Commissioner', 'County Superintendent of Schools', 'County Supervisor', 'County Treasurer', 'Course Developer', 'Creative Director', 'Credit Manager', 'Credit Specialist', 'Crew Leader', 'Cropper', 'Cryptographer', 'Curriculum Developer', 'Curriculum Director', 'Curriculum Writer', 'Customer Engineer', 'Customer Service Manager', 'Cyber Security Analyst', 'Cyber Security Engineer', 'Dairy Farmer', 'Dairyman', 'Data Analyst', 'Data Architect', 'Data Coordinator', 'Data Engineer', 'Data Manager', 'Data Miner', 'Data Officer', 'Data Scientist', 'Database Architect', 'Database Consultant', 'Database Engineer', 'Database Manager', 'Dealer', 'Dean', 'Dean of Students', 'Delegate', 'Delivery Manager', 'Department Chair', 'Department Director', 'Department Head', 'Department Manager', 'Deputy Commissioner', 'Design Architect', 'Design Director', 'Design Engineer', 'Designer', 'Designer/Writer', 'Developer', 'Development Associate', 'Development Coordinator', 'Development Director', 'Development Manager', 'Development Officer', 'Development Vice President', 'DevOps Engineer', 'Digital Marketing Manager', 'Digital Marketing Strategist', 'Digital Strategist', 'Director', 'Director of Admissions', 'Director of Athletics', 'Director of Communications', 'Director of Compliance', 'Director of Development', 'Director of Education', 'Director of Engineering', 'Director of Entertainment', 'Director of Finance', 'Director of Fundraising', 'Director of Health Education', 'Director of Housing', 'Director of Information', 'Director of Marketing', 'Director of Operations', 'Director of Personnel', 'Director of Product Development', 'Director of Professional Services', 'Director of Public Affairs', 'Director of Public Relations', 'Director of Quality', 'Director of Research', 'Director of Sales and Marketing', 'Director of Sales Marketing', 'Director of Social Services', 'Director of Sustainability', 'Director of Technology', 'Director of Training', 'Dispatcher', 'Distribution Manager', 'District Leader', 'District Manager', 'Diversity Manager', 'Division Chair', 'Division Chief', 'Division Director', 'Division Head', 'Division Manager', 'E-Business Manager', 'Ecommerce Marketing Manager', 'Education Coordinator', 'Education Dean', 'Education Director', 'Education Specialist', 'Education Supervisor', 'Educational Administrator', 'Educational Director', 'Electrical Contractor', 'Elementary Assistant Principal', 'Elementary Principal', 'Elementary School Principal', 'Email Marketing Specialist', 'Emergency Management Director', 'Emergency Responder', 'Employment Advisor', 'Employment Consultant', 'Employment Manager', 'Employment Specialist', 'Energy Analyst', 'Energy Consultant', 'Enforcement Officer', 'Engagement Director', 'Engineer', 'Engineering Director', 'Engineering Manager', 'Engineering Programmer', 'Enterprise Architect', 'Entertainment Agent', 'Entertainment Director', 'Entertainment Manager', 'Environmental Analyst', 'Environmental Designer', 'Environmental Planner', 'Environmental Scientist', 'Environmental Specialist', 'Equity Analyst', 'Estate Planner', 'Estimator', 'Event Coordinator', 'Event Manager', 'Event Organizer', 'Event Planner', 'Event Promoter', 'Event Specialist', 'Events Director', 'Events Manager', 'Examiner', 'Executive Administrator', 'Executive Chef', 'Executive Coach', 'Executive Director', 'Executive Recruiter', 'Executive Vice President', 'Exhibitor', 'Export Manager', 'Exporter', 'External Relations Director', 'Facilities Director', 'Facilities Manager', 'Facility Manager', 'Factor', 'Factory Manager', 'Faculty Dean', 'Faculty Member', 'Farm Manager', 'Farm Specialist', 'Farmer', 'Fashion Buyer', 'Fashion Coordinator', 'Fashion Marketer', 'Field Agent', 'Field Director', 'Field Manager', 'Field Organizer', 'Fight Manager', 'Finance Analyst', 'Finance Associate', 'Finance Consultant', 'Finance Director', 'Finance Manager', 'Finance Officer', 'Finance Specialist', 'Finance Vice President', 'Financial Accountant', 'Financial Adviser', 'Financial Advisor', 'Financial Agent', 'Financial Analyst', 'Financial Coach', 'Financial Consultant', 'Financial Director', 'Financial Engineer', 'Financial Officer', 'Financial Planner', 'Financial Professional', 'Financial Services Director', 'Financier', 'Fire Assistant', 'Fire Chief', 'Fitness Coordinator', 'Fitness Director', 'Fitness Manager', 'Food Broker', 'Food General Manager', 'Food Manager', 'Foreign Diplomat', 'Foreign Service Officer', 'Forensic Accountant', 'Foundation Director', 'Front End Developer', 'Front End Web Developer', 'Fruit Grower', 'Fund Raiser', 'Fundraiser', 'Fundraising Consultant', 'Fundraising Director', 'Fundraising Manager', 'Fundraising Specialist', 'Futures Trader', 'Game Designer', 'Game Developer', 'Game Engineer', 'Game Programmer', 'Game Tester', 'Gaming Director', 'Gaming Manager', 'Gauger', 'General Agent', 'General Contractor', 'General Manager', 'General Manager (GM)', 'Generation Manager', 'Geologist', 'Golf Club Manager', 'Golf Course Manager', 'Governor', 'Graduate School Dean', 'Grain Farmer', 'Grant Manager', 'Grant Officer', 'Grant Writer', 'Graphic Engineer', 'Green Marketer', 'Group Manager', 'Grower', 'Gym Manager', 'Head of Advertising', 'Head of Marketing', 'Headhunter', 'Headmaster', 'Health Administrator', 'Health Care Manager', 'Health Commissioner', 'Health Director', 'Health Education Director', 'Health Manager', 'Health Services Director', 'Healthcare Consultant', 'Healthcare Manager', 'Healthcare Recruiter', 'Hedge Fund Manager', 'High School Assistant Principal', 'High School Principal', 'Home Designer', 'Horse Racing Manager', 'Horse Trader', 'Horticulturist', 'Hospital Director', 'Hospital Manager', 'Hospitality Manager', 'Hotel Director', 'Hotel General Manager', 'Hotel Manager', 'House Designer', 'House Manager', 'House Principal', 'Housing Director', 'Housing Manager', 'Housing Officer', 'Human Resources Director', 'Human Resources Manager', 'Image Consultant', 'Implementation Consultant', 'Implementation Specialist', 'Importer', 'Importer Exporter', 'Informaticist', 'Information Analyst', 'Information Architect', 'Information Director', 'Information Engineer', 'Information Officer', 'Information Scientist', 'Information Security Analyst', 'Information Security Engineer', 'Information Specialist', 'Information Technology Consultant', 'Information Technology Director', 'Information Technology Manager', 'Information Technology Specialist', 'Infrastructure Architect', 'Infrastructure Engineer', 'Inspector', 'Inspector General', 'Instructor', 'Insurance Consultant', 'Insurance Writer', 'Intelligence Analyst', 'Interface Designer', 'Internal Auditor', 'Internet Architect', 'Internet Consultant', 'Internet Designer', 'Internet Developer', 'Internet Marketer', 'Internet Marketing Consultant', 'Internet Marketing Manager', 'Internet Marketing Specialist', 'Internet Marketing Strategist', 'Internet Programmer', 'Internet Project Manager', 'Internet Researcher', 'Internet Retailer', 'Internet Specialist', 'Internet Webmaster', 'Investigator', 'Investment Advisor', 'Investment Analyst', 'Investment Banker', 'Investment Consultant', 'Investment Fund Manager', 'Investment Manager', 'Investment Officer', 'Investments Manager', 'Investor', 'iOS Developer', 'IT Manager', 'IT Project Manager', 'IT Specialist', 'Java Developer', 'Java Programmer', 'Java Software Developer', 'Java Software Engineer', 'Job Developer', 'Job Recruiter', 'Jobber', 'Journeyman', 'Key Account Manager', 'Kitchen Manager', 'Knowledge Engineer', 'Knowledge Manager', 'Lab Manager', 'Laboratory Director', 'Laboratory Scientist', 'Land Agent', 'Land Developer', 'Land Surveyor', 'Landlady', 'Landlord', 'Landman', 'Landscape Architect', 'Landscape Designer', 'Lead Designer', 'Lead Game Designer', 'Learning Administrator', 'Learning and Development Consultant', 'Learning Consultant', 'Learning Coordinator', 'Learning Manager', 'Learning Officer', 'Learning Specialist', 'Legislative Assistant', 'Legislator', 'Lender', 'Liaison Officer', 'Library Consultant', 'Library Director', 'Lieutenant Governor', 'Lifestyle Director', 'Linux Administrator', 'Linux Engineer', 'Liquidator', 'Literary Agent', 'Loan Officer', 'Loan Originator', 'Location Manager', 'Logistician', 'Logistics Coordinator', 'Logistics Director', 'Logistics Manager', 'Logistics Specialist', 'Magazine Publisher', 'Maintenance Specialist', 'Management Analyst', 'Management Consultant', 'Management Development Specialist', 'Management Scientist', 'Manager', 'Manager of IT', 'Managing Director', 'Manufacturer', 'Manufacturing Director', 'Manufacturing Manager', 'Map Maker', 'Mapper', 'Market Analyst', 'Market Manager', 'Market Master', 'Market Research Analyst', 'Market Researcher', 'Marketer', 'Marketing Administrator', 'Marketing Agent', 'Marketing Analyst', 'Marketing Assistant', 'Marketing Associate', 'Marketing Communications Manager', 'Marketing Communications Specialist', 'Marketing Consultant', 'Marketing Coordinator', 'Marketing Director', 'Marketing Executive', 'Marketing Manager', 'Marketing Officer', 'Marketing Planner', 'Marketing Representative', 'Marketing Researcher', 'Marketing Specialist', 'Marketing Strategist', 'Mathematician', 'Mayor', 'Media Buyer', 'Media Director', 'Media Executive', 'Media Marketing Director', 'Media Planner', 'Media Promoter', 'Media Relations Director', 'Mediator', 'Medical Director', 'Medical Manager', 'Medical Officer', 'Meeting Manager', 'Meeting Planner', 'Member of Congress', 'Membership Director', 'Merchandise Manager', 'Merchandiser', 'Merchandising Manager', 'Merchant', 'Middle School Principal', 'Money Manager', 'Mortgage Banker', 'Mortgage Broker', 'Mortgage Consultant', 'Mortgage Loan Officer', 'Mortgage Originator', 'Mortgage Specialist', 'Multimedia Developer', 'Music Agent', 'Music Executive', 'Music Promoter', 'Music Publisher', 'Mystery Shopper', 'National Sales Manager', 'Network Administrator', 'Network Analyst', 'Network Architect', 'Network Consultant', 'Network Coordinator', 'Network Designer', 'Network Developer', 'Network Director', 'Network Engineer', 'Network Manager', 'Network Security Engineer', 'Network Specialist', 'Networking Engineer', 'Networking Specialist', 'New Media Strategist', 'Newspaper Manager', 'Newspaper Publisher', 'Night Manager', 'Nonprofit Director', 'Nonprofit Fundraiser', 'Nonprofit Manager', 'Nurse Manager', 'Nursing Director', 'Office Manager', 'Oil Producer', 'Online Facilitator', 'Online Marketing Manager', 'Online Marketing Strategist', 'Online Merchant', 'Online Retailer', 'Opener', 'Operations Analyst', 'Operations Assistant', 'Operations Coordinator', 'Operations Director', 'Operations Manager', 'Operations Officer', 'Operations Specialist', 'Operations Supervisor', 'Operations Vice President', 'Oracle Developer', 'Organizational Development Consultant', 'Outreach Coordinator', 'Paramedic', 'Party Planner', 'Performance Consultant', 'Personal Banker', 'Personal Financial Planner', 'Personnel Director', 'Pharmacy Manager', 'PHP Developer', 'PHP Web Developer', 'Pig Farmer', 'Planner', 'Planning Analyst', 'Plant Manager', 'Poker Manager', 'Police Commissioner', 'Policy Advisor', 'Policy Analyst', 'Policy Officer', 'Portfolio Manager', 'Postmaster', 'Practice Manager', 'President', 'President of the United States', 'Principal', 'Principal Architect', 'Principal Consultant', 'Principal Engineer', 'Principal Strategist', 'Process Analyst', 'Process Engineer', 'Procurement Specialist', 'Product Manager', 'Product Marketing Manager', 'Product Scientist', 'Product Trainer', 'Production Coordinator', 'Production Manager', 'Production Supervisor', 'Professor', 'Program Analyst', 'Program Coordinator', 'Program Director', 'Program Manager', 'Program Officer', 'Program Strategist', 'Programmer', 'Programmer Analyst', 'Project Administrator', 'Project Architect', 'Project Coordinator', 'Project Developer', 'Project Development Director', 'Project Director', 'Project Engineer', 'Project Executive', 'Project Leader', 'Project Manager', 'Project Specialist', 'Promoter', 'Promotion Manager', 'Promotions Coordinator', 'Promotions Director', 'Promotions Manager', 'Promotions Producer', 'Property Developer', 'Property Manager', 'Provost', 'Public Accountant', 'Public Affairs Director', 'Public Affairs Specialist', 'Public Health Director', 'Public Information Director', 'Public Information Officer', 'Public Relations Coordinator', 'Public Relations Director', 'Public Safety Director', 'Publication Director', 'Publicity Director', 'Publicity Manager', 'Purchaser', 'Purchasing Manager', 'Purser', 'Purveyor', 'QA Manager', 'Quality Analyst', 'Quality Control', 'Quality Engineer', 'Quality Manager', 'Quantity Surveyor', 'Racing Manager', 'Radio Station Manager', 'Rancher', 'Real Estate Agent', 'Real Estate Analyst', 'Real Estate Appraiser', 'Real Estate Developer', 'Real Estate Investor', 'Real Estate Manager', 'Real Estate Officer', 'Records Manager', 'Recruiter', 'Recruiting Coordinator', 'Recruiting Manager', 'Recruiting Specialist', 'Recruitment Consultant', 'Recruitment Director', 'Recruitment Manager', 'Regional Director', 'Regional Manager', 'Regional Sales Director', 'Regional Sales Manager', 'Registrar', 'Regulatory Consultant', 'Rehabilitation Director', 'Relations Specialist', 'Relationship Manager', 'Release Manager', 'Renewable Energy Consultant', 'Representative', 'Research Analyst', 'Research and Development Director', 'Research Associate', 'Research Associate Professor', 'Research Coordinator', 'Research Development Director', 'Research Development Manager', 'Research Director', 'Research Manager', 'Research Scientist', 'Research Specialist', 'Researcher', 'Reserve Officer', 'Resident Manager', 'Residential Designer', 'Resort Manager', 'Restaurant General Manager', 'Restaurant Manager', 'Restaurant Owner', 'Restauranteur', 'Resume Writer', 'Revenue Director', 'Revenue Manager', 'Revenue Officer', 'Reviewer', 'Risk Analyst', 'Risk Management Specialist', 'Risk Manager', 'Roofing Contractor', 'Safety Coordinator', 'Safety Director', 'Safety Instructor', 'Safety Manager', 'Safety Specialist', 'Sales Account Manager', 'Sales and Marketing Director', 'Sales Coordinator', 'Sales Director', 'Sales Engineer', 'Sales Manager', 'Sales Marketing Director', 'Sales Officer', 'Sales Recruiter', 'Sales Representative', 'Sales Trainer', 'Sales Vice President', 'Salon Manager', 'School Administrator', 'School Business Manager', 'School Commissioner', 'School Coordinator', 'School Principal', 'School Superintendent', 'School Supervisor', 'Scientist', 'Scout Executive', 'Scrum Master', 'Search Consultant', 'Search Marketing Specialist', 'Search Strategist', 'Secondary School Principal', 'Secretary', 'Secretary of State', 'Security Analyst', 'Security Architect', 'Security Consultant', 'Security Director', 'Security Engineer', 'Security Manager', 'Security Specialist', 'Selectman', 'Senator', 'Senior Consultant', 'Senior Game Designer', 'Senior Group Manager', 'Senior Instructor', 'Senior Planner', 'Senior Program Manager', 'Senior Project Manager', 'Senior Research Associate', 'Senior Research Scientist', 'Senior Scientist', 'Senior Software Engineer', 'Server Engineer', 'Service Advisor', 'Service Director', 'SharePoint Architect', 'Sharepoint Developer', 'Shipper', 'Site Coordinator', 'Site Manager', 'Skills Trainer', 'Social Media Director', 'Social Media Manager', 'Social Media Specialist', 'Social Media Strategist', 'Social Services Director', 'Social Services Manager', 'Software Analyst', 'Software Architect', 'Software Consultant', 'Software Design Engineer', 'Software Designer', 'Software Developer', 'Software Development Engineer', 'Software Engineer', 'Software Programmer', 'Software Project Manager', 'Software Publisher', 'Software Quality Engineer', 'Software Systems Engineer', 'Software Tester', 'Software Trainer', 'Software Writer', 'Solution Architect', 'Solutions Architect', 'Sommelier', 'Sourcing Manager', 'Sourcing Specialist', 'Space Officer', 'Special Agent', 'Special Events Coordinator', 'Special Events Director', 'Sports Agent', 'Sports Marketer', 'Sports Statistician', 'Sports Team Manager', 'SQL Developer', 'SQL Server Developer', 'Staff Analyst', 'Staff Assistant', 'Staffing Manager', 'State Auditor', 'Station Manager', 'Statistician', 'Stock Analyst', 'Stock Trader', 'Stockman', 'Storage Engineer', 'Storage Manager', 'Store Manager', 'Strategic Marketing Manager', 'Strategic Planner', 'Strategic Planning Director', 'Strategist', 'Student Affairs Dean', 'Student Affairs Vice President', 'Student Dean', 'Student Services Director', 'Superintendent', 'Superintendent of Schools', 'Supervisor', 'Supply Chain Manager', 'Supply Chain Specialist', 'Support Specialist', 'Surveyor', 'Sustainability Analyst', 'Sustainability Coach', 'Sustainability Consultant', 'Sustainability Coordinator', 'Sustainability Director', 'Sustainability Manager', 'Sustainability Officer', 'Sustainability Specialist', 'System Administrator', 'System Architect', 'System Engineer', 'System Programmer', 'System Software Developer', 'Systems Administrator', 'Systems Analyst', 'Systems Architect', 'Systems Consultant', 'Systems Developer', 'Systems Development Manager', 'Systems Engineer', 'Systems Integrator', 'Systems Manager', 'Systems Programmer', 'Systems Software Engineer', 'Systems Specialist', 'Talent Acquisition Manager', 'Talent Acquisition Specialist', 'Talent Agent', 'Talent Buyer', 'Talent Manager', 'Talent Recruiter', 'Talent Scout', 'Tax Accountant', 'Tax Advisor', 'Tax Agent', 'Tax Collector', 'Tax Consultant', 'Tax Expert', 'Tax Manager', 'Tax Preparer', 'Tax Professional', 'Tax Specialist', 'Teacher', 'Teacher Education Director', 'Team Coordinator', 'Team Leader', 'Technical Account Manager', 'Technical Analyst', 'Technical Architect', 'Technical Consultant', 'Technical Director', 'Technical Instructor', 'Technical Project Manager', 'Technical Recruiter', 'Technical Specialist', 'Technical Trainer', 'Technology Consultant', 'Technology Coordinator', 'Technology Director', 'Technology Manager', 'Technology Project Manager', 'Telecom Engineer', 'Telecommunications Engineer', 'Territory Manager', 'Test Engineer', 'Testing Director', 'Theater Manager', 'Theatre Manager', 'Theatrical Agent', 'Top Executive', 'Trade Analyst', 'Trade Specialist', 'Trader', 'Tradesman', 'Traffic Director', 'Traffic Manager', 'Train Master', 'Trainer', 'Training Assistant', 'Training Consultant', 'Training Coordinator', 'Training Developer', 'Training Development Director', 'Training Director', 'Training Executive', 'Training Facilitator', 'Training Manager', 'Training Officer', 'Training Specialist', 'Transportation Director', 'Transportation Engineer', 'Transportation Manager', 'Transportation Specialist', 'Treasurer', 'Trust Officer', 'Trustee', 'U.S. Representative', 'U.S. Senator', 'Underwriter', 'Union Organizer', 'Union Representative', 'University Administrator', 'University Dean', 'University President', 'University Relations Director', 'User Experience Designer (UX Designer)', 'User Interface Designer', 'Venue Manager', 'Vice Chancellor', 'Vice President', 'Vice President of Marketing', 'Vice President of Operations', 'Vice Principal', 'Video Game Creator', 'Video Game Designer', 'Video Game Developer', 'Video Game Engineer', 'Video Game Maker', 'Video Game Programmer', 'Videogame Designer', 'Voice Engineer', 'VP Marketing', 'Warehouse Manager', 'Wealth Management Advisor', 'Web Administrator', 'Web Analyst', 'Web Application Developer', 'Web Applications Developer', 'Web Architect', 'Web Content Developer', 'Web Content Manager', 'Web Designer', 'Web Developer', 'Web Editor', 'Web Engineer', 'Web Graphic Designer', 'Web Manager', 'Web Marketing Strategist', 'Web Producer', 'Web Programmer', 'Web Site Designer', 'Web Site Developer', 'Web Software Engineer', 'Web Specialist', 'Webmaster', 'Website Designer', 'Website Developer', 'Wedding Designer', 'Wedding Planner', 'Welfare Director', 'Welfare Manager', 'Welfare Officer', 'Wellness Ambassador', 'Wellness Coach', 'Wellness Director', 'Wellness Manager', 'Wine Maker', 'Wireless Engineer', 'World Designer', 'Wrecker', 'Zone Manager']
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    bottom_four_professions = df.nsmallest(4, 'Agreeableness')['Profession'].tolist()
+    return bottom_four_professions
+```
+Response: ['.Net Architect', 'Android Developer', 'Principal Engineer', 'Game Engineer']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    top_5_professions = df.nlargest(5, 'Conversation')['Profession'].tolist()
+    return top_5_professions
+```
+Response: ['Director of Athletics', 'Recruiting Coordinator', 'Athletic Coordinator', 'Director of Personnel', 'Skills Trainer']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    bottom_two_professions = df.nsmallest(2, 'Self-enhancement')['Profession'].tolist()
+    return bottom_two_professions
+```
+Response: ['U.S. Senator', 'Congressman']
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    top_values = df['Openness to Change'].nlargest(3)
+    return top_values.tolist()
+```
+Response: [0.7557249985959847, 0.7413189187628788, 0.7034528053640179]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    return df.nsmallest(4, 'Emotional_Range')['Emotional_Range'].tolist()
+```
+Response: [0.16523815696640565, 0.20054280643241226, 0.22155461168552476, 0.2506791678499942]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+import numpy as np
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    return df.nlargest(5, 'Extraversion')['Extraversion'].tolist()
+```
+Response: [0.9794365922809227, 0.9723660656030668, 0.954299437125917, 0.9362989453985364, 0.9307917067583288]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Profession', 'Openness', 'Conscientousness', 'Extraversion', 'Agreeableness', 'Emotional_Range', 'Conversation', 'Openness to Change', 'Hedonism', 'Self-enhancement', 'Self-transcendence', 'n']
+    return df.nsmallest(6, 'Self-transcendence')['Self-transcendence'].tolist()
+```
+Response: [0.035364139619357415, 0.035579296052633214, 0.0399752446723049, 0.05732806625856246, 0.059109906308533855, 0.05927817925717627]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    return 'communication' in df['title'].str.lower().values
+```
+Response: False
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    return len(df[df['organization'] == 'IBM']) > 0
+```
+Response: False
+--------------------
+Here is the Python code that addresses the query based on the provided dataset:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    return 'software' in df['abstract'].values
+```
+Response: False
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    return 'design' in df['kind'].unique()
+```
+Response: False
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    return df['organization'].nunique()
+```
+Response: 3574
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    return df['num_claims'].mean()
+```
+Response: 14.745974597459746
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    return df['num_claims'].max()
+```
+Response: 100
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    return df[df['type'] == 'utility'].shape[0]
+```
+Response: 8848
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    max_claims_org = df.loc[df['num_claims'].idxmax()]['organization']
+    return max_claims_org
+```
+Response: Massachusetts Institute of Technology
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    most_common_kind = df['kind'].value_counts().index[0]
+    return most_common_kind
+Response: None
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    return df['lang'].mode().values[0]
+```
+Response: en
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    return df['graphext_cluster'].mode().iloc[0]
+```
+Response: member, portion, body, end
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    org_patent_count = df['organization'].value_counts().reset_index()
+    org_patent_count.columns = ['organization', 'patent_count']
+    top_3_orgs = org_patent_count.nlargest(3, 'patent_count')
+    top_3_orgs = top_3_orgs.sort_values('organization').reset_index(drop=True)
+    return top_3_orgs['organization'].tolist()
+```
+Response: ['Samsung Electronics Co., Ltd.', 'Google Inc.', 'International Business Machines Corporation']
+--------------------
+Here is the Python code to solve the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    top_types = df['type'].value_counts().nlargest(2).index.tolist()
+    return top_types
+```
+Response: ['utility', 'design']
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    kind_counts = df['kind'].value_counts().nlargest(2).index.tolist()
+    return kind_counts
+```
+Response: ['B2', 'S1']
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> list:
+    graphext_clusters = df['graphext_cluster'].tolist()
+    cluster_counts = Counter(graphext_clusters)
+    least_common_clusters = sorted(cluster_counts.items(), key=lambda x: (x[1], x[0]), reverse=True)
+    least_common_clusters = least_common_clusters[-2:]
+    return [cluster[0] for cluster in least_common_clusters]
+```
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    top_claims = df['num_claims'].value_counts().head(4).index.tolist()
+    return top_claims
+```
+Response: [20, 1, 18, 19]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    top_3_patents = df.nlargest(3, 'num_claims')['id'].tolist()
+    return top_3_patents
+```
+Response: [9479771.0, 9325365.0, 9323284.0]
+--------------------
+Here is the Python code to address the query:
+```
+import pandas as pd
+import numpy as np
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    b2_s1_kinds = df[(df['kind'] == 'B2') | (df['kind'] == 'S1')]
+    median_num_claims = np.median(b2_s1_kinds['num_claims'])
+    return median_num_claims
+```
+Response: __CODE_ERROR__: name 'np' is not defined
+--------------------
+Here is the Python code to answer the question:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['num_claims', 'organization', 'kind', 'type', 'graphext_cluster', 'date', 'abstract', 'title', 'lang', 'abstract_gx_ADJ', 'grp_title', 'abstract_gx_products', 'abstract_gx_organizations', 'abstract_gx_NOUN', 'abstract_gx_ngrams', 'id', 'target', 'weight', 'x', 'y']
+    return df.nlargest(3, 'id')['id'].tolist()
+```
+Response: [9480195.0, 9480194.0, 9480193.0]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    max_followers_author = df.loc[df['user_followers_count'].idxmax()]
+    return max_followers_author['user_verified']
+```
+Response: __CODE_ERROR__: 'user_followers_count'
+--------------------
+Here is the Python code to address the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    most_favourites_author = df.loc[df['favorites'].idxmax()]['author_name']
+    most_retweets_author = df.loc[df['retweets'].idxmax()]['author_name']
+    return most_favourites_author == most_retweets_author
+```
+Response: __CODE_ERROR__: 'favorites'
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    most_mentioned_user = df['mention_names'].explode().value_counts().index[0]
+    most_retweeted_mentioned_user = df.loc[df['mention_names'].explode().isin(df['mention_names'])].groupby('mention_names')['retweets'].sum().sort_values(ascending=False).index[0]
+    return most_mentioned_user == most_retweeted_mentioned_user
+```
+Response: __CODE_ERROR__: 'mention_names'
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    max_retweets_author = df.loc[df['retweets'].idxmax()]['author_name']
+    max_replies_author = df.loc[df['replies'].idxmax()]['author_name']
+    return max_retweets_author == max_replies_author
+```
+Response: __CODE_ERROR__: 'retweets'
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    return df['user_followers_count'].max()
+```
+Response: __CODE_ERROR__: 'user_followers_count'
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return len(df[df['user_favourites_count'] > 10000])
+```
+Response: __CODE_ERROR__: 'user_favourites_count'
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df['retweets'].max()
+```
+Response: __CODE_ERROR__: 'retweets'
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df['author_id'].value_counts().max()
+```
+Response: __CODE_ERROR__: 'author_id'
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df.loc[df['user_followers_count'].idxmax()]['author_name']
+```
+Response: __CODE_ERROR__: 'user_followers_count'
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df.loc[df['favorites'].idxmax()]['author_name']
+```
+Response: __CODE_ERROR__: 'favorites'
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    return df['mention_names'].explode().value_counts().index[0]
+```
+Response: __CODE_ERROR__: 'mention_names'
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    max_retweets = df.loc[df['retweets'].idxmax()]
+    return max_retweets['author_name']
+```
+Response: __CODE_ERROR__: 'retweets'
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    top_authors = df.groupby('author_id')['user_followers_count'].sum().sort_values(ascending=False).head(3).index.tolist()
+    return top_authors
+```
+Response: __CODE_ERROR__: 'author_id'
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    top_authors = df.groupby('author_id')['favorites'].sum().sort_values(ascending=False).head(4).index.tolist()
+    return top_authors
+```
+Response: __CODE_ERROR__: 'author_id'
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    mention_names = df['mention_names'].explode().value_counts().reset_index(name='count')
+    mention_names = mention_names[mention_names['index'] != df['author_name'].mode()[0]]
+    return mention_names.head(4)['index'].tolist()
+```
+Response: __CODE_ERROR__: 'mention_names'
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    top_authors = df.groupby('author_name')['retweets'].sum().sort_values(ascending=False).head(2).index.tolist()
+    return top_authors
+```
+Response: __CODE_ERROR__: 'author_name'
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df.nlargest(3, 'user_followers_count')['user_followers_count'].tolist()
+```
+Response: __CODE_ERROR__: 'user_followers_count'
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    return df['favorites'].nlargest(4).tolist()
+```
+Response: __CODE_ERROR__: 'favorites'
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> list:
+    mention_counts = Counter(mention for mentions in df['mention_ids'] for mention in mentions)
+    top_5_mentions = mention_counts.most_common(5)
+    return [mention[1] for mention in top_5_mentions]
+```
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    top_retweets = df.nlargest(2, 'retweets')['retweets'].tolist()
+    return top_retweets
+```
+Response: __CODE_ERROR__: 'retweets'
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    max_loan_amount_idx = df['Loan Amount'].idxmax()
+    max_loan_duration_idx = df['Loan Duration - Months'].idxmax()
+    return max_loan_amount_idx == max_loan_duration_idx
+```
+Response: False
+--------------------
+Here is the Python code to address the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    max_loans_idx = df['Number of Existing Loans'].idxmax()
+    max_loan_amount_idx = df['Loan Amount'].idxmax()
+    return max_loans_idx == max_loan_amount_idx
+```
+Response: False
+--------------------
+Here is the Python code to answer the question:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    max_loan_duration_idx = df['Loan Duration - Months'].idxmax()
+    max_num_loans_idx = df['Number of Existing Loans'].idxmax()
+    return max_loan_duration_idx == max_num_loans_idx
+```
+Response: False
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    oldest_borrower_age = df['Age'].max()
+    oldest_borrower_loan_amount = df.loc[df['Age'] == oldest_borrower_age, 'Loan Amount'].max()
+    highest_loan_amount = df['Loan Amount'].max()
+    return oldest_borrower_loan_amount == highest_loan_amount
+```
+Response: False
+--------------------
+Here is the Python code to address the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    return df['Loan Amount'].max()
+```
+Response: 18424
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    return (df['Number of Existing Loans'] > 1).sum()
+```
+Response: 367
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    return df['Loan Duration - Months'].max()
+```
+Response: 72
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    return df[df['Age'] > 50].shape[0]
+```
+Response: 113
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    return df['Purpose of Loan'].mode().iloc[0]
+```
+Response: Radio/TV
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df['Job'].mode().iloc[0]
+Response: __CODE_ERROR__: expected an indented block after function definition on line 3 (<string>, line 5)
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    return df['Credit History'].mode().iloc[0]
+```
+Response: Existing Credits Paid Back Duly Till Now
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    return df['Savings Account'].mode().iloc[0]
+```
+Response: Less than 100 DM
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    top_jobs = df.groupby('Job')['Loan Amount'].sum().sort_values(ascending=False).head(3).index.tolist()
+    return top_jobs
+Response: None
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    longest_loans = df.nlargest(100, 'Loan Duration - Months')
+    top_jobs = longest_loans['Job'].value_counts().nlargest(4).index.tolist()
+    return top_jobs
+```
+Response: ['Skilled', 'Highly Skilled', 'Unskilled - Resident', 'Unemployed / Unskilled  - Non-Resident']
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    top_5_jobs = df.sort_values('Number of Existing Loans', ascending=False).groupby('Job')['Number of Existing Loans'].count().sort_values(ascending=False).head(5).index.tolist()
+    return top_5_jobs
+```
+Response: ['Skilled', 'Unskilled - Resident', 'Highly Skilled', 'Unemployed / Unskilled  - Non-Resident']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    oldest_borrowers = df.nlargest(2, 'Age')
+    jobs = oldest_borrowers['Job'].tolist()
+    return jobs
+```
+Response: ['Highly Skilled', 'Highly Skilled']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    return df['Loan Amount'].nlargest(3).tolist()
+```
+Response: [18424, 15945, 15857]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df['Loan Duration - Months'].value_counts().index.tolist()[:4]
+```
+Response: [24, 12, 18, 36]
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    return df['Number of Existing Loans'].nlargest(3).tolist()
+```
+Response: [4, 4, 4]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Duration - Months', 'Credit History', 'Purpose of Loan', 'Loan Amount', 'Savings Account', 'Length of Current Employment', 'Installment Rate as % of Income', 'Guarantors', 'Length of Current Property Residence', 'Age', 'Housing', 'Number of Existing Loans', 'Job', 'Number of Dependants', 'Foreign Worker', 'Risk', 'Sex', 'Status']
+    top_2_oldest = df.nlargest(2, 'Age')['Age'].tolist()
+    return top_2_oldest
+```
+Response: [75, 75]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    return (df['Calories (kcal)'] == 0).any()
+```
+Response: False
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    return (df['Total Sugar (g)'] > 0).all()
+```
+Response: False
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    return (df['Total Fat (g)'] == 0).any()
+```
+Response: True
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    return len(df[df['Protein (g)'] == 0])
+```
+Response: 2
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return len(df[df['Calories (kcal)'] > 500])
+```
+Response: 0
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    return df['Total Fat (g)'].mean()
+```
+Response: 0.08465
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['name', 'emoji', 'Calories (kcal)', 'Carbohydrates (g)', 'Total Sugar (g)', 'Protein (g)', 'Total Fat (g)', 'Saturated Fat (g)', 'Monounsaturated Fat (g)', 'Polyunsaturated Fat (g)', 'Total Fiber (g)', 'Cholesterol (mg)', 'Vitamin B6 (mg)', 'Vitamin A (IU)', 'Vitamin B12 (ug)', 'Vitamin C (mg)', 'Vitamin D (IU)', 'Vitamin E (IU)', 'Vitamin K (ug)', 'Thiamin (mg)', 'Riboflavin (mg)', 'Niacin (mg)', 'Folate (ug)', 'Pantothenic Acid (mg)', 'Choline (mg)', 'Calcium (g)', 'Copper (mg)', 'Iron (mg)', 'Magnesium (mg)', 'Manganese (mg)', 'Phosphorus (g)', 'Potassium (g)', 'Selenium (ug)', 'Sodium (g)', 'Zinc (mg)']
+    return df[df['Sodium (g)'] > 1].shape[0]
+```
+Response: 18
+--------------------
+Here is the Python code to answer the question:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    return df['Protein (g)'].max()
+```
+Response: 0.2748
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df.loc[df['Calories (kcal)'].idxmax()]['name']
+```
+Response: bacon
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df.loc[df['Total Sugar (g)'].idxmax()]['name']
+```
+Response: honey
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    min_fat_food = df.loc[df['Total Fat (g)'].idxmin()]['name']
+    return min_fat_food
+```
+Response: honey
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    max_protein_food = df.loc[df['Protein (g)'].idxmax()]['name']
+    return max_protein_food
+```
+Response: beef
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'emoji', 'Calories (kcal)', 'Carbohydrates (g)', 'Total Sugar (g)', 'Protein (g)', 'Total Fat (g)', 'Saturated Fat (g)', 'Monounsaturated Fat (g)', 'Polyunsaturated Fat (g)', 'Total Fiber (g)', 'Cholesterol (mg)', 'Vitamin B6 (mg)', 'Vitamin A (IU)', 'Vitamin B12 (ug)', 'Vitamin C (mg)', 'Vitamin D (IU)', 'Vitamin E (IU)', 'Vitamin K (ug)', 'Thiamin (mg)', 'Riboflavin (mg)', 'Niacin (mg)', 'Folate (ug)', 'Pantothenic Acid (mg)', 'Choline (mg)', 'Calcium (g)', 'Copper (mg)', 'Iron (mg)', 'Magnesium (mg)', 'Manganese (mg)', 'Phosphorus (g)', 'Potassium (g)', 'Selenium (ug)', 'Sodium (g)', 'Zinc (mg)']
+    top_calories = df.nlargest(5, 'Calories (kcal)')
+    return top_calories['name'].tolist()
+```
+Response: ['bacon', 'peanuts', 'chocolate bar', 'popcorn', 'cookie']
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df.nsmallest(3, 'Total Sugar (g)')['name'].tolist()
+```
+Response: ['chestnut', 'pancakes', 'cheese']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'emoji', 'Calories (kcal)', 'Carbohydrates (g)', 'Total Sugar (g)', 'Protein (g)', 'Total Fat (g)', 'Saturated Fat (g)', 'Monounsaturated Fat (g)', 'Polyunsaturated Fat (g)', 'Total Fiber (g)', 'Cholesterol (mg)', 'Vitamin B6 (mg)', 'Vitamin A (IU)', 'Vitamin B12 (ug)', 'Vitamin C (mg)', 'Vitamin D (IU)', 'Vitamin E (IU)', 'Vitamin K (ug)', 'Thiamin (mg)', 'Riboflavin (mg)', 'Niacin (mg)', 'Folate (ug)', 'Pantothenic Acid (mg)', 'Choline (mg)', 'Calcium (g)', 'Copper (mg)', 'Iron (mg)', 'Magnesium (mg)', 'Manganese (mg)', 'Phosphorus (g)', 'Potassium (g)', 'Selenium (ug)', 'Sodium (g)', 'Zinc (mg)']
+    top_fat_foods = df.nlargest(4, 'Total Fat (g)')['name'].tolist()
+    return top_fat_foods
+```
+Response: ['bacon', 'peanuts', 'cheese', 'popcorn']
+--------------------
+Here is the Python code that solves the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'emoji', 'Calories (kcal)', 'Carbohydrates (g)', 'Total Sugar (g)', 'Protein (g)', 'Total Fat (g)', 'Saturated Fat (g)', 'Monounsaturated Fat (g)', 'Polyunsaturated Fat (g)', 'Total Fiber (g)', 'Cholesterol (mg)', 'Vitamin B6 (mg)', 'Vitamin A (IU)', 'Vitamin B12 (ug)', 'Vitamin C (mg)', 'Vitamin D (IU)', 'Vitamin E (IU)', 'Vitamin K (ug)', 'Thiamin (mg)', 'Riboflavin (mg)', 'Niacin (mg)', 'Folate (ug)', 'Pantothenic Acid (mg)', 'Choline (mg)', 'Calcium (g)', 'Copper (mg)', 'Iron (mg)', 'Magnesium (mg)', 'Manganese (mg)', 'Phosphorus (g)', 'Potassium (g)', 'Selenium (ug)', 'Sodium (g)', 'Zinc (mg)']
+    return df.nsmallest(6, 'Protein (g)')['name'].tolist()
+```
+Response: ['candy', 'black tea', 'bacon', 'champagne', 'red wine', 'red apple']
+--------------------
+Here is the Python code to address the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df.nlargest(5, 'Calories (kcal)')['Calories (kcal)'].tolist()
+```
+Response: [8.98, 5.67, 5.18, 5.0, 4.97]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df.nsmallest(3, 'Total Sugar (g)')['Total Sugar (g)'].tolist()
+```
+Response: [0.0, 0.0, 0.0]
+--------------------
+Here is the Python code that solves the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'emoji', 'Calories (kcal)', 'Carbohydrates (g)', 'Total Sugar (g)', 'Protein (g)', 'Total Fat (g)', 'Saturated Fat (g)', 'Monounsaturated Fat (g)', 'Polyunsaturated Fat (g)', 'Total Fiber (g)', 'Cholesterol (mg)', 'Vitamin B6 (mg)', 'Vitamin A (IU)', 'Vitamin B12 (ug)', 'Vitamin C (mg)', 'Vitamin D (IU)', 'Vitamin E (IU)', 'Vitamin K (ug)', 'Thiamin (mg)', 'Riboflavin (mg)', 'Niacin (mg)', 'Folate (ug)', 'Pantothenic Acid (mg)', 'Choline (mg)', 'Calcium (g)', 'Copper (mg)', 'Iron (mg)', 'Magnesium (mg)', 'Manganese (mg)', 'Phosphorus (g)', 'Potassium (g)', 'Selenium (ug)', 'Sodium (g)', 'Zinc (mg)']
+    top_fat_foods = df.nlargest(4, 'Total Fat (g)')
+    result = [(row['name'], row['Total Fat (g)']) for index, row in top_fat_foods.iterrows()]
+    return result
+```
+Response: [('bacon', 0.995), ('peanuts', 0.4924), ('cheese', 0.3099), ('popcorn', 0.281)]
+--------------------
+Here is the Python code to solve the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df.nsmallest(6, 'Protein (g)')['Protein (g)'].tolist()
+```
+Response: [0.0, 0.0, 0.0007, 0.0007, 0.0007, 0.002]
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return (df['edu'] == 'No primary education').sum()
+```
+Response: 0
+--------------------
+Here's the Python code to address the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    return (df['polInterest'] == 'Very interested' or df['polInterest'] == 'Somewhat interested').all()
+```
+Response: __CODE_ERROR__: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return (df['Vote Intention'] == "I won't vote").sum()
+```
+Response: __CODE_ERROR__: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    return (df['User self-placement on Left-Right economic values axis'] == 10).any()
+```
+Response: True
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df[df['User self- placement on Progressive-Conservative economic values axis'] == 10].shape[0]
+```
+Response: 372
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    return df['Age'].mean()
+```
+Response: 37.420120593188116
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df['It should be more difficult for companies to lay off workers'].value_counts()[1]
+```
+Response: 1795
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df.loc[(df['gender'] == 'nan') | (df['gender'].isna()), 'Age'].max()
+```
+Response: 86.0
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df['Vote Intention'].mode().values[0]
+```
+Response: ['Ciudadanos']
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    return df['voteReason'].mode().values[0]
+```
+Response: The party ideas are close to my own
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df['partyId'].mode().values[0]
+```
+Response: Ciudadanos
+--------------------
+Here is the Python code to find the most common first language among respondents:
+
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> str:
+    lang_counts = Counter(df['lang'])
+    most_common_lang = lang_counts.most_common(1)[0][0]
+    return most_common_lang
+```
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df['Vote Intention'].value_counts().head(5).index.tolist()
+```
+Response: [array(['Ciudadanos'], dtype=object), array(['I am undeceided'], dtype=object), array(['Podemos'], dtype=object), array(['PP'], dtype=object), array(['I prefer not to say'], dtype=object)]
+--------------------
+Here is the Python code to identify the top 3 most common reasons for voting among respondents:
+
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> list:
+    reasons = df['voteReason'].tolist()
+    top_reasons = Counter(reasons).most_common(3)
+    return [reason[0] for reason in top_reasons]
+```
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    party_id_counts = df['partyId'].value_counts().head(3)
+    return list(party_id_counts.index)
+```
+Response: ['Ciudadanos', 'PP', 'I prefer not to say']
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    edu_counts = df['edu'].value_counts().nlargest(2)
+    return edu_counts.index.tolist()
+Response: None
+--------------------
+Here is the Python code to solve the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    age_counts = df['Age'].value_counts().nlargest(3)
+    return age_counts.index.tolist()
+```
+Response: [38.0, 23.0, 39.0]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    axis_values = df['User self-placement on Left-Right economic values axis'].value_counts().index.tolist()[:3]
+    return axis_values
+```
+Response: [5.0, 3.0, 6.0]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    progressive_conservative_axis = df['User self- placement on Progressive-Conservative economic values axis'].value_counts().index.tolist()[:4]
+    return progressive_conservative_axis
+```
+Response: [5.0, 3.0, 4.0, 0.0]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    decentralization_counts = df['Constitutional organisation of the country (More Descentralization)'].value_counts().nlargest(3).index.tolist()
+    return decentralization_counts
+```
+Response: [2.0, 3.0, 4.0]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return len(df[df['Are you registered to vote?'] == 'No'])
+```
+Response: 0
+--------------------
+Here is the Python code to answer the question:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return len(df[(df['Did you vote in the 2016 Presidential election? (Four years ago)'] == 'Yes') & (df['How likely are you to vote in the forthcoming US Presidential election? Early Voting Open'] == 'Not at all likely')])
+```
+Response: 0
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return len(df[(df['Did you vote in the 2016 Presidential election? (Four years ago)'] == 'No') & (df['How likely are you to vote in the forthcoming US Presidential election? Early Voting Open'] != 'Not at all likely')])
+```
+Response: 0
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    shifted_votes = df[(df['Who did you vote for in the 2016 Presidential election? (Four years ago)'].notna()) &
+                       (df['If you had to choose a candidate today, who would you vote for?'].notna()) &
+                       (df['Who did you vote for in the 2016 Presidential election? (Four years ago)'] !=
+                        df['If you had to choose a candidate today, who would you vote for?'])]
+    return len(shifted_votes)
+```
+Response: __CODE_ERROR__: Categoricals can only be compared if 'categories' are the same.
+--------------------
+Here is the Python code to answer the question:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df['Are you registered to vote?'].eq('Yes').sum()
+```
+Response: 1315
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df['Who are you most likely to vote for on election day?'].value_counts()['Joe Biden']
+```
+Response: __CODE_ERROR__: 'Joe Biden'
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df['What is the highest degree or level of school you have *completed* ?'].value_counts()['High School or Less']
+```
+Response: __CODE_ERROR__: 'High School or Less'
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    return len(df[df['Region'] == 'South Atlantic'])
+```
+Response: 0
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    age_counts = df['How old are you?'].value_counts()
+    most_frequent_age = age_counts.index[0]
+    return str(most_frequent_age)
+```
+Response: 65+
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df['If you had to choose a candidate today, who would you vote for?'].mode().iloc[0]
+```
+Response: I don’t know
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df['What is the highest degree or level of school you have *completed* ?'].mode()[0]
+```
+Response: Some college, no degree
+--------------------
+Here is the Python code to solve the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    division_counts = df['Division'].value_counts()
+    max_count = division_counts.max()
+    max_divisions = division_counts[division_counts == max_count].index.tolist()
+    return max(max_divisions, key=lambda x: x[::-1])
+```
+Response: South Atlantic
+--------------------
+Here is the Python code to identify the top 6 states with the greatest number of respondents:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    top_states = df['State'].value_counts().nlargest(6).index.tolist()
+    return top_states
+```
+Response: ['CA', 'TX', 'NY', 'FL', 'GA', 'PA']
+--------------------
+Here is the Python code that solves the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    profession_counts = df['Which of these best describes the kind of work you do?'].value_counts()
+    top_2_professions = profession_counts.nlargest(2)
+    top_2_professions = top_2_professions.sort_index().index.tolist()
+    return top_2_professions
+```
+Response: ['Healthcare', 'Other']
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    top_ethnic_groups = df['Which of the following best describes your ethnic heritage?'].value_counts().nlargest(2).index.tolist()
+    return top_ethnic_groups
+```
+Response: ['White (not Hispanic, Latino or Spanish origin)', 'Black or African American (not Hispanic, Latino or Spanish origin)']
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    age_counts = df['How old are you?'].value_counts().nlargest(6)
+    return age_counts.index.tolist()
+```
+Response: ['65+', '55-64', '45-54', '35-44', '18-24', '25-34']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    county_codes = df['County FIPS'].value_counts().nlargest(3).index.tolist()
+    return county_codes
+```
+Response: [6037, 13121, 48201]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df['Weight'].nlargest(4).unique().tolist()
+```
+Response: [12.25830409560021, 11.12470053778552, 10.76484201273817, 9.469101617885023]
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    urban_rural_counts = df['NCHS Urban/rural'].value_counts().nlargest(4)
+    return urban_rural_counts.index.tolist()
+```
+Response: [1, 2, 3, 4]
+--------------------
+Here is the Python code to enumerate the 2 most common likelihood values among the respondents:
+
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> list:
+    likelihood_values = df['likelihood']
+    likelihood_counts = Counter(likelihood_values)
+    most_common_likelihoods = likelihood_counts.most_common(2)
+    return [f"{value}: {count}" for value, count in most_common_likelihoods]
+```
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return 'Golf' in df['model'].values
+```
+Response: True
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']  
+    return not df[df['dealer'] == 'Autos Raymara'].empty
+Response: None
+--------------------
+Here is a Python function that answers the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return 'BMW' in df['make'].values
+```
+Response: True
+--------------------
+Here is a Python code snippet that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return (df['shift'] == 'Manual').any()
+```
+Response: True
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return df['model'].nunique()
+```
+Response: 940
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    average_photos = df['photos'].mean()
+    return average_photos
+```
+Response: 16.19912
+--------------------
+Here is the Python code to find the highest price a car is listed for:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return df['price'].max()
+```
+Response: 549900
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    count = df[df['year'] == 2020].shape[0]
+    return count
+Response: None
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    highest_price_dealer = df.loc[df['price'].idxmax()]['dealer']
+    return highest_price_dealer
+```
+Response: Supergarage
+--------------------
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> str:
+    company_counts = Counter(df['company'])
+    max_count = max(list(company_counts.values()))
+    most_common_companies = [company for company, count in company_counts.items() if count == max_count]
+    return min(most_common_companies)
+```
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    most_common_fuel = df['fuel'].value_counts().index[0]
+    return most_common_fuel
+```
+Response: Diésel
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    most_cars_province = df['province'].value_counts().index[0]
+    return most_cars_province
+```
+Response: Madrid
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    province_counts = df['province'].value_counts().reset_index()
+    province_counts.columns = ['province', 'counts']
+    province_counts = province_counts.sort_values(by='counts', ascending=False).sort_values(by='province', ascending=False)
+    return province_counts['province'].head(3).tolist()
+```
+Response: ['Melilla', 'Ceuta', 'Zamora']
+--------------------
+Here is the Python code to solve the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    color_counts = df['color'].value_counts().head(3)
+    return color_counts.index.tolist()
+```
+Response: ['Blanco', 'Gris / Plata', 'Negro']
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return df['make'].value_counts().index.tolist()[:5]
+```
+Response: ['VOLKSWAGEN', 'BMW', 'MERCEDES-BENZ', 'AUDI', 'PEUGEOT']
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    fuel_counts = df['fuel'].value_counts()
+    least_common_fuels = fuel_counts.nsmallest(2).index.tolist()
+    return least_common_fuels
+```
+Response: ['Gas natural (CNG)', 'Gas licuado (GLP)']
+--------------------
+Here is the Python code that addresses the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return df['year'].value_counts().nlargest(4).index.tolist()
+```
+Response: [2016.0, 2017.0, 2019.0, 2020.0]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return df.nlargest(3, 'kms')['kms'].tolist()
+```
+Response: [5000000, 4000006, 3500000]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    top_5_photos = df.nlargest(5, 'photos')['photos'].tolist()
+    return top_5_photos
+```
+Response: [54, 54, 54, 54, 54]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['url', 'company', 'make', 'model', 'version', 'price', 'price_financed', 'fuel', 'year', 'kms', 'power', 'doors', 'shift', 'color', 'photos', 'is_professional', 'dealer', 'province', 'country', 'publish_date', 'insert_date']
+    return df.nlargest(6, 'power')['power'].tolist()
+```
+Response: [800.0, 800.0, 796.0, 772.0, 720.0, 720.0]
+--------------------
+Here is the Python code to address the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']  
+    return df['Transaction'].is_unique
+```
+Response: False
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    return (df['period_day'] == 'Night').any()
+Response: None
+--------------------
+Here is the Python code to address the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    return df['weekday_weekend'].eq('weekday').all()
+```
+Response: False
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    return (df['period_day'] == 'evening') & (df['weekday_weekend'] == 'weekend').any()
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    return df['Item'].nunique()
+```
+Response: 94
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    unique_days = df['date_time'].dt.date.nunique()
+    return unique_days
+```
+Response: __CODE_ERROR__: Can only use .dt accessor with datetimelike values
+--------------------
+Here is the Python code to find the highest transaction number:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    return df['Transaction'].max()
+```
+Response: 9684
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    afternoon_transactions = df[(df['period_day'] == 'afternoon')]
+    return len(afternoon_transactions)
+```
+Response: 11569
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    return df['period_day'].value_counts().index[0]
+```
+Response: afternoon
+--------------------
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    weekday_df = df[df['weekday_weekend'] == 'weekday']
+    item_counts = Counter(weekday_df['Item'])
+    return item_counts.most_common(1)[0][0]
+```
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    weekday_items = df[df['weekday_weekend'] == 'weekday'].groupby('Item')['Transaction'].count().reset_index(name='count').sort_values(by='count').iloc[0]['Item']
+    return weekday_items
+```
+Response: Basket
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    brownie_transactions = df[df['Item'] == 'Brownie']
+    period_counts = brownie_transactions['period_day'].value_counts()
+    return period_counts.index[0]
+Response: None
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    morning_transactions = df[df['period_day'] == 'morning']
+    top_items = morning_transactions['Item'].value_counts().nlargest(3).index.tolist()
+    return top_items
+```
+Response: ['Coffee', 'Bread', 'Pastry']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    afternoon_items = df[df['period_day'] == 'afternoon']['Item'].value_counts().head(2).index.tolist()
+    return afternoon_items
+```
+Response: ['Coffee', 'Bread']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    weekend_sales = df[df['weekday_weekend'] == 'weekend']
+    top_items = weekend_sales['Item'].value_counts().nlargest(2)
+    top_items = top_items[top_items == top_items.max()].index.tolist()
+    top_items.sort()
+    return top_items
+```
+Response: ['Coffee']
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    evening_transactions = df[df['period_day'] == 'evening']
+    item_counts = evening_transactions['Item'].value_counts()
+    return item_counts[item_counts == 2].index.tolist()
+```
+Response: ['Vegan mincepie', 'Mortimer', 'Art Tray', 'Mighty Protein']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    transaction_items = df.groupby('Transaction')['Item'].count().reset_index()
+    top_transactions = transaction_items.nlargest(4, 'Item')['Transaction'].tolist()
+    return top_transactions
+```
+Response: [6279, 6412, 6474, 6716]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    transaction_frequency = df['Transaction'].value_counts().nlargest(5)
+    return list(transaction_frequency.index)
+```
+Response: [6474, 6412, 6716, 6279, 6045]
+--------------------
+Here is the Python code that solves the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    bread_transactions = df[df['Item'] == 'Bread']['Transaction'].value_counts().head(6).index.tolist()
+    return bread_transactions
+```
+Response: [8328, 6240, 5986, 3058, 7329, 6936]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Transaction', 'Item', 'date_time', 'period_day', 'weekday_weekend']
+    morning_purchases = df[(df['period_day'] == 'morning')]
+    bottom_2_transactions = morning_purchases.nlargest(2, 'Transaction')['Transaction'].tolist()
+    return bottom_2_transactions
+```
+Response: [9665, 9665]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    australia_reviews = df[df['Reviewer_Location'] == 'Australia']
+    return (australia_reviews['Rating'] > 3).all()
+```
+Response: False
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    most_reviewed_branch = df['Branch'].value_counts().index[0]
+    return most_reviewed_branch == 'Disneyland_HongKong'
+```
+Response: False
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    return not df[df['Rating'] == 1].empty
+```
+Response: True
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    return len(df[df['Rating'] == 5].groupby('Reviewer_Location').size().index) == len(df['Reviewer_Location'].unique())
+```
+Response: True
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    return df['Reviewer_Location'].nunique()
+```
+Response: 162
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    avg_rating = df[df['Branch'] == 'Disneyland_HongKong']['Rating'].mean()
+    return avg_rating
+```
+Response: 4.204158004158004
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    return df['Review_ID'].max()
+```
+Response: 670801367
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    year_2019 = df['Year_Month'].str.contains('2019')
+    return df[year_2019].shape[0]
+```
+Response: 786
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    return df['Reviewer_Location'].mode().iloc[0]
+```
+Response: United States
+--------------------
+Here is the Python code to find the branch with the lowest average rating:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    avg_ratings = df.groupby('Branch')['Rating'].mean().reset_index()
+    lowest_avg_rating_branch = avg_ratings.loc[avg_ratings['Rating'].idxmin()]['Branch']
+    return lowest_avg_rating_branch
+```
+Response: Disneyland_Paris
+--------------------
+Here is the Python code to address the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    negative_reviews = df[df['Rating'] == 1]
+    first_negative_review = negative_reviews.loc[negative_reviews.index[0]]
+    return first_negative_review['Year_Month']
+```
+Response: 2019-3
+--------------------
+Here is the Python code that addresses the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    avg_ratings = df.groupby('Reviewer_Location')['Rating'].mean().reset_index()
+    avg_ratings = avg_ratings.sort_values(by=['Rating', 'Reviewer_Location'], ascending=[False, True])
+    return avg_ratings.iloc[0]['Reviewer_Location']
+```
+Response: Mali
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    top_locations = df['Reviewer_Location'].value_counts().head(3).index.tolist()
+    return top_locations
+```
+Response: ['United States', 'United Kingdom', 'Australia']
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    avg_ratings = df.groupby('Branch')['Rating'].mean().sort_values().head(2)
+    return avg_ratings.index.tolist()
+```
+Response: ['Disneyland_Paris', 'Disneyland_HongKong']
+--------------------
+Here is the Python code that solves the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    top_dates = df['Year_Month'].value_counts().nlargest(4).index.tolist()
+    return top_dates
+```
+Response: ['missing', '2015-8', '2015-7', '2015-12']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    avg_ratings = df.groupby('Reviewer_Location')['Rating'].mean().sort_values().head(3)
+    return list(avg_ratings.index)
+```
+Response: ['Turks and Caicos Islands', 'South Sudan', 'Suriname']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    top_5_reviews = df.nlargest(5, 'Rating')
+    top_5_review_ids = top_5_reviews.nlargest(5, 'Review_ID')['Review_ID'].tolist()
+    return top_5_review_ids
+```
+Response: [670585330, 670570869, 670443403, 670435886, 670324965]
+--------------------
+Here is the Python code to solve the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    bottom_4 = df.nsmallest(4, 'Rating')['Review_ID'].tolist()
+    return bottom_4
+```
+Response: [662641193, 658624005, 649615606, 647822351]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    top_3_ratings_australia = df[(df['Reviewer_Location'] == 'Australia')]['Rating'].value_counts().head(3).index.tolist()
+    return top_3_ratings_australia
+```
+Response: [5, 4, 3]
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Review_ID', 'Rating', 'Year_Month', 'Reviewer_Location', 'Review_Text', 'Branch']
+    bottom_2_ratings = df[df['Branch'] == 'Disneyland_HongKong']['Rating'].nsmallest(2).tolist()
+    return bottom_2_ratings
+```
+Response: [1, 1]
+--------------------
+Here is the Python code to answer this query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    return (df['lang'] == 'en').all()
+```
+Response: False
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    return (df['retweets'] > 0).any()
+```
+Response: True
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    return (df['retweets'] > 10000).any()
+```
+Response: True
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    return df['favorites'].max() > 50000
+```
+Response: True
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    unique_authors = df['author_name'].nunique()
+    return unique_authors
+```
+Response: 1
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    return df['retweets'].mean()
+Response: __CODE_ERROR__: expected an indented block after function definition on line 3 (<string>, line 5)
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    return df['favorites'].max()
+```
+Response: 589793
+--------------------
+Here is the Python code that solves the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    df['date'] = pd.to_datetime(df['date'])
+    return len(df[df['date'].dt.year == 2018])
+```
+Response: 2891
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    return df['author_name'].value_counts().index[0]
+```
+Response: Donald J. Trump
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    max_favorites_tweet = df.loc[df['favorites'].idxmax()]
+    return max_favorites_tweet['text']
+```
+Response: Such a beautiful and important evening! The forgotten man and woman will never be forgotten again. We will all come together as never before
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    max_retweets = df.loc[df['retweets'].idxmax()]
+    return max_retweets['lang']
+```
+Response: und
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    lang_counts = Counter(df['lang'])
+    most_common_lang = lang_counts.most_common(1)[0][0]
+    return most_common_lang
+```
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    top_handlers = df['author_handler'].value_counts().nlargest(3).index.tolist()
+    return top_handlers
+```
+Response: ['realDonaldTrump']
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    lang_counts = df['lang'].value_counts().reset_index()
+    lang_counts.columns = ['lang', 'count']
+    bottom_two_langs = lang_counts.nsmallest(2, 'count')['lang'].tolist()
+    return bottom_two_langs
+```
+Response: ['pt', 'pl']
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    mention_names = df['mention_names'].str.split(',')
+    flattened_mention_names = [name.strip() for sublist in mention_names for name in sublist]
+    top_mentioned_names = Counter(flattened_mention_names).most_common(4)
+    return [name for name, freq in top_mentioned_names]
+```
+Response: __CODE_ERROR__: 'float' object is not iterable
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    author_tweet_count = df.groupby('author_name')['id'].count().reset_index(name='tweet_count')
+    bottom_three_authors = author_tweet_count.nsmallest(3, 'tweet_count')['author_name'].tolist()
+    return bottom_three_authors
+```
+Response: ['Donald J. Trump']
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    top_5_tweets = df.nlargest(5, 'retweets')['id'].tolist()
+    return top_5_tweets
+Response: None
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    return df.nsmallest(4, 'favorites')['id'].tolist()
+Response: __CODE_ERROR__: expected an indented block after function definition on line 3 (<string>, line 5)
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    top_favorites = df.nlargest(6, 'favorites')['favorites'].tolist()
+    return top_favorites
+```
+Response: [589793, 589750, 557779, 539249, 476457, 376626]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'lang', 'text', 'date', 'mention_ids', 'mention_names', 'retweets', 'favorites', 'links', 'links_first', 'image_links', 'image_links_first', 'tweet_link', 'rp_user_id', 'rp_user_name', 'location']
+    return df.nsmallest(3, 'retweets')['retweets'].tolist()
+```
+Response: [1, 1, 2]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return df['is_organization'].any()
+```
+Response: False
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return not df['is_organization'].all()
+```
+Response: True
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return not df['pic'].isnull().any()
+```
+Response: True
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return (df['weight'] > 500).any()
+```
+Response: True
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return df['community'].nunique()
+```
+Response: 9
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return df['page_rank_norm'].mean()
+```
+Response: 0.08848033260794515
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return df['weight'].max()
+```
+Response: 770.5
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return df[df['community'] == 16744206].shape[0]
+```
+Response: 651
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    most_common_name = df['name'].mode().values[0]
+    return most_common_name
+```
+Response: David McCandless
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return df.loc[df['page_rank_norm'].idxmax()]['name']
+```
+Response: Mike Bostock
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    max_weight_entity = df.loc[df['weight'].idxmax()]
+    return max_weight_entity['pic']
+```
+Response: https://storage.googleapis.com/pics.contexto.io/photos/paperclips/000/016/457/thumb/Saw-whet_Owl_10_normal.jpg?1517502050
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    return df.loc[df['y'].idxmax()]['name']
+```
+Response: The Gibson Project
+--------------------
+Here is the Python code that solves the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    top_3_entities = df.nlargest(3, 'weight')['name'].tolist()
+    return top_3_entities
+```
+Response: ['Lynn Cherny', 'Alberto Cairo', 'Sinan Aral']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    bottom_2_entities = df.nsmallest(2, 'page_rank_norm')[['name', 'page_rank_norm']]
+    return bottom_2_entities.values.tolist()
+```
+Response: [['LIFE', 0.0], ['New Options Project', 0.0]]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    top_entities = df.nlargest(4, 'x')[['name', 'x']]
+    return top_entities.values.tolist()
+```
+Response: [['Detective.io', 2252.6290667868097], ['The Thrust', 2126.6106714372613], ['Open Budgets', 2062.7915869014705], ['NewsFuturist', 2028.2436127158085]]
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    bottom_three = df.nsmallest(3, 'y')['y'].tolist()
+    return bottom_three
+```
+Response: [-1543.3173448435427, -1514.887126261893, -1494.6062525215345]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    top_5_entities = df.nlargest(5, 'weight')['id'].tolist()
+    return top_5_entities
+```
+Response: [568, 423, 6392, 4548, 579]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return df.nsmallest(4, 'page_rank_norm')['id'].tolist()
+```
+Response: [177, 240, 294, 369]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    top_6_page_ranks = df.nlargest(6, 'page_rank_norm')['page_rank_norm'].tolist()
+    return top_6_page_ranks
+```
+Response: [1.0, 0.6029751067034804, 0.5666707687637932, 0.5202348027491394, 0.5110606617858531, 0.5081183103684572]
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'name', 'pic', 'is_organization', 'community', 'page_rank_norm', 'weight', 'x', 'y', 'twitter_profile_id', 'gx_link_target', 'gx_link_weight', 'gx_link_reciprocal', 'gx_link_should']
+    return df.nsmallest(3, 'weight')['weight'].tolist()
+```
+Response: [1.0, 1.0, 1.0]
+--------------------
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df['feathers'].any()
+```
+Response: True
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return any(df['venomous'])
+```
+Response: True
+--------------------
+Here is the Python code to answer the question:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return all(df['breathes'])
+Response: None
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df['domestic'].any()
+```
+Response: True
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df['class_type'].nunique()
+```
+Response: 7
+--------------------
+Here is the Python code that solves the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df['legs'].mean()
+```
+Response: 2.8415841584158414
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df['legs'].max()
+```
+Response: 8
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df[df['legs'] == 2].shape[0]
+Response: None
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df['class_type'].mode().iloc[0]
+```
+Response: 1
+--------------------
+Here is the Python code to answer the question:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df.loc[(df['legs'] == 8), 'animal_name'].iloc[0]
+```
+Response: octopus
+--------------------
+Here is the Python code that solves the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    most_legs = df.loc[df['legs'].idxmax()]
+    return most_legs['class_type']
+```
+Response: 7
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    venomous_animals = df[df['venomous'] == True]
+    return venomous_animals.iloc[0]['animal_name']
+```
+Response: frog
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    top_legs = df.loc[df.groupby('legs')['legs'].idxmax()]
+    top_legs = top_legs.sort_values('legs', ascending=False).reset_index(drop=True)
+    top_3_legs = top_legs.nlargest(3, 'legs')
+    if len(top_3_legs[top_3_legs['legs'] == top_3_legs['legs'].min()]) > 1:
+        top_3_legs = top_3_legs.sort_values('animal_name').head(3)
+    return top_3_legs['animal_name'].tolist()
+```
+Response: ['octopus', 'crayfish', 'starfish']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    legs_count = df.groupby('legs')['animal_name'].count().reset_index()
+    min_legs = legs_count.loc[legs_count['legs'] == legs_count['legs'].min()]
+    result = min_legs.sort_values('animal_name')['animal_name'].tail(2).tolist()
+    return result
+```
+Response: [23]
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    class_type_counts = df['class_type'].value_counts().head(4)
+    return list(class_type_counts.index)
+```
+Response: [1, 2, 4, 7]
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    class_type_counts = df['class_type'].value_counts()
+    least_common_classes = class_type_counts.nsmallest(3).index.tolist()
+    return least_common_classes
+```
+Response: [5, 3, 6]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    result = df.groupby('class_type')['legs'].sum().sort_values(ascending=False).head(5).index.tolist()
+    return result
+```
+Response: [1, 6, 2, 7, 5]
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    class_type_legs = df.groupby('class_type')['legs'].sum().reset_index()
+    class_type_legs = class_type_legs.sort_values('legs').head(4)
+    return class_type_legs['class_type'].tolist()
+```
+Response: [4, 3, 5, 7]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    return df['legs'].value_counts().nlargest(4).index.tolist()
+```
+Response: [4, 2, 0, 6]
+--------------------
+Here is the Python code that answers the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['animal_name', 'hair', 'feathers', 'eggs', 'milk', 'airborne', 'aquatic', 'predator', 'toothed', 'backbone', 'breathes', 'venomous', 'fins', 'legs', 'tail', 'domestic', 'catsize', 'class_type']
+    legs_counts = df['legs'].value_counts()
+    return legs_counts.nsmallest(3).index.tolist()
+```
+Response: [5, 8, 6]
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    return (df['Quantity'] > 0).all()
+```
+Response: False
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    return (df['UnitPrice'] > 0).all()
+```
+Response: False
+--------------------
+Here is the Python code that solves the query:
+
+```
+import pandas as pd
+import numpy as np
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    return df['CustomerID'].notna().all()
+```
+Response: False
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    return df['Country'].eq('United Kingdom').any()
+```
+Response: True
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    unique_stock_codes = df['StockCode'].nunique()
+    return unique_stock_codes
+```
+Response: 4070
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    return df['UnitPrice'].mean()
+```
+Response: 4.611113626088513
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    return df['Quantity'].max()
+```
+Response: 80995
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    uk_transactions = df[df['Country'] == 'United Kingdom'].shape[0]
+    return uk_transactions
+Response: None
+--------------------
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    most_transactions_country = df['Country'].value_counts().index[0]
+    return most_transactions_country
+Response: None
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    max_unit_price_item = df.loc[df['UnitPrice'].idxmax()]['Description']
+    return max_unit_price_item
+```
+Response: Manual
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    max_qty_row = df.loc[df['Quantity'].idxmax()]
+    return max_qty_row['Description']
+```
+Response: PAPER CRAFT , LITTLE BIRDIE
+--------------------
+Here is the Python code to answer the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    min_customer_id = df['CustomerID'].min()
+    country = df.loc[df['CustomerID'] == min_customer_id, 'Country'].iloc[0]
+    return country
+```
+Response: United Kingdom
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    top_items = df.nlargest(3, 'Quantity')
+    descriptions = top_items['Description'].tolist()
+    return descriptions
+```
+Response: ['PAPER CRAFT , LITTLE BIRDIE', 'MEDIUM CERAMIC TOP STORAGE JAR', 'ASSTD DESIGN 3D PAPER STICKERS']
+--------------------
+Here is the Python code that addresses the query based on the provided dataset:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    lowest_quantities = df.nsmallest(2, 'Quantity')
+    lowest_quantities = lowest_quantities.sort_values('Description')
+    return lowest_quantities['Description'].tolist()
+```
+Response: ['MEDIUM CERAMIC TOP STORAGE JAR', 'PAPER CRAFT , LITTLE BIRDIE']
+--------------------
+Here is the Python code to address the query:
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    top_2_countries = df['Country'].value_counts().nlargest(2).index.tolist()
+    return top_2_countries
+```
+Response: ['United Kingdom', 'Germany']
+--------------------
+Here is the Python code to answer the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    country_counts = df['Country'].value_counts()
+    least_two_countries = country_counts.nsmallest(2).index.tolist()
+    return least_two_countries
+Response: None
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    top_5_invoices = df.nlargest(5, 'Quantity')['InvoiceNo'].tolist()
+    return top_5_invoices
+```
+Response: [581483.0, 541431.0, 578841.0, 542504.0, 573008.0]
+--------------------
+```
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    result = df.nsmallest(4, 'Quantity')['StockCode'].tolist()
+    return result
+```
+Response: ['23843', '23166', '23005', '23005']
+--------------------
+Here is the Python code that answers the query:
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    return df['Quantity'].value_counts().nlargest(4).index.tolist()
+```
+Response: [1, 2, 12, 6]
+--------------------
+Here is the Python code to solve the query:
+
+```
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+    top2_descriptions = df['Description'].value_counts().nlargest(2).index.tolist()
+    top2_counts = df['Description'].value_counts().nlargest(2).values.tolist()
+    result = list(zip(top2_descriptions, top2_counts))
+    return result
+```
+Response: [('WHITE HANGING HEART T-LIGHT HOLDER', 2369), ('REGENCY CAKESTAND 3 TIER', 2200)]
+--------------------
