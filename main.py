@@ -127,7 +127,7 @@ ans = answer(df)
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
-    #qa = Dataset.from_pandas(pd.DataFrame(qa).head())
+    # qa = Dataset.from_pandas(pd.DataFrame(qa).head())
     evaluator = Evaluator(qa=qa)
     if task in ["task-1", "all"]:
         runner = Runner(
@@ -184,7 +184,9 @@ def main():
             if task in ["task-2", "all"]:
                 zipf.write("predictions_lite.txt")
 
-        print("Created submission.zip containing predictions.txt and predictions_lite.txt")
+        print(
+            "Created submission.zip containing predictions.txt and predictions_lite.txt"
+        )
 
 
 if __name__ == "__main__":

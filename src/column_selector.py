@@ -40,12 +40,16 @@ class ColumnsSelector:
         """
 
     def process(self, question: str, column_names: List[str], dataset: pd.DataFrame):
-        
-        prompt = self.system_message_content.format(column_names=column_names,question=question)
+
+        prompt = self.system_message_content.format(
+            column_names=column_names, question=question
+        )
 
         messages = [
             SystemMessage(content=prompt),
-            HumanMessage(content="Here are 5 rows of the dataset as an example:\n"+str(dataset))
+            HumanMessage(
+                content="Here are 5 rows of the dataset as an example:\n" + str(dataset)
+            ),
         ]
 
         return self.model.invoke(messages).content
@@ -63,12 +67,12 @@ def main():
     qa = utils.load_qa(name="semeval", split="dev")
     qa = pd.DataFrame(qa)
     qa = qa.head()
-    
+
     column_selector = ColumnsSelector(model_name=args.groq_model)
 
     qa["selected_columns"] = qa.apply(
-            lambda row: process_row(row, column_selector), axis=1
-        )    
+        lambda row: process_row(row, column_selector), axis=1
+    )
 
     # for row in qa.itertuples():
     #     # print(row)
@@ -77,17 +81,17 @@ def main():
     #     # print(row.dataset)
     #     df=utils.load_table(row.dataset)
     #     column_selector.process(row.question, list(df.columns))
-    
+
     print(qa.head())
-        
-    
+
 
 if __name__ == "__main__":
-   
+
     parser = argparse.ArgumentParser(
-        prog="Column-Selector", description="Select the most relevant columns from a dataset to answer a specific question."
+        prog="Column-Selector",
+        description="Select the most relevant columns from a dataset to answer a specific question.",
     )
-  
+
     parser.add_argument(
         "-gm",
         "--groq-model",
@@ -106,9 +110,7 @@ if __name__ == "__main__":
         nargs="?",
     )
 
-
     # Parse arguments
     args = parser.parse_args()
 
     main()
-    
