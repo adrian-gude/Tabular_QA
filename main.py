@@ -96,6 +96,7 @@ def example_generator(row: dict) -> str:
             Below is a reusable code structure for reference:
             Return only the code inside the function, without any outer indentation.
             Complete the function with your solution, ensuring the code is functional and concise.
+            Ensure the function retains the original column names of the dataset.
         
         import pandas as pd
         def answer(df: pd.DataFrame) -> None:
@@ -125,8 +126,8 @@ ans = answer(df)
 
 
 def main():
-    qa = utils.load_qa(name="semeval", split="train")
-    qa = Dataset.from_pandas(pd.DataFrame(qa).head(20))
+    qa = utils.load_qa(name="semeval", split="dev")
+    #qa = Dataset.from_pandas(pd.DataFrame(qa).head())
     evaluator = Evaluator(qa=qa)
     if task in ["task-1", "all"]:
         runner = Runner(
@@ -183,7 +184,7 @@ def main():
             if task in ["task-2", "all"]:
                 zipf.write("predictions_lite.txt")
 
-    print("Created submission.zip containing predictions.txt and predictions_lite.txt")
+        print("Created submission.zip containing predictions.txt and predictions_lite.txt")
 
 
 if __name__ == "__main__":
