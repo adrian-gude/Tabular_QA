@@ -3,13 +3,17 @@ import re
 import zipfile
 
 import pandas as pd
-import torch
 from databench_eval import Evaluator, Runner, utils
 from datasets import Dataset
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
 from tqdm import tqdm
-from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    pipeline,
+)
 
 
 def call_model_groq(prompts):
@@ -27,37 +31,32 @@ def call_model_groq(prompts):
 
 
 def call_model_local(prompts):
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    model = AutoModelForCausalLM.from_pretrained(
-        local_model, torch_dtype=torch.bfloat16, device_map="auto"
-    )
+    # device = "cuda" if torch.cuda.is_available() else "cpu"
     tokenizer = AutoTokenizer.from_pretrained(local_model)
+    model = AutoModelForCausalLM.from_pretrained(
+        local_model,
+        device_map="auto",
+        pad_token_id=tokenizer.eos_token_id,
+        quantization_config=BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True),
+    )
+
+    pipe = pipeline(
+        "text-generation",
+        model=model,
+        tokenizer=tokenizer,
+        pad_token_id=tokenizer.eos_token_id,
+        torch_dtype="auto",
+        device_map="auto",
+    )
     results = []
     for p in tqdm(prompts, total=len(prompts)):
-        inputs = tokenizer(p, return_tensors="pt")
-        input_ids = inputs["input_ids"].to(device)
-        attention_mask = inputs["attention_mask"].to(device)
-        generation_config = GenerationConfig(
-            do_sample=True,
-            temperature=0.4,
-            top_p=0.5,
-            top_k=10,
-            num_beams=4,
-            pad_token_id=tokenizer.eos_token_id,
-            return_legacy_cache=True,
-        )
-        with torch.no_grad():
-            generation_output = model.generate(
-                input_ids=input_ids,
-                attention_mask=attention_mask,
-                generation_config=generation_config,
-                return_dict_in_generate=True,
-                output_scores=True,
-                max_new_tokens=128,
-                early_stopping=True,
-            )
-        seq = generation_output.sequences[0]
-        output = tokenizer.decode(seq, skip_special_tokens=True)
+        content, question = p.split(">>>")
+        messages = [
+            {"role": "system", "content": content},
+            {"role": "user", "content": question},
+        ]
+        outputs = pipe(messages, max_new_tokens=512, return_full_text=False)
+        output = outputs[0]["generated_text"]
         results.append(output)
     return results
 
@@ -107,7 +106,7 @@ def example_generator(row: dict) -> str:
 
 
 def example_postprocess(response: str, dataset: str, loader):
-    matches = re.search(r"(def answer\(df:(.*\n)*)", response)
+    matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", response)
     try:
         df = loader(dataset)
         exec(
@@ -125,8 +124,8 @@ ans = answer(df)
 
 
 def main():
-    qa = utils.load_qa(name="semeval", split="train")
-    qa = Dataset.from_pandas(pd.DataFrame(qa).head(20))
+    qa = utils.load_qa(name="semeval", split="dev")
+    qa = Dataset.from_pandas(pd.DataFrame(qa))
     evaluator = Evaluator(qa=qa)
     if task in ["task-1", "all"]:
         runner = Runner(
@@ -149,6 +148,7 @@ def main():
                 if debug:
                     f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
                 resp_eval.append(str(response))
+        print("Created predictions.txt")
         print(f"DataBench accuracy is {evaluator.eval(resp_eval)}")  # ~0.16
 
     if task in ["task-2", "all"]:
@@ -172,6 +172,7 @@ def main():
                 if debug:
                     f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
                 resp_eval.append(str(response))
+        print("Created predictions_lite.txt")
         print(
             f"DataBench_lite accuracy is {evaluator.eval(resp_eval, lite=True)}"
         )  # ~0.08
@@ -182,8 +183,7 @@ def main():
                 zipf.write("predictions.txt")
             if task in ["task-2", "all"]:
                 zipf.write("predictions_lite.txt")
-
-    print("Created submission.zip containing predictions.txt and predictions_lite.txt")
+        print("Created submission.zip")
 
 
 if __name__ == "__main__":
