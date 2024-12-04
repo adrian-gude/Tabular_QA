@@ -16,6 +16,7 @@ from transformers import (
 )
 import torch
 
+
 def call_model_groq(prompts):
     results = []
     model = ChatGroq(model_name=groq_model)
@@ -37,7 +38,9 @@ def call_model_local(prompts):
         local_model,
         device_map="auto",
         pad_token_id=tokenizer.eos_token_id,
-        quantization_config=BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True,bnb_4bit_compute_dtype=torch.bfloat16),
+        quantization_config=BitsAndBytesConfig(
+            llm_int8_enable_fp32_cpu_offload=True, bnb_4bit_compute_dtype=torch.bfloat16
+        ),
     )
 
     pipe = pipeline(
