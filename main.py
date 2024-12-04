@@ -14,7 +14,7 @@ from transformers import (
     BitsAndBytesConfig,
     pipeline,
 )
-
+import torch
 
 def call_model_groq(prompts):
     results = []
@@ -37,7 +37,7 @@ def call_model_local(prompts):
         local_model,
         device_map="auto",
         pad_token_id=tokenizer.eos_token_id,
-        quantization_config=BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True),
+        quantization_config=BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True,bnb_4bit_compute_dtype=torch.bfloat16),
     )
 
     pipe = pipeline(
@@ -70,6 +70,7 @@ def example_generator(row: dict) -> str:
     dataset = row["dataset"]
     question = row["question"]
     df = utils.load_table(dataset)
+    columns = eval(row["columns_used"])
     return f"""
         Role and Context
         You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
@@ -98,7 +99,8 @@ def example_generator(row: dict) -> str:
         
         import pandas as pd
         def answer(df: pd.DataFrame) -> None:
-            df.columns = {list(df.columns)}  # Retain original column names
+            df.columns = {list(df.columns)} # Retain original column names 
+            # The columns used in the solution : {columns}
             # Your solution goes here
             ... 
             >>>{question}
