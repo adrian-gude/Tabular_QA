@@ -17,6 +17,7 @@ from transformers import (
 import torch
 from src.code_fixer import CodeFixer
 
+
 def call_model_groq(prompts):
     results = []
     model = ChatGroq(model_name=groq_model)
@@ -90,6 +91,7 @@ def example_generator(row: dict) -> str:
             >>>{question}
         """
 
+
 def extract_answer_code(response_text):
     matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", response_text)
     if not matches:
@@ -97,12 +99,14 @@ def extract_answer_code(response_text):
     code = matches.group(1)
     return code
 
+
 def execute_answer_code(code, dataset):
     local_namespace = {}
     exec(code, globals(), local_namespace)
-    ans = local_namespace['answer'](dataset)
+    ans = local_namespace["answer"](dataset)
     result = ans.split("\n")[0] if "\n" in str(ans) else ans
     return result
+
 
 def example_postprocess(response: str, dataset: str, loader):
     df = loader(dataset)
@@ -119,7 +123,6 @@ def example_postprocess(response: str, dataset: str, loader):
             return (response_fixed, result)
         except Exception as e:
             return (response, f"__CODE_ERROR__: {e}")
-
 
 
 def main():
@@ -247,8 +250,10 @@ if __name__ == "__main__":
             local_model,
             device_map="auto",
             pad_token_id=tokenizer.eos_token_id,
-            quantization_config=BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True,
-                                                bnb_4bit_compute_dtype=torch.bfloat16),
+            quantization_config=BitsAndBytesConfig(
+                llm_int8_enable_fp32_cpu_offload=True,
+                bnb_4bit_compute_dtype=torch.bfloat16,
+            ),
         )
 
         pipe = pipeline(

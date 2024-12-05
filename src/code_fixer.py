@@ -1,5 +1,3 @@
-
-
 from tqdm import tqdm
 from transformers import (
     AutoModelForCausalLM,
@@ -8,6 +6,7 @@ from transformers import (
     Pipeline,
 )
 import torch
+
 
 class CodeFixer:
     def __init__(self, pipe: Pipeline):
@@ -43,9 +42,9 @@ class CodeFixer:
 def main():
     model_name = "mistralai/Mistral-7B-Instruct-v0.3"
     cf = CodeFixer(model_name)
-    response = '''def add(a, b):\n
+    response = """def add(a, b):\n
                 return a + b\n
-                '''
+                """
     error = "IndentationError: unindent does not match any outer indentation level."
     fixed_code = cf.code_fix(response, error)
     print(fixed_code)
