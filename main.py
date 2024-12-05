@@ -128,7 +128,7 @@ def example_postprocess(response: str, dataset: str, loader):
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
-    qa = Dataset.from_pandas(pd.DataFrame(qa).head(3))
+    qa = Dataset.from_pandas(pd.DataFrame(qa))
     evaluator = Evaluator(qa=qa)
     date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     if task in ["task-1", "all"]:
