@@ -15,6 +15,8 @@ from transformers import (
     pipeline,
 )
 import torch
+from src.code_fixer import CodeFixer
+
 
 def call_model_groq(prompts):
     results = []
@@ -31,23 +33,6 @@ def call_model_groq(prompts):
 
 
 def call_model_local(prompts):
-    # device = "cuda" if torch.cuda.is_available() else "cpu"
-    tokenizer = AutoTokenizer.from_pretrained(local_model)
-    model = AutoModelForCausalLM.from_pretrained(
-        local_model,
-        device_map="auto",
-        pad_token_id=tokenizer.eos_token_id,
-        quantization_config=BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True,bnb_4bit_compute_dtype=torch.bfloat16),
-    )
-
-    pipe = pipeline(
-        "text-generation",
-        model=model,
-        tokenizer=tokenizer,
-        pad_token_id=tokenizer.eos_token_id,
-        torch_dtype="auto",
-        device_map="auto",
-    )
     results = []
     for p in tqdm(prompts, total=len(prompts)):
         content, question = p.split(">>>")
@@ -70,7 +55,7 @@ def example_generator(row: dict) -> str:
     dataset = row["dataset"]
     question = row["question"]
     df = utils.load_table(dataset)
-    columns = eval(row["columns_used"])
+    columns = row.get("columns_used").strip("][").replace("'", "").split(", ")
     return f"""
         Role and Context
         You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
@@ -107,27 +92,42 @@ def example_generator(row: dict) -> str:
         """
 
 
+def extract_answer_code(response_text):
+    matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", response_text)
+    if not matches:
+        raise ValueError("No function answer definition found in response.")
+    code = matches.group(1)
+    return code
+
+
+def execute_answer_code(code, dataset):
+    local_namespace = {}
+    exec(code, globals(), local_namespace)
+    ans = local_namespace["answer"](dataset)
+    result = ans.split("\n")[0] if "\n" in str(ans) else ans
+    return result
+
+
 def example_postprocess(response: str, dataset: str, loader):
-    matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", response)
+    df = loader(dataset)
     try:
-        df = loader(dataset)
-        exec(
-            f"""
-global ans
-{matches.group(1)}
-ans = answer(df)
-            """
-        )
-        # no true result is > 1 line atm, needs 1 line for txt format
-        result = ans.split("\n")[0] if "\n" in str(ans) else ans
+        code = extract_answer_code(response)
+        result = execute_answer_code(code, df)
         return (response, result)
     except Exception as e:
-        return (response, f"__CODE_ERROR__: {e}")
+        code_fixer = CodeFixer(pipe)
+        response_fixed = code_fixer.code_fix(response, str(e))
+        try:
+            fixed_code = extract_answer_code(response_fixed)
+            result = execute_answer_code(fixed_code, df)
+            return (response_fixed, result)
+        except Exception as e:
+            return (response, f"__CODE_ERROR__: {e}")
 
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
-    qa = Dataset.from_pandas(pd.DataFrame(qa))
+    qa = Dataset.from_pandas(pd.DataFrame(qa).head(3))
     evaluator = Evaluator(qa=qa)
     if task in ["task-1", "all"]:
         runner = Runner(
@@ -243,5 +243,26 @@ if __name__ == "__main__":
     task = args.task
     zip_file = args.zip_file
     debug = args.debug
+
+    if local_model:
+        tokenizer = AutoTokenizer.from_pretrained(local_model)
+        model = AutoModelForCausalLM.from_pretrained(
+            local_model,
+            device_map="auto",
+            pad_token_id=tokenizer.eos_token_id,
+            quantization_config=BitsAndBytesConfig(
+                llm_int8_enable_fp32_cpu_offload=True,
+                bnb_4bit_compute_dtype=torch.bfloat16,
+            ),
+        )
+
+        pipe = pipeline(
+            "text-generation",
+            model=model,
+            tokenizer=tokenizer,
+            pad_token_id=tokenizer.eos_token_id,
+            torch_dtype="auto",
+            device_map="auto",
+        )
 
     main()
