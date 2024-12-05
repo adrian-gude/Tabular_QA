@@ -121,14 +121,14 @@ def example_postprocess(response: str, dataset: str, loader):
         try:
             fixed_code = extract_answer_code(response_fixed)
             result = execute_answer_code(fixed_code, df)
-            return (response_fixed, result)
+            return (f"{response}\n{response_fixed}", result)
         except Exception as e:
-            return (response, f"__CODE_ERROR__: {e}")
+            return (f"{response}\n{response_fixed}", f"__CODE_ERROR__: {e}")
 
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
-    qa = Dataset.from_pandas(pd.DataFrame(qa).head(1))
+    qa = Dataset.from_pandas(pd.DataFrame(qa).head(3))
     evaluator = Evaluator(qa=qa)
     date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     if task in ["task-1", "all"]:
@@ -142,7 +142,7 @@ def main():
             batch_size=10,
         )
         responses = runner.run()
-        resp_eval = []
+        resp_eval = [str(response) for _, response in responses]
         accuracy = evaluator.eval(resp_eval)
         print(f"DataBench accuracy is {accuracy}")  # ~0.16
         with (
@@ -155,7 +155,6 @@ def main():
                 f1.write(str(response) + "\n")
                 if debug:
                     f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
-                resp_eval.append(str(response))
         print("Created predictions.txt")
 
     if task in ["task-2", "all"]:
@@ -169,7 +168,7 @@ def main():
             batch_size=10,
         )
         responses_lite = runner_lite.run()
-        resp_eval = []
+        resp_eval = [str(response) for _, response in responses_lite]
         accuracy_lite = evaluator.eval(resp_eval, lite=True)
         print(f"DataBench_lite accuracy is {accuracy_lite}")  # ~0.08
         with (
@@ -182,7 +181,6 @@ def main():
                 f1.write(str(response) + "\n")
                 if debug:
                     f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
-                resp_eval.append(str(response))
         print("Created predictions_lite.txt")
 
     if zip_file:
