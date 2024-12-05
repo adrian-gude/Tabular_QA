@@ -1,6 +1,7 @@
 import argparse
 import re
 import zipfile
+import datetime
 
 import pandas as pd
 from databench_eval import Evaluator, Runner, utils
@@ -127,8 +128,9 @@ def example_postprocess(response: str, dataset: str, loader):
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
-    qa = Dataset.from_pandas(pd.DataFrame(qa).head(3))
+    qa = Dataset.from_pandas(pd.DataFrame(qa).head(1))
     evaluator = Evaluator(qa=qa)
+    date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     if task in ["task-1", "all"]:
         runner = Runner(
             model_call=call_model_groq if mode == "groq" else call_model_local,
@@ -141,17 +143,20 @@ def main():
         )
         responses = runner.run()
         resp_eval = []
+        accuracy = evaluator.eval(resp_eval)
+        print(f"DataBench accuracy is {accuracy}")  # ~0.16
         with (
             open("predictions.txt", "w", encoding="utf-8") as f1,
-            open("debug.txt", "w", encoding="utf-8") as f2,
+            open(f"{date}_debug.txt", "w", encoding="utf-8") as f2,
         ):
+            if debug:
+                f2.write(f"Model:{local_model}\nAccuracy:{accuracy}\n{'-'*10}\n")
             for code, response in responses:
                 f1.write(str(response) + "\n")
                 if debug:
                     f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
                 resp_eval.append(str(response))
         print("Created predictions.txt")
-        print(f"DataBench accuracy is {evaluator.eval(resp_eval)}")  # ~0.16
 
     if task in ["task-2", "all"]:
         runner_lite = Runner(
@@ -165,19 +170,20 @@ def main():
         )
         responses_lite = runner_lite.run()
         resp_eval = []
+        accuracy_lite = evaluator.eval(resp_eval, lite=True)
+        print(f"DataBench_lite accuracy is {accuracy_lite}")  # ~0.08
         with (
             open("predictions_lite.txt", "w", encoding="utf-8") as f1,
-            open("debug_lite.txt", "w", encoding="utf-8") as f2,
+            open(f"{date}_debug_lite.txt", "w", encoding="utf-8") as f2,
         ):
+            if debug:
+                f2.write(f"Model:{local_model}\nAccuracy:{accuracy_lite}\n{'-'*10}\n")
             for code, response in responses_lite:
                 f1.write(str(response) + "\n")
                 if debug:
                     f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
                 resp_eval.append(str(response))
         print("Created predictions_lite.txt")
-        print(
-            f"DataBench_lite accuracy is {evaluator.eval(resp_eval, lite=True)}"
-        )  # ~0.08
 
     if zip_file:
         with zipfile.ZipFile("submission.zip", "w") as zipf:
