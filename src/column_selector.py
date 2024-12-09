@@ -20,6 +20,7 @@ from transformers import (
 
 import torch
 
+
 class ColumnSelector:
     def __init__(self, pipe: Pipeline):
         self.pipe = pipe
