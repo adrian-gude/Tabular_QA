@@ -9,12 +9,7 @@ from datasets import Dataset
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
 from tqdm import tqdm
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    BitsAndBytesConfig,
-    pipeline,
-)
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, pipeline
 import torch
 from src.code_fixer import CodeFixer
 
