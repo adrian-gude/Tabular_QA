@@ -1,0 +1,13 @@
+# Archivo: .github/dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "pip" # Especifica que el ecosistema de paquetes es pip (Python)
+    directory: "/" # Directorio en el que buscar el archivo requirements.txt o Pipfile
+    schedule:
+      interval: "daily" 
+    open-pull-requests-limit: 5 # Límite de PRs abiertos simultáneamente por Dependabot
+    
+  - package-ecosystem: "github-actions"
+    directory: "/" 
+    schedule:
+      interval: "daily"
