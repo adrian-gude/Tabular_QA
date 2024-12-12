@@ -47,15 +47,13 @@ def call_model_local(prompts):
     return results
 
 
-def example_generator(row: dict) -> str:
+def _format_promt(row: dict, df: pd.DataFrame) -> str:
     """IMPORTANT:
     **Only the question and dataset keys will be available during the actual competition**.
     You can, however, try to predict the answer type or columns used
     with another modeling task if that helps, then use them here.
     """
-    dataset = row["dataset"]
     question = row["question"]
-    df = utils.load_table(dataset)
     columns = row.get("columns_used").strip("][").replace("'", "").split(", ")
     return f"""
         Role and Context
@@ -91,6 +89,14 @@ def example_generator(row: dict) -> str:
             ... 
             >>>{question}
         """
+
+
+def example_generator(row: dict) -> str:
+    return _format_promt(row, utils.load_table(row["dataset"]))
+
+
+def example_generator_lite(row: dict) -> str:
+    return _format_promt(row, utils.load_sample(row["dataset"]))
 
 
 def extract_answer_code(response_text):
@@ -160,7 +166,7 @@ def main():
     if task in ["task-2", "all"]:
         runner_lite = Runner(
             model_call=call_model_groq if mode == "groq" else call_model_local,
-            prompt_generator=example_generator,
+            prompt_generator=example_generator_lite,
             postprocess=lambda response, dataset: example_postprocess(
                 response, dataset, utils.load_sample
             ),
