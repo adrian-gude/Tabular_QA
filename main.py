@@ -9,9 +9,15 @@ from datasets import Dataset
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
 from tqdm import tqdm
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, pipeline
+from transformers import (
+    AutoTokenizer,
+    AutoModelForCausalLM,
+    BitsAndBytesConfig,
+    pipeline,
+)
 import torch
 from src.code_fixer import CodeFixer
+from src.column_selector import ColumnSelector
 
 
 def call_model_groq(prompts):
@@ -42,14 +48,13 @@ def call_model_local(prompts):
     return results
 
 
-def _format_promt(row: dict, df: pd.DataFrame) -> str:
+def _format_promt(row: dict, df: pd.DataFrame, selected_columns: pd.Index) -> str:
     """IMPORTANT:
     **Only the question and dataset keys will be available during the actual competition**.
     You can, however, try to predict the answer type or columns used
     with another modeling task if that helps, then use them here.
     """
     question = row["question"]
-    columns = row.get("columns_used").strip("][").replace("'", "").split(", ")
     return f"""
         Role and Context
         You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
@@ -79,7 +84,7 @@ def _format_promt(row: dict, df: pd.DataFrame) -> str:
         import pandas as pd
         def answer(df: pd.DataFrame) -> None:
             df.columns = {list(df.columns)} # Retain original column names 
-            # The columns used in the solution : {columns}
+            # The columns used in the solution : {selected_columns}
             # Your solution goes here
             ... 
             >>>{question}
@@ -87,11 +92,21 @@ def _format_promt(row: dict, df: pd.DataFrame) -> str:
 
 
 def example_generator(row: dict) -> str:
-    return _format_promt(row, utils.load_table(row["dataset"]))
+    column_selector = ColumnSelector(pipe)
+    df = utils.load_table(row["dataset"])
+    selected_columns = column_selector.select_relevant_columns(
+        df.columns, row["question"]
+    )
+    return _format_promt(row, df, selected_columns)
 
 
 def example_generator_lite(row: dict) -> str:
-    return _format_promt(row, utils.load_sample(row["dataset"]))
+    column_selector = ColumnSelector(pipe)
+    df = utils.load_sample(row["dataset"])
+    selected_columns = column_selector.select_relevant_columns(
+        df.columns, row["question"]
+    )
+    return _format_promt(row, df, selected_columns)
 
 
 def extract_answer_code(response_text):
