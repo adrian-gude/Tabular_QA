@@ -129,7 +129,8 @@ def example_postprocess(response: str, dataset: str, loader):
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
-    qa = Dataset.from_pandas(pd.DataFrame(qa).head(3))
+    if n_rows:
+        qa = Dataset.from_pandas(pd.DataFrame(qa).head(n_rows))
     evaluator = Evaluator(qa=qa)
     date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     if task in ["task-1", "all"]:
@@ -140,7 +141,7 @@ def main():
                 response, dataset, utils.load_table
             ),
             qa=qa,
-            batch_size=10,
+            batch_size=batch_size,
         )
         responses = runner.run()
         resp_eval = [str(response) for _, response in responses]
@@ -166,7 +167,7 @@ def main():
                 response, dataset, utils.load_sample
             ),
             qa=qa,
-            batch_size=10,
+            batch_size=batch_size,
         )
         responses_lite = runner_lite.run()
         resp_eval = [str(response) for _, response in responses_lite]
@@ -213,6 +214,17 @@ if __name__ == "__main__":
         default="all",
         nargs="?",
     )
+    parser.add_argument(
+        "-b", "--batch-size", nargs="?", type=int, default=10, help="Batch size"
+    )
+    parser.add_argument(
+        "-n",
+        "--number-rows",
+        nargs="?",
+        type=int,
+        default=None,
+        help="Only execute n rows from the Dataset",
+    )
     parser.add_argument("-z", "--zip-file", action="store_true", help="Create zip file")
     parser.add_argument("--debug", action="store_true", help="Create debug file")
 
@@ -220,10 +232,25 @@ if __name__ == "__main__":
     args = parser.parse_args()
     model_name = args.model
     task = args.task
+    batch_size = args.batch_size
+    n_rows = args.number_rows
     zip_file = args.zip_file
     debug = args.debug
 
-    if model_name:
+    # Verify arguments
+
+    if not batch_size or batch_size < 0:
+        print(
+            f"Warning: Invalid batch_size value '{batch_size}', changed to default (10)"
+        )
+        batch_size = 10
+
+    if not n_rows and n_rows is not None:
+        print(
+            f"Warning: Invalid number_rows value '{n_rows}', parameter will be ignore"
+        )
+
+    try:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
@@ -243,5 +270,8 @@ if __name__ == "__main__":
             torch_dtype="auto",
             device_map="auto",
         )
+    except OSError as e:
+        print(e)
+        exit(-1)
 
     main()
