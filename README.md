@@ -54,7 +54,7 @@ python main.py -m Qwen/Qwen2.5-Coder-32B-Instruct -z
 
 | Model | Accuracy Task 1 | Accuracy Task 2 |
 | ----- | --------------- |---------------- |
-| Codestral-22B-v0.1 | 0.65625 | **0.71875** |
-| Mistral-7B-Instruct-v0.3 | 0.503125 | 0.453125 |
-| Qwen2.5-Coder-7B-Instruct | 0.425 | - |
-| Qwen2.5-Coder-32B-Instruct | **0.7625** | - |
+| [Codestral-22B-v0.1](https://huggingface.co/mistralai/Codestral-22B-v0.1) | 0.65625 | **0.71875** |
+| [Mistral-7B-Instruct-v0.3](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3) | 0.503125 | 0.453125 |
+| [Qwen2.5-Coder-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct) | 0.425 | - |
+| [Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct) | **0.7625** | - |
