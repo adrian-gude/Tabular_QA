@@ -202,7 +202,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-m",
         "--model",
-        help="Choose witch model will be used from HuggingFace",
+        help="Choose witch model will be used from HuggingFace. Default Mistral 7B Instruct",
         default="mistralai/Mistral-7B-Instruct-v0.3",
         nargs="?",
     )
@@ -210,12 +210,17 @@ if __name__ == "__main__":
         "-t",
         "--task",
         choices=["task-1", "task-2", "all"],
-        help="Choose witch task will be executed",
+        help="Choose witch task will be executed. Default both task (all)",
         default="all",
         nargs="?",
     )
     parser.add_argument(
-        "-b", "--batch-size", nargs="?", type=int, default=10, help="Batch size"
+        "-b",
+        "--batch-size",
+        nargs="?",
+        type=int,
+        default=10,
+        help="Batch size. Default 10",
     )
     parser.add_argument(
         "-n",
@@ -223,7 +228,7 @@ if __name__ == "__main__":
         nargs="?",
         type=int,
         default=None,
-        help="Only execute n rows from the Dataset",
+        help="Only execute n rows from the Dataset. Default all rows",
     )
     parser.add_argument("-z", "--zip-file", action="store_true", help="Create zip file")
     parser.add_argument("--debug", action="store_true", help="Create debug file")
