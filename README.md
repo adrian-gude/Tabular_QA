@@ -12,6 +12,20 @@ Requires:
 pip install -r requirements.txt
 ```
 
+### File Structure
+
+```bash
+.
+├── LICENSE
+├── logs
+├── main.py   # Program entrypoint, tabular QA
+├── README.md
+├── requirements.txt
+└── src
+    ├── code_fixer.py       # Fixed code error from generated code
+    └── column_selector.py  # Get columns related to the question
+```
+
 ## Usage
 
 ```bash
@@ -54,7 +68,7 @@ python main.py -m Qwen/Qwen2.5-Coder-32B-Instruct -z
 
 | Model | Accuracy Task 1 | Accuracy Task 2 |
 | ----- | --------------- |---------------- |
-| [Codestral-22B-v0.1](https://huggingface.co/mistralai/Codestral-22B-v0.1) | 0.65625 | **0.71875** |
+| [Codestral-22B-v0.1](https://huggingface.co/mistralai/Codestral-22B-v0.1) | 0.65625 | 0.71875 |
 | [Mistral-7B-Instruct-v0.3](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3) | 0.503125 | 0.453125 |
-| [Qwen2.5-Coder-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct) | 0.425 | - |
-| [Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct) | **0.7625** | - |
+| [Qwen2.5-Coder-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct) | 0.425 | 0.515625 |
+| [Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct) | **0.7625** | **0.80** |
