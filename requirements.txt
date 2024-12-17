@@ -1,4 +1,4 @@
-accelerate~=1.2.0
+accelerate~=1.2.1
 bitsandbytes~=0.45.0
 databench_eval~=2.1.1
 pandas~=2.2.3
