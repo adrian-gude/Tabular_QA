@@ -16,7 +16,7 @@ click @ file:///work/perseverance-python-buildout/croot/click_1728387069202/work
 colorama @ file:///work/perseverance-python-buildout/croot/colorama_1728388434940/work
 databench_eval==2.0.0
 datasets==3.2.0
-dill==0.3.8
+dill==0.3.9
 distro==1.9.0
 exceptiongroup==1.2.2
 filelock==3.16.1
