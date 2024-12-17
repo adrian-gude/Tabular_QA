@@ -1,42 +1,27 @@
 import argparse
+import datetime
 import re
 import zipfile
-import datetime
 
 import pandas as pd
+import torch
 from databench_eval import Evaluator, Runner, utils
 from datasets import Dataset
-from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_groq import ChatGroq
 from tqdm import tqdm
 from transformers import (
-    AutoTokenizer,
     AutoModelForCausalLM,
+    AutoTokenizer,
     BitsAndBytesConfig,
     pipeline,
 )
-import torch
+
 from src.code_fixer import CodeFixer
 from src.column_selector import ColumnSelector
 
 
-def call_model_groq(prompts):
+def call_model(prompts):
     results = []
-    model = ChatGroq(model_name=groq_model)
-    for p in tqdm(prompts, total=len(prompts)):
-        content, question = p.split(">>>")
-        messages = [
-            SystemMessage(content=content),
-            HumanMessage(content=question),
-        ]
-        result = model.invoke(messages).content
-        results.append(result)
-    return results
-
-
-def call_model_local(prompts):
-    results = []
-    for p in tqdm(prompts, total=len(prompts)):
+    for p in tqdm(prompts, total=len(prompts), dynamic_ncols=True, position=1):
         content, question = p.split(">>>")
         messages = [
             {"role": "system", "content": content},
@@ -144,18 +129,19 @@ def example_postprocess(response: str, dataset: str, loader):
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
-    qa = Dataset.from_pandas(pd.DataFrame(qa))
+    if n_rows:
+        qa = Dataset.from_pandas(pd.DataFrame(qa).head(n_rows))
     evaluator = Evaluator(qa=qa)
     date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     if task in ["task-1", "all"]:
         runner = Runner(
-            model_call=call_model_groq if mode == "groq" else call_model_local,
+            model_call=call_model,
             prompt_generator=example_generator,
             postprocess=lambda response, dataset: example_postprocess(
                 response, dataset, utils.load_table
             ),
             qa=qa,
-            batch_size=10,
+            batch_size=batch_size,
         )
         responses = runner.run()
         resp_eval = [str(response) for _, response in responses]
@@ -166,7 +152,7 @@ def main():
             open(f"{date}_debug.txt", "w", encoding="utf-8") as f2,
         ):
             if debug:
-                f2.write(f"Model:{local_model}\nAccuracy:{accuracy}\n{'-'*10}\n")
+                f2.write(f"Model:{model_name}\nAccuracy:{accuracy}\n{'-'*10}\n")
             for code, response in responses:
                 f1.write(str(response) + "\n")
                 if debug:
@@ -175,13 +161,13 @@ def main():
 
     if task in ["task-2", "all"]:
         runner_lite = Runner(
-            model_call=call_model_groq if mode == "groq" else call_model_local,
+            model_call=call_model,
             prompt_generator=example_generator_lite,
             postprocess=lambda response, dataset: example_postprocess(
                 response, dataset, utils.load_sample
             ),
             qa=qa,
-            batch_size=10,
+            batch_size=batch_size,
         )
         responses_lite = runner_lite.run()
         resp_eval = [str(response) for _, response in responses_lite]
@@ -192,7 +178,7 @@ def main():
             open(f"{date}_debug_lite.txt", "w", encoding="utf-8") as f2,
         ):
             if debug:
-                f2.write(f"Model:{local_model}\nAccuracy:{accuracy_lite}\n{'-'*10}\n")
+                f2.write(f"Model:{model_name}\nAccuracy:{accuracy_lite}\n{'-'*10}\n")
             for code, response in responses_lite:
                 f1.write(str(response) + "\n")
                 if debug:
@@ -215,32 +201,8 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "-m",
-        "--mode",
-        choices=["groq", "local"],
-        help="Choose between local execution or Groq API",
-        required=True,
-    )
-    parser.add_argument(
-        "-gm",
-        "--groq-model",
-        choices=[
-            "gemma2-9b-it",
-            "gemma-7b-it",
-            "llama-3.1-70b-versatile",
-            "llama-3.1-8b-instant",
-            "llama3-8b-8192",
-            "llama-guard-3-8b",
-            "mixtral-8x7b-32768",
-            "llama3-70b-8192",
-        ],
-        help="Choose witch model will be used from Groq API",
-        default="llama3-70b-8192",
-        nargs="?",
-    )
-    parser.add_argument(
-        "-lm",
-        "--local-model",
-        help="Choose witch model will be used from HuggingFace",
+        "--model",
+        help="Choose witch model will be used from HuggingFace. Default Mistral 7B Instruct",
         default="mistralai/Mistral-7B-Instruct-v0.3",
         nargs="?",
     )
@@ -248,26 +210,55 @@ if __name__ == "__main__":
         "-t",
         "--task",
         choices=["task-1", "task-2", "all"],
-        help="Choose witch task will be executed",
+        help="Choose witch task will be executed. Default both task (all)",
         default="all",
         nargs="?",
+    )
+    parser.add_argument(
+        "-b",
+        "--batch-size",
+        nargs="?",
+        type=int,
+        default=10,
+        help="Batch size. Default 10",
+    )
+    parser.add_argument(
+        "-n",
+        "--number-rows",
+        nargs="?",
+        type=int,
+        default=None,
+        help="Only execute n rows from the Dataset. Default all rows",
     )
     parser.add_argument("-z", "--zip-file", action="store_true", help="Create zip file")
     parser.add_argument("--debug", action="store_true", help="Create debug file")
 
     # Parse arguments
     args = parser.parse_args()
-    mode = args.mode
-    groq_model = args.groq_model
-    local_model = args.local_model
+    model_name = args.model
     task = args.task
+    batch_size = args.batch_size
+    n_rows = args.number_rows
     zip_file = args.zip_file
     debug = args.debug
 
-    if local_model:
-        tokenizer = AutoTokenizer.from_pretrained(local_model)
+    # Verify arguments
+
+    if not batch_size or batch_size < 0:
+        print(
+            f"Warning: Invalid batch_size value '{batch_size}', changed to default (10)"
+        )
+        batch_size = 10
+
+    if not n_rows and n_rows is not None:
+        print(
+            f"Warning: Invalid number_rows value '{n_rows}', parameter will be ignore"
+        )
+
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForCausalLM.from_pretrained(
-            local_model,
+            model_name,
             device_map="auto",
             pad_token_id=tokenizer.eos_token_id,
             quantization_config=BitsAndBytesConfig(
@@ -284,5 +275,8 @@ if __name__ == "__main__":
             torch_dtype="auto",
             device_map="auto",
         )
+    except OSError as e:
+        print(e)
+        exit(-1)
 
     main()

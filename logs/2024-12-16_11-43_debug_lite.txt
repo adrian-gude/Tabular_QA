@@ -1,0 +1,3747 @@
+Model:Qwen/Qwen2.5-Coder-7B-Instruct
+Accuracy:0.515625
+----------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    spanish_authors = df[df['lang'] == 'es']['author_name'].value_counts()
+    if not spanish_authors.empty:
+        most_favorited_author = spanish_authors.idxmax()
+        most_favorited_author_favorites = df[(df['author_name'] == most_favorited_author) & (df['lang'] == 'es')]['favorites'].sum()
+        total_favorites_spanish = df[df['lang'] == 'es']['favorites'].sum()
+        return most_favorited_author_favorites >= 0.5 * total_favorites_spanish
+    return False
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    max_length_author = df['author_name'].max()
+    main_content_type = df[df['author_name'] == max_length_author]['type'].mode()[0]
+    return main_content_type == 'original'
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']  # Retain original column names
+    # Check if there is any author with zero retweets
+    zero_retweets_author_exists = df['retweets'].eq(0).any()
+    return zero_retweets_author_exists
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['links']
+    return df['links'].eq('[]').any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ["author_name"]
+    return df['author_name'].nunique()
+```
+Response: 20
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    return max(df['text'].str.split().apply(len))
+```
+Response: 49
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    return df['retweets'].sum()
+```
+Response: 2
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['mention_ids']
+    return len(df[df['mention_ids'].isnull() | (df['mention_ids'] == '')])
+```
+Response: 0
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    max_retweets = df['retweets'].max()
+    author_with_max_retweets = df[df['retweets'] == max_retweets]['author_name'].values[0]
+    return author_with_max_retweets
+```
+Response: Manuel
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    max_favorites = df['favorites'].max()
+    most_favorite_post = df[df['favorites'] == max_favorites]
+    return most_favorite_post['lang'].iloc[0]
+```
+Response: es
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    max_words = df['text'].str.split().str.len().idxmax()
+    return df.loc[max_words, 'author_name']
+```
+Response:  🇪🇸 Bearded.LocutusBorg  🇮🇪 🏳️‍🌈
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    return df['type'].mode()[0]
+```
+Response: reply
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    top_3_authors = df.sort_values(by='retweets', ascending=False).head(3)['author_name'].tolist()
+    print(top_3_authors)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['favorites', 'lang']
+    return df.sort_values(by='favorites').head(5)['lang']
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']  # Retain original column names 
+    # The columns used in the solution : ['favorites', 'lang']
+    return df.sort_values(by='favorites').head(5)['lang']
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ["author_name", "text"]
+    df['word_count'] = df['text'].str.split().apply(len)
+    shortest_posts = df.nsmallest(4, 'word_count')
+    return shortest_posts['author_name'].tolist()
+```
+Response: ['Vito!!', 'Albert Navarro', 'JEEVES', 'Leo Tarda']
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    return df['type'].value_counts().head(6)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    return df['type'].value_counts().head(6)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['favorites','retweets']
+    return df.sort_values(by='favorites', ascending=False).head(5)['retweets']
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']  # Retain original column names 
+    # The columns used in the solution : ['favorites','retweets']
+    return df.sort_values(by='favorites', ascending=False).head(5)['retweets']
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    text_lengths = df['text'].str.len()
+    top_3_longest_posts = text_lengths.nlargest(3)
+    return top_3_longest_posts.tolist()
+```
+Response: [280, 233, 230]
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['favorites','retweets']
+    return df.sort_values(by='favorites').head(4)['retweets']
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']  # Retain original column names
+    # The columns used in the solution : ['favorites','retweets']
+    return df.sort_values(by='favorites').head(4)['retweets']
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+sorted_df = df.sort_values(by='word_count')
+shortest_posts = sorted_df.head(6)
+result = shortest_posts['word_count'].tolist()
+```
+```python
+import pandas as pd
+
+# Assuming 'df' is already defined and loaded with the dataset
+df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+sorted_df = df.sort_values(by='word_count')
+shortest_posts = sorted_df.head(6)
+result = shortest_posts['word_count'].tolist()
+```
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ["name"]
+    return 'Pikachu' in df['name'].values
+```
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    return (df['total'] > 700).any()
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']  # Retain original column names
+    return (df['total'] > 700).any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    return df.loc[df['generation'] == 1, 'legendary'].all()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['speed']
+    return (df['speed'] > 150).any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    # The columns used in the solution : ["type1"]
+    unique_types = df['type1'].unique()
+    return len(unique_types)
+```
+Response: 13
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['total']
+    return df['total'].max()
+```
+Response: 618
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['generation']
+    return len(df[df['generation'] == 3])
+```
+Response: 5
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    return df['attack'].mean()
+```
+Response: 84.2
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    max_defense_index = df['defense'].idxmax()
+    return df.loc[max_defense_index, 'type1']
+```
+Response: Water
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    min_speed_pokemon = df.loc[df['speed'].idxmin(), 'name']
+    return min_speed_pokemon
+```
+Response: Whismur
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['type1', 'legendary']
+    return df[df['legendary'] == True]['type1'].mode()[0]
+```
+Response: Dragon
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    max_sp_attack = df['sp_attack'].max()
+    pokemon_with_max_sp_attack = df[df['sp_attack'] == max_sp_attack]['name'].values[0]
+    return pokemon_with_max_sp_attack
+```
+Response: Mega Slowbro
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    top_3_pokemon = df.sort_values(by='total', ascending=False).head(3)
+    print(top_3_pokemon[['name', 'total']])
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    return df[['name', 'hp']].sort_values(by='hp').head(5)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']  # Retain original column names 
+    return df[['name', 'hp']].sort_values(by='hp').head(5)
+```
+Response: __CODE_ERROR__: 'DataFrame' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['type1']
+    top_types = df['type1'].value_counts().head(2)
+    print(top_types)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    return df[(df['generation'] == 2)]['name'].nlargest(6)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    return df[df['generation'] == 2]['name'].nlargest(6)
+```
+Response: __CODE_ERROR__: Cannot use method 'nlargest' with dtype object
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['sp_defense']
+    return df['sp_defense'].nlargest(5)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']  # Retain original column names 
+    # The columns used in the solution : ['sp_defense']
+    return df['sp_defense'].nlargest(5)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    return df.loc[df['legendary'], 'defense'].nsmallest(2)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    return df.loc[df['legendary'], 'defense'].nsmallest(2)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['speed', 'generation']
+    result = df[df['generation'] == 4].nlargest(2,'speed')['speed'].tolist()
+    print(result)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    return df[~df['legendary']]['total'].nsmallest(6)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']  # Retain original column names 
+    return df[~df['legendary']]['total'].nsmallest(6)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientiousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    max_extraversion = df['Extraversion'].max()
+    max_agreeableness = df['Agreeableness'].max()
+    return max_extraversion > max_agreeableness
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    max_openness_profession = df.loc[df['Openness to Change'].idxmax()]['Profession']
+    max_conscientiousness_profession = df.loc[df['Conscientousness'].idxmax()]['Profession']
+    return max_openness_profession == max_conscientiousness_profession
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientiousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    min_emotional_range_profession = df.loc[df['Emotional_Range'].idxmin()]['Profession']
+    min_conversation_level = df['Conversation'].min()
+    return df[(df['Profession'] == min_emotional_range_profession) & (df['Conversation'] == min_conversation_level)].shape[0] > 0
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientiousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    avg_openness_to_change = df['Openness to Change'].mean()
+    avg_hedonism = df['Hedonism'].mean()
+    return avg_openness_to_change > avg_hedonism
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    max_self_enhancement = df.groupby('Profession')['Self-enhancement'].max()
+    return max_self_enhancement.max()
+```
+Response: 0.6291001325102317
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Emotional_Range', 'Profession']
+    return len(df[df['Emotional_Range'] > 0.5]['Profession'].unique())
+```
+Response: 18
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    max_n_profession = df.loc[df['n'].idxmax(), 'Profession']
+    avg_extraversion = df[df['Profession'] == max_n_profession]['Extraversion'].mean()
+    return avg_extraversion
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']  # Retain original column names 
+    max_n_profession = df.loc[df['n'].idxmax(), 'Profession']
+    avg_extraversion = df[df['Profession'] == max_n_profession]['Extraversion'].mean()
+    return avg_extraversion
+```
+Response: 0.3521943338191243
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Self-transcendence']
+    return df['Self-transcendence'].min()
+```
+Response: 0.0355792960526332
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    max_conscientiousness = df['Conscientousness'].max()
+    profession_with_max_conscientiousness = df.loc[df['Conscientousness'] == max_conscientiousness, 'Profession'].values[0]
+    return profession_with_max_conscientiousness
+```
+Response: U.S. Representative
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    return df.loc[df['Hedonism'].idxmin(), 'Profession']
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']  # Retain original column names 
+    return df.loc[df['Hedonism'].idxmin(), 'Profession']
+```
+Response: U.S. Representative
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Emotional_Range', 'Profession']
+    max_emotion_profession = df.loc[df['Emotional_Range'].idxmax(), 'Profession']
+    return max_emotion_profession
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientiousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']  # Retain original column names 
+    # The columns used in the solution : ['Emotional_Range', 'Profession']
+    max_emotion_profession = df.loc[df['Emotional_Range'].idxmax(), 'Profession']
+    return max_emotion_profession
+```
+Response: U.S. Representative
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Profession', 'n']
+    return df['Profession'][df['n'].idxmax()]
+```
+Response: Data Analyst
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Emotional_Range', 'Conscientiousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    return df.groupby('Profession')['Openness'].sum().nlargest(3)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Emotional_Range', 'Conscientiousness', 'Self_transcendence', 'Openness_to_Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    return df.groupby('Profession')['Openness_to_Change'].sum().nlargest(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    bottom_4_professions = df.sort_values(by='Agreeableness').head(4)['Profession'].tolist()
+    print(bottom_4_professions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Profession', 'Conversation']
+    top_5_professions = df[['Profession', 'Conversation']].sort_values(by='Conversation', ascending=False).head(5)
+    print(top_5_professions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    bottom_2_professions = df.sort_values(by='Self-enhancement').head(2)['Profession'].tolist()
+    print(bottom_2_professions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Openness to Change', 'Profession']
+    top_3_openness_to_change = df.groupby('Profession')['Openness to Change'].mean().nlargest(3)
+    return top_3_openness_to_change
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Openness to Change', 'Profession']
+    top_3_openness_to_change = df.groupby('Profession')['Openness to Change'].mean().nlargest(3)
+    return top_3_openness_to_change
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Emotional_Range']
+    result = df['Emotional_Range'].nsmallest(4)
+    print(result)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Extraversion']
+    return df['Extraversion'].nlargest(5)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Emotional_Range', 'Conscientiousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Extraversion']
+    return df['Extraversion'].nlargest(5)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Self-transcendence', 'Openness to Change', 'Self-enhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Self-transcendence']
+    lowest_6_levels = df['Self-transcendence'].nsmallest(6).tolist()
+    print(lowest_6_levels)
+```
+Response: None
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['title']
+    return 'communication' in df['title'].lower()
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']  # Retain original column names 
+    # The columns used in the solution : ['title']
+    return 'communication' in df['title'].str.lower().values
+```
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization']
+    return 'IBM' in df['organization'].values
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']  # Retain original column names 
+    # The columns used in the solution : ['organization']
+    return 'IBM' in df['organization'].values
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']  # Retain original column names
+    # The columns used in the solution: ['abstract']
+    return'software' in df['abstract'].lower()
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']  # Retain original column names
+    # The columns used in the solution: ['abstract']
+    return'software' in df['abstract'].str.lower().values
+```
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    return 'design' in df['type'].values
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']  # Retain original column names 
+    # The columns used in the solution : ['type']
+    return 'design' in df['type'].values
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization']
+    unique_organizations = df['organization'].nunique()
+    return unique_organizations
+```
+Response: 18
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims']
+    return df['num_claims'].mean()
+```
+Response: 17.65
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims']
+    return df['num_claims'].max()
+```
+Response: 41
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    return (df['type'] == 'utility').sum()
+```
+Response: 19
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization', 'num_claims']
+    return df.loc[df['num_claims'].idxmax(), 'organization']
+```
+Response: Samsung Electronics Co., Ltd.
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['kind']
+    return df['kind'].mode()[0]
+```
+Response: B2
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    return df['lang'].unique()[0]
+```
+Response: en
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['graphext_cluster']
+    return df['graphext_cluster'].mode()[0]
+```
+Response: video, display, mobile, content
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    return df['organization'].value_counts().head(3)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    return df['organization'].value_counts().head(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    return df['type'].value_counts().head(2)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    return df['type'].value_counts().head(2)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['kind']
+    top_kinds = df['kind'].value_counts().head(2)
+    print(top_kinds)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    cluster_counts = df['graphext_cluster'].value_counts()
+    least_common_clusters = cluster_counts.nsmallest(2).index.tolist()
+    if len(least_common_clusters) == 1:
+        least_common_clusters.append(cluster_counts.idxmin())
+    least_common_clusters.sort(reverse=True)
+    return least_common_clusters[:2]
+```
+Response: ['light, optical, electrode, waveguide', 'layer, semiconductor, region, gate']
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims']
+    top_4_claims = df['num_claims'].nlargest(4)
+    print(top_4_claims)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    top_patents = df.sort_values(by='num_claims', ascending=False).head(3)['id'].tolist()
+    print(top_patents)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ["kind", "num_claims"]
+    medians = df[df['kind'].isin(['B2', 'S1'])].groupby('kind')['num_claims'].median().tolist()
+    print(medians)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    sorted_df = df.sort_values(by='date', ascending=False)
+    top_3_patents = sorted_df['id'].head(3)
+    print(top_3_patents)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    max_followers = df['user_followers_count'].max()
+    most_followed_author = df[df['user_followers_count'] == max_followers]
+    is_verified = most_followed_author['user_verified'].values[0]
+    
+    return is_verified
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id<gx:category>', 'author_id<gx:category>', 'author_name<gx:category>', 'author_handler<gx:category>', 'author_avatar<gx:url>', 'user_created_at<gx:date>', 'user_description<gx:text>', 'user_favourites_count<gx:number>', 'user_followers_count<gx:number>', 'user_following_count<gx:number>', 'user_listed_count<gx:number>', 'user_tweets_count<gx:number>', 'user_verified<gx:boolean>', 'user_location<gx:text>', 'lang<gx:category>', 'type<gx:category>', 'text<gx:text>', 'date<gx:date>','mention_ids<gx:list[category]>','mention_names<gx:list[category]>','retweets<gx:number>', 'favorites<gx:number>','replies<gx:number>', 'quotes<gx:number>', 'links<gx:list[url]>', 'links_first<gx:url>', 'image_links<gx:list[url]>', 'image_links_first<gx:url>', 'rp_user_id<gx:category>', 'rp_user_name<gx:category>', 'location<gx:text>', 'tweet_link<gx:url>','source<gx:text>','search<gx:category>'] # Retain original column names 
+    max_favorites_author = df.loc[df['user_favourites_count'].idxmax(), 'author_id<gx:category>']
+    max_retweets_author = df.loc[df['retweets'].idxmax(), 'author_id<gx:category>']
+    return max_favorites_author == max_retweets_author
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    max_favorites_author = df.loc[df['user_favourites_count'].idxmax(), 'author_id']
+    max_retweets_author = df.loc[df['retweets'].idxmax(), 'author_id']
+    return max_favorites_author == max_retweets_author
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    mention_counts = df['mention_ids'].explode().value_counts()
+    most_mentioned_user = mention_counts.idxmax()
+    most_retweeted_mentioned_user = df[df['mention_ids'].str.contains(most_mentioned_user)]['retweets'].sum() > 0
+    
+    return most_mentioned_user == most_retweeted_mentioned_user
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    mention_counts = df['mention_ids'].explode().value_counts()
+    most_mentioned_user = mention_counts.idxmax()
+    most_retweeted_mentioned_user = df[df['mention_ids'].str.contains(most_mentioned_user, na=False)]['retweets'].sum() > 0
+    
+    return most_mentioned_user == most_retweeted_mentioned_user
+```
+Response: __CODE_ERROR__: unterminated character set at position 0
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id<gx:category>', 'author_id<gx:category>', 'author_name<gx:category>', 'author_handler<gx:category>', 'author_avatar<gx:url>', 'user_created_at<gx:date>', 'user_description<gx:text>', 'user_favourites_count<gx:number>', 'user_followers_count<gx:number>', 'user_following_count<gx:number>', 'user_listed_count<gx:number>', 'user_tweets_count<gx:number>', 'user_verified<gx:boolean>', 'user_location<gx:text>', 'lang<gx:category>', 'type<gx:category>', 'text<gx:text>', 'date<gx:date>','mention_ids<gx:list[category]>','mention_names<gx:list[category]>','retweets<gx:number>', 'favorites<gx:number>','replies<gx:number>', 'quotes<gx:number>', 'links<gx:list[url]>', 'links_first<gx:url>', 'image_links<gx:list[url]>', 'image_links_first<gx:url>', 'rp_user_id<gx:category>', 'rp_user_name<gx:category>', 'location<gx:text>', 'tweet_link<gx:url>','source<gx:text>','search<gx:category>'] # Retain original column names 
+    max_retweets_author = df['author_id'][df['retweets'].idxmax()]
+    max_replies_author = df['author_id'][df['replies'].idxmax()]
+    return max_retweets_author == max_replies_author
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    max_retweets_author = df['author_id'][df['retweets'].idxmax()]
+    max_replies_author = df['author_id'][df['replies'].idxmax()]
+    return max_retweets_author == max_replies_author
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df['user_followers_count'].max()
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    return df['user_followers_count'].max()
+```
+Response: __CODE_ERROR__: 'user_followers_count'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['author_id', 'favorites']
+    return df[df['favorites'] > 10000]['author_id'].nunique()
+```
+Response: 1
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    # The columns used in the solution : ['retweets']
+    return df['retweets'].max()
+```
+Response: 50625
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    mention_counts = df['mention_ids'].explode().value_counts()
+    if not mention_counts.empty:
+        return mention_counts.max()
+    else:
+        return 0
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    mention_counts = df['mention_ids'].explode().value_counts()
+    if not mention_counts.empty:
+        return mention_counts.max()
+    else:
+        return 0
+```
+Response: __CODE_ERROR__: 'mention_ids'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id<gx:category>', 'author_id<gx:category>', 'author_name<gx:category>', 'author_handler<gx:category>', 'author_avatar<gx:url>', 'user_created_at<gx:date>', 'user_description<gx:text>', 'user_favourites_count<gx:number>', 'user_followers_count<gx:number>', 'user_following_count<gx:number>', 'user_listed_count<gx:number>', 'user_tweets_count<gx:number>', 'user_verified<gx:boolean>', 'user_location<gx:text>', 'lang<gx:category>', 'type<gx:category>', 'text<gx:text>', 'date<gx:date>','mention_ids<gx:list[category]>','mention_names<gx:list[category]>','retweets<gx:number>', 'favorites<gx:number>','replies<gx:number>', 'quotes<gx:number>', 'links<gx:list[url]>', 'links_first<gx:url>', 'image_links<gx:list[url]>', 'image_links_first<gx:url>', 'rp_user_id<gx:category>', 'rp_user_name<gx:category>', 'location<gx:text>', 'tweet_link<gx:url>','source<gx:text>','search<gx:category>'] # Retain original column names 
+    max_followers = df['user_followers_count<gx:number>'].max()
+    author_with_max_followers = df[df['user_followers_count<gx:number>'] == max_followers]['author_name<gx:category>'].values[0]
+    return author_with_max_followers
+```
+Response: Joe Biden
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id<gx:category>', 'author_id<gx:category>', 'author_name<gx:category>', 'author_handler<gx:category>', 'author_avatar<gx:url>', 'user_created_at<gx:date>', 'user_description<gx:text>', 'user_favourites_count<gx:number>', 'user_followers_count<gx:number>', 'user_following_count<gx:number>', 'user_listed_count<gx:number>', 'user_tweets_count<gx:number>', 'user_verified<gx:boolean>', 'user_location<gx:text>', 'lang<gx:category>', 'type<gx:category>', 'text<gx:text>', 'date<gx:date>','mention_ids<gx:list[category]>','mention_names<gx:list[category]>','retweets<gx:number>', 'favorites<gx:number>','replies<gx:number>', 'quotes<gx:number>', 'links<gx:list[url]>', 'links_first<gx:url>', 'image_links<gx:list[url]>', 'image_links_first<gx:url>', 'rp_user_id<gx:category>', 'rp_user_name<gx:category>', 'location<gx:text>', 'tweet_link<gx:url>','source<gx:text>','search<gx:category>'] # Retain original column names 
+    max_favorites_author = df.loc[df['user_favourites_count'].idxmax(), 'author_name<gx:category>']
+    return max_favorites_author
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    max_favorites_author = df.loc[df['user_favourites_count'].idxmax(), 'author_name']
+    return max_favorites_author
+```
+Response: Joe Biden
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['author_name']
+    return df['author_name'].mode()[0]
+```
+Response: Joe Biden
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id<gx:category>', 'author_id<gx:category>', 'author_name<gx:category>', 'author_handler<gx:category>', 'author_avatar<gx:url>', 'user_created_at<gx:date>', 'user_description<gx:text>', 'user_favourites_count<gx:number>', 'user_followers_count<gx:number>', 'user_following_count<gx:number>', 'user_listed_count<gx:number>', 'user_tweets_count<gx:number>', 'user_verified<gx:boolean>', 'user_location<gx:text>', 'lang<gx:category>', 'type<gx:category>', 'text<gx:text>', 'date<gx:date>','mention_ids<gx:list[category]>','mention_names<gx:list[category]>','retweets<gx:number>', 'favorites<gx:number>','replies<gx:number>', 'quotes<gx:number>', 'links<gx:list[url]>', 'links_first<gx:url>', 'image_links<gx:list[url]>', 'image_links_first<gx:url>', 'rp_user_id<gx:category>', 'rp_user_name<gx:category>', 'location<gx:text>', 'tweet_link<gx:url>','source<gx:text>','search<gx:category>'] # Retain original column names 
+    max_retweets_index = df['retweets'].idxmax()
+    author_name = df.at[max_retweets_index, 'author_name<gx:category>']
+    return author_name
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    max_retweets_index = df['retweets'].idxmax()
+    author_name = df.at[max_retweets_index, 'author_name']
+    return author_name
+```
+Response: Joe Biden
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    top_authors = df.sort_values(by='user_followers_count', ascending=False).head(3)
+    return top_authors[['author_name', 'user_followers_count']]
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    top_authors = df.sort_values(by='user_followers_count', ascending=False).head(3)
+    return top_authors[['author_name', 'user_followers_count']]
+```
+Response: __CODE_ERROR__: 'DataFrame' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    top_authors = df[['author_name', 'user_favourites_count']].sort_values(by='user_favourites_count', ascending=False).head(4)
+    return top_authors
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    top_authors = df[['author_name', 'user_favourites_count']].sort_values(by='user_favourites_count', ascending=False).head(4)
+    return top_authors
+```
+Response: __CODE_ERROR__: 'DataFrame' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    mention_counts = df['mention_names'].explode().value_counts()
+    top_4_mentions = mention_counts.head(4)
+    return top_4_mentions
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    mention_counts = df['mention_names'].str.split(',', expand=True).stack().value_counts()
+    top_4_mentions = mention_counts.head(4)
+    return top_4_mentions
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['id<gx:category>', 'author_id<gx:category>', 'author_name<gx:category>', 'author_handler<gx:category>', 'author_avatar<gx:url>', 'user_created_at<gx:date>', 'user_description<gx:text>', 'user_favourites_count<gx:number>', 'user_followers_count<gx:number>', 'user_following_count<gx:number>', 'user_listed_count<gx:number>', 'user_tweets_count<gx:number>', 'user_verified<gx:boolean>', 'user_location<gx:text>', 'lang<gx:category>', 'type<gx:category>', 'text<gx:text>', 'date<gx:date>','mention_ids<gx:list[category]>','mention_names<gx:list[category]>','retweets<gx:number>', 'favorites<gx:number>','replies<gx:number>', 'quotes<gx:number>', 'links<gx:list[url]>', 'links_first<gx:url>', 'image_links<gx:list[url]>', 'image_links_first<gx:url>', 'rp_user_id<gx:category>', 'rp_user_name<gx:category>', 'location<gx:text>', 'tweet_link<gx:url>','source<gx:text>','search<gx:category>'] # Retain original column names 
+    top_authors = df.groupby('author_name<gx:category>').sum()['retweets<gx:number>'].nlargest(2)
+    return top_authors
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    top_authors = df.groupby('author_name').sum()['retweets'].nlargest(2)
+    return top_authors
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['id<gx:category>', 'author_id<gx:category>', 'author_name<gx:category>', 'author_handler<gx:category>', 'author_avatar<gx:url>', 'user_created_at<gx:date>', 'user_description<gx:text>', 'user_favourites_count<gx:number>', 'user_followers_count<gx:number>', 'user_following_count<gx:number>', 'user_listed_count<gx:number>', 'user_tweets_count<gx:number>', 'user_verified<gx:boolean>', 'user_location<gx:text>', 'lang<gx:category>', 'type<gx:category>', 'text<gx:text>', 'date<gx:date>','mention_ids<gx:list[category]>','mention_names<gx:list[category]>','retweets<gx:number>', 'favorites<gx:number>','replies<gx:number>', 'quotes<gx:number>', 'links<gx:list[url]>', 'links_first<gx:url>', 'image_links<gx:list[url]>', 'image_links_first<gx:url>', 'rp_user_id<gx:category>', 'rp_user_name<gx:category>', 'location<gx:text>', 'tweet_link<gx:url>','source<gx:text>','search<gx:category>'] # Retain original column names 
+    top_3_followers = df['user_followers_count<gx:number>'].nlargest(3)
+    print(top_3_followers)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    return df['favorites'].nlargest(3).tolist()
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    return df['favorite'].nlargest(3).tolist()
+```
+Response: __CODE_ERROR__: 'favorite'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    # The columns used in the solution : ['mention_ids']
+    mention_counts = df['mention_ids'].explode().value_counts()
+    top_5_mention_counts = mention_counts.dropna().head(5)
+    print(top_5_mention_counts)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id<gx:category>', 'author_id<gx:category>', 'author_name<gx:category>', 'author_handler<gx:category>', 'author_avatar<gx:url>', 'user_created_at<gx:date>', 'user_description<gx:text>', 'user_favourites_count<gx:number>', 'user_followers_count<gx:number>', 'user_following_count<gx:number>', 'user_listed_count<gx:number>', 'user_tweets_count<gx:number>', 'user_verified<gx:boolean>', 'user_location<gx:text>', 'lang<gx:category>', 'type<gx:category>', 'text<gx:text>', 'date<gx:date>','mention_ids<gx:list[category]>','mention_names<gx:list[category]>','retweets<gx:number>', 'favorites<gx:number>','replies<gx:number>', 'quotes<gx:number>', 'links<gx:list[url]>', 'links_first<gx:url>', 'image_links<gx:list[url]>', 'image_links_first<gx:url>', 'rp_user_id<gx:category>', 'rp_user_name<gx:category>', 'location<gx:text>', 'tweet_link<gx:url>','source<gx:text>','search<gx:category>'] # Retain original column names 
+    return df['retweets'].nlargest(2).tolist()
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    return df['retweets'].nlargest(2).tolist()
+```
+Response: [50625, 13690]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    max_loan_amount_index = df['Loan Amount'].idxmax()
+    max_duration_index = df['Loan Duration - Months'].idxmax()
+    return max_loan_amount_index == max_duration_index
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']  # Retain original column names 
+    max_loan_amount_index = df['Loan Amount'].idxmax()
+    max_duration_index = df['Loan Duration - Months'].idxmax()
+    return max_loan_amount_index == max_duration_index
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    max_existing_loans = df['Number of Existing Loans'].max()
+    max_loan_amount = df.loc[df['Number of Existing Loans'] == max_existing_loans, 'Loan Amount'].max()
+    return df.loc[(df['Number of Existing Loans'] == max_existing_loans) & (df['Loan Amount'] == max_loan_amount)].shape[0] > 0
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    max_duration = df['Loan Duration - Months'].max()
+    max_existing_loans = df['Number of Existing Loans'].max()
+    borrower_with_max_duration = df[df['Loan Duration - Months'] == max_duration]
+    result = (borrower_with_max_duration['Number of Existing Loans'] == max_existing_loans).values[0]
+    return result
+```
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    sorted_df = df.sort_values(by='Age', ascending=False)
+    return sorted_df['Loan Amount'].iloc[0] == sorted_df['Loan Amount'].max()
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']  # Retain original column names 
+    sorted_df = df.sort_values(by='Age', ascending=False)
+    return sorted_df['Loan Amount'].iloc[0] == sorted_df['Loan Amount'].max()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Loan Amount']
+    return df['Loan Amount'].max()
+```
+Response: 8613
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Number of Existing Loans']
+    return (df['Number of Existing Loans'] > 1).sum()
+```
+Response: 7
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ["Loan Duration - Months"]
+    return df['Loan Duration - Months'].max()
+```
+Response: 60
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Age']
+    return (df['Age'] > 50).sum()
+```
+Response: 2
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Purpose of Loan']
+    most_common_purpose = df['Purpose of Loan'].mode()[0]
+    return most_common_purpose
+```
+Response: Radio/TV
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Job']
+    most_common_job = df['Job'].mode()[0]
+    return most_common_job
+```
+Response: Skilled
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Credit History']
+    most_common_credit_history = df['Credit History'].mode()[0]
+    return most_common_credit_history
+```
+Response: Existing Credits Paid Back Duly Till Now
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Savings Account']
+    most_common_savings_account = df['Savings Account'].mode()[0]
+    return most_common_savings_account
+```
+Response: Less than 100 DM
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ["Job", "Loan Amount"]
+    top_jobs = df.sort_values(by='Loan Amount', ascending=False)['Job'].value_counts().head(3)
+    print(top_jobs)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ["Job", "Loan Duration - Months"]
+    return df.groupby('Job')['Loan Duration - Months'].max().nlargest(4)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ["Job", "Loan Duration - Months"]
+    return df.groupby('Job')['Loan Duration - Months'].max().nlargest(4)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Job', 'Number of Existing Loans']
+    top_jobs = df.groupby('Job')['Number of Existing Loans'].sum().nlargest(5).index.tolist()
+    print(top_jobs)
+```
+Response: None
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Job', 'Age']
+    oldest_borrowers = df.nlargest(2, 'Age')
+    print(oldest_borrowers['Job'])
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Job', 'Age']
+    oldest_borrowers = df.nlargest(2, 'Age')
+    print(oldest_borrowers['Job'])
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    top_3_loan_amounts = df['Loan Amount'].nlargest(3)
+    print(top_3_loan_amounts)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ["Loan Duration - Months"]
+    return df['Loan Duration - Months'].value_counts().head(4)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ["Loan Duration - Months"]
+    return df['Loan Duration - Months'].value_counts().head(4)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Number of Existing Loans']
+    max_numbers_of_existing_loans = df['Number of Existing Loans'].nlargest(3).tolist()
+    return max_numbers_of_existing_loans
+```
+Response: [3, 2, 2]
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration - Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Age']
+    top_2_oldest_borrowers_age = df['Age'].nlargest(2).tolist()
+    print(top_2_oldest_borrowers_age)
+```
+Response: None
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    return (df['Calories (kcal)'] == 0).any()
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)']  # Retain original column names
+    return (df['Calories (kcal)'] == 0).any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)']
+    return df['Total Sugar (g)'].any() > 0
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Total Fat (g)']
+    return not df['Total Fat (g)'].any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Protein (g)']
+    return df['Protein (g)'].eq(0).any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)']
+    return len(df[df['Calories (kcal)'] > 500])
+```
+Response: 0
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Total Fat (g)']
+    return df['Total Fat (g)'].mean()
+```
+Response: 0.06386499999999999
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    return len(df[df['Sodium (g)'] > 1])
+```
+Response: 5
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)']
+    return df['Protein (g)'].max()
+```
+Response: 0.2403
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    max_calories = df['Calories (kcal)'].max()
+    return df.loc[df['Calories (kcal)'] == max_calories, 'name'].values[0]
+```
+Response: chocolate bar
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    max_sugar = df['Total Sugar (g)'].max()
+    food_with_max_sugar = df[df['Total Sugar (g)'] == max_sugar]['name'].values[0]
+    return food_with_max_sugar
+```
+Response: chocolate bar
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    min_fat_index = df['Total Fat (g)'].idxmin()
+    return df.loc[min_fat_index, 'name']
+```
+Response: pineapple
+--------------------
+```python
+df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+# The columns used in the solution : ['name', 'Protein (g)']
+max_protein_food = df.loc[df['Protein (g)'].idxmax(), 'name']
+```
+```python
+import pandas as pd
+
+def find_max_protein_food(df):
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)']  # Retain original column names 
+    max_protein_food = df.loc[df['Protein (g)'].idxmax(), 'name']
+    return max_protein_food
+```
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    return df['name'].nlargest(5)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    return df['name'].value_counts().nlargest(5)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Total Sugar (g)', 'name']
+    sorted_df = df.sort_values(by='Total Sugar (g)').head(3)
+    return sorted_df[['name']]
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Total Sugar (g)', 'name']
+    sorted_df = df.sort_values(by='Total Sugar (g)').head(3)
+    return sorted_df[['name']]
+```
+Response: __CODE_ERROR__: 'DataFrame' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Total Fat (g)', 'name']
+    top_fats = df.sort_values(by='Total Fat (g)', ascending=False).head(4)['name']
+    return top_fats
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)']  # Retain original column names
+    # The columns used in the solution : ['Total Fat (g)', 'name']
+    top_fats = df.sort_values(by='Total Fat (g)', ascending=False).head(4)['name']
+    return top_fats
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)']
+    result = df.sort_values(by='Protein (g)').head(6)['name'].tolist()
+    print(result)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ["Calories (kcal)"]
+    top_5_calories = df['Calories (kcal)'].nlargest(5)
+    print(top_5_calories)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Total Sugar (g)']
+    lowest_sugar = df['Total Sugar (g)'].nsmallest(3)
+    print(lowest_sugar)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Total Fat (g)']
+    top_4_fat = df['Total Fat (g)'].nlargest(4)
+    print(top_4_fat)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Protein (g)']
+    return df['Protein (g)'].nsmallest(6)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Calories (kcal)', 'Total Fat (g)', 'name', 'Sodium (g)', 'Protein (g)', 'Total Sugar (g)'] # Retain original column names 
+    # The columns used in the solution : ['Protein (g)']
+    return df['Protein (g)'].nsmallest(6)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['edu']
+    return 'Did not complete primary' in df['edu'].values
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    return df['polInterest'].all()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self-placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis']
+    return 'Not voting' in df['Vote Intention'].values
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self-placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['User self-placement on Left-Right economic values axis']
+    return df['User self-placement on Left-Right economic values axis'].max() == 10
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['User self- placement on Progressive-Conservative economic values axis']
+    return df['User self- placement on Progressive-Conservative economic values axis'].value_counts().get(10, 0)
+```
+Response: 0
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Age']
+    return df['Age'].mean()
+```
+Response: 38.72222222222222
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['It should be more difficult for companies to lay off workers']
+    return df['It should be more difficult for companies to lay off workers'].sum()
+```
+Response: 66.0
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Age', 'gender']
+    max_age = df[df['gender'] == 'Prefer not to say']['Age'].max()
+    return max_age
+```
+Response: nan
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Vote Intention']
+    return df['Vote Intention'].mode()[0]
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis']  # Retain original column names 
+    # The columns used in the solution : ['Vote Intention']
+    return df['Vote Intention'].mode()[0]
+```
+Response: [Ciudadanos]
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['voteReason']
+    return df['voteReason'].mode()[0]
+```
+Response: The party ideas are close to my own
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['partyId']
+    most_common_party = df['partyId'].mode()[0]
+    return most_common_party
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['partyId']
+    most_common_party = df['partyId'].mode()[0]
+    return most_common_party
+```
+Response: Ciudadanos
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    most_common_lang = df['lang'].mode()[0]
+    return most_common_lang
+```
+Response: Castellano
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Vote Intention']
+    return df['Vote Intention'].value_counts().head(5)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Vote Intention']
+    return df['Vote Intention'].value_counts().head(5)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['voteReason']
+    top_3_reasons = df['voteReason'].value_counts().head(3)
+    print(top_3_reasons)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self-placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['partyId']
+    top_3_parties = df['partyId'].mode()[:3]
+    print(top_3_parties)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ["edu"]
+    top_3_edu_levels = df['edu'].value_counts().head(3)
+    print(top_3_edu_levels)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Age']
+    top_ages = df['Age'].mode().tolist()
+    if len(top_ages) < 3:
+        top_ages += [None] * (3 - len(top_ages))
+    print(top_ages[:3])
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['User self-placement on Left-Right economic values axis']
+    top_3_positions = df['User self-placement on Left-Right economic values axis'].value_counts().head(3)
+    print(top_3_positions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis']
+    # The columns used in the solution : ["User self- placement on Progressive-Conservative economic values axis"]
+    top_positions = df['User self- placement on Progressive-Conservative economic values axis'].value_counts().head(4)
+    print(top_positions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self- placement on Progressive-Conservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country (More Descentralization)', 'It should be more difficult for companies to lay off workers', 'User self-placement on Left-Right economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Constitutional organisation of the country (More Descentralization)']
+    top_2_positions = df['Constitutional organisation of the country (More Descentralization)'].value_counts().head(2)
+    print(top_2_positions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Are you registered to vote?']
+    return df['Are you registered to vote?'].isin([0]).any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Did you vote in the 2016 Presidential election? (Four years ago)', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open']
+    return df[(df['Did you vote in the 2016 Presidential election? (Four years ago)'] == 'Yes') & (df['How likely are you to vote in the forthcoming US Presidential election? Early Voting Open'] == 'Not at all')].empty
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Did you vote in the 2016 Presidential election? (Four years ago)', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open']
+    return ((df['Did you vote in the 2016 Presidential election? (Four years ago)'] == 'No') & (df['How likely are you to vote in the forthcoming US Presidential election? Early Voting Open'] > 50)).any()
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Did you vote in the 2016 Presidential election? (Four years ago)', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open']
+    return ((df['Did you vote in the 2016 Presidential election? (Four years ago)'] == 'No') & (pd.to_numeric(df['How likely are you to vote in the forthcoming US Presidential election? Early Voting Open'], errors='coerce') > 50)).any()
+```
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    shifted_voters = df[df['Who did you vote for in the 2016 Presidential election? (Four years ago)']!= df['Who are you most likely to vote for on election day?']]
+    return not shifted_voters.empty
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    shifted_voters = df[df['Who did you vote for in the 2016 Presidential election? (Four years ago)']!= df['Who are you most likely to vote for on election day?']]
+    return not shifted_voters.empty
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Are you registered to vote?']
+    return df['Are you registered to vote?'].sum()
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Are you registered to vote?']
+    return df['Are you registered to vote?'].astype(int).sum()
+```
+Response: __CODE_ERROR__: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Who are you most likely to vote for on election day?', 'likelihood']
+    return df[df['Who are you most likely to vote for on election day?'] == 'Biden']['likelihood'].sum()
+```
+Response: 0.0
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['What is the highest degree or level of school you have *completed*?', 'likelihood']
+    return df[df['What is the highest degree or level of school you have *completed*?'].isin(['High School Diploma', 'Less than High School Diploma'])].shape[0]
+```
+Response: 0
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Division']
+    return len(df[df['Division'] == 'South Atlantic'])
+```
+Response: 4
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['How old are you?']
+    return df['How old are you?'].mode()[0]
+```
+Response: 25-34
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Who are you most likely to vote for on election day?']
+    preferred_choice = df['Who are you most likely to vote for on election day?'].mode()[0]
+    return preferred_choice
+```
+Response: Joe Biden (Democrat)
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    return df['What is the highest degree or level of school you have *completed*?'].mode()[0]
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    return df['What is the highest degree or level of school you have *completed*?'].mode()[0]
+```
+Response: __CODE_ERROR__: 'What is the highest degree or level of school you have *completed*?'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Division']
+    
+    division_counts = df['Division'].value_counts()
+    max_count = division_counts.max()
+    divisions_with_max_count = division_counts[division_counts == max_count].index.tolist()
+    
+    if len(divisions_with_max_count) > 1:
+        divisions_with_max_count.sort(reverse=True)
+        return divisions_with_max_count[0]
+    else:
+        return divisions_with_max_count[0]
+```
+Response: South Atlantic
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['State']
+    return df['State'].value_counts().head(6)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['State']
+    return df['State'].value_counts().head(6)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    profession_counts = df['Which of these best describes the kind of work you do?'].value_counts()
+    top_professions = profession_counts.head(2).index.tolist()
+    top_professions.sort()
+    return top_professions
+```
+Response: ['Education and training', 'Office worker or other professional']
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Which of the following best describes your ethnic heritage?']
+    return df['Which of the following best describes your ethnic heritage?'].value_counts().head(2)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Which of the following best describes your ethnic heritage?']
+    return df['Which of the following best describes your ethnic heritage?'].value_counts().head(2)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['How old are you?']
+    age_counts = df['How old are you?'].value_counts().head(6)
+    print(age_counts)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['County FIPS']
+    top_3_county_codes = df['County FIPS'].nunique()
+    print(top_3_county_codes)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Weight']
+    top_4_weights = df['Weight'].nunique().nlargest(4)
+    print(top_4_weights)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['Weight']
+    top_4_weights = df['Weight'].value_counts().nlargest(4)
+    print(top_4_weights)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['NCHS Urban/rural']
+    top_4_categories = df['NCHS Urban/rural'].value_counts().head(4)
+    print(top_4_categories)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote?', 'Which of the following best describes your ethnic heritage?', 'Who are you most likely to vote for on election day?', 'Division', 'Did you vote in the 2016 Presidential election? (Four years ago)', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election? Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election? (Four years ago)', 'What is the highest degree or level of school you have *completed*?', 'NCHS Urban/rural', 'likelihood', 'Which of these best describes the kind of work you do?', 'How old are you?'] # Retain original column names 
+    # The columns used in the solution : ['likelihood']
+    top_likelihoods = df['likelihood'].value_counts().head(2)
+    print(top_likelihoods)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    return 'Golf' in df['model'].values
+```
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['dealer']
+    return 'Autos Raymara' in df['dealer'].values
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']  # Retain original column names 
+    # The columns used in the solution : ['dealer']
+    return 'Autos Raymara' in df['dealer'].values
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    return 'BMW' in df['version'].values
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['shift']
+    return 'Manual' in df['shift'].values
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ["model"]
+    return df['model'].nunique()
+```
+Response: 19
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ["photos"]
+    return df['photos'].mean()
+```
+Response: 19.1
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    return df['price'].max()
+```
+Response: 61990
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['year']
+    return len(df[df['year'] == 2020])
+```
+Response: 3
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['dealer', 'price']
+    return df.loc[df['price'].idxmax(), 'dealer']
+```
+Response: automotorDURSAN.com A
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    make_counts = df['make'].value_counts()
+    most_common_make = make_counts.idxmax()
+    if make_counts.max() > 1:
+        tied_makes = make_counts[make_counts == make_counts.max()].index.tolist()
+        most_common_make = sorted(tied_makes)[0]
+    return most_common_make
+```
+Response: BMW
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    return df['fuel'].mode()[0]
+```
+Response: Diésel
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ["province"]
+    return df['province'].mode()[0]
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']  # Retain original column names 
+    # The columns used in the solution : ["province"]
+    return df['province'].mode()[0]
+```
+Response: Madrid
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    # The columns used in the solution : ["province"]
+    return df['province'].value_counts().head(3)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    # The columns used in the solution : ["province"]
+    return df['province'].value_counts().head(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['color']
+    top_colors = df['color'].value_counts().head(3)
+    print(top_colors)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ["make"]
+    return df['make'].value_counts().head(5)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ["make"]
+    return df['make'].value_counts().head(5)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['fuel']
+    least_common_fuels = df['fuel'].value_counts(ascending=True).head(2)
+    print(least_common_fuels)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['year']
+    return df['year'].value_counts().head(4)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']  # Retain original column names 
+    # The columns used in the solution : ['year']
+    return df['year'].value_counts().head(4)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['kms']
+    top_3_mileages = df['kms'].nlargest(3).tolist()
+    print(top_3_mileages)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ["photos"]
+    top_5_photos = df.nlargest(5, 'photos')
+    print(top_5_photos)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['power']
+    return df['power'].nlargest(6)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['power']
+    return df['power'].nlargest(6)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['Transaction']
+    return df['Transaction'].is_unique
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ["period_day"]
+    return (df['period_day'] == 'Night').any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    return df[df['weekday_weekend'] == 'Weekday']['Item'].nunique() == df['Item'].nunique()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['date_time', 'period_day', 'weekday_weekend']
+    return (df['period_day'] == 'evening') & (df['weekday_weekend'] == 'weekend').any()
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['date_time', 'period_day', 'weekday_weekend']
+    return (df['period_day'] == 'evening') & (df['weekday_weekend'] == 'weekend').any()
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    # The columns used in the solution : ["Item"]
+    return len(df['Item'].unique())
+```
+Response: 12
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    return df['date_time'].nunique()
+```
+Response: 20
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['Transaction']
+    return df['Transaction'].max()
+```
+Response: 9133
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    afternoon_transactions = df[df['period_day'] == 'afternoon']['Transaction'].unique()
+    return len(afternoon_transactions)
+```
+Response: 11
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['period_day', 'Transaction']
+    return df.groupby('period_day')['Transaction'].nunique().idxmax()
+```
+Response: afternoon
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    weekday_data = df[df['weekday_weekend'] == 'Weekday']['Item'].mode()
+    return weekday_data[0]
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    weekday_data = df[df['weekday_weekend'] == 'Weekday']['Item'].mode()
+    return weekday_data[0] if not weekday_data.empty else None
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    weekday_data = df[df['weekday_weekend'] == 'Weekday'].groupby('Item').size().idxmin()
+    return weekday_data
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    weekday_data = df[df['weekday_weekend'] == 'Weekday'].groupby('Item').size().idxmin()
+    if weekday_data.empty:
+        return None
+    return weekday_data
+```
+Response: __CODE_ERROR__: attempt to get argmin of an empty sequence
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    # The columns used in the solution : ['Item', 'period_day']
+    brownie_sales = df[df['Item'] == 'Brownie']['period_day'].value_counts()
+    most_frequent_period = brownie_sales.idxmax()
+    return most_frequent_period
+```
+Response: afternoon
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ["Item", "period_day"]
+    morning_transactions = df[df['period_day'] =='morning']
+    top_items = morning_transactions['Item'].mode().tolist()[:3]
+    print(top_items)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    # Filter transactions during the afternoon
+    afternoon_transactions = df[df['period_day'] == 'afternoon']
+    # Group by Item and sum the Transactions to get the total purchases
+    item_purchases = afternoon_transactions.groupby('Item')['Transaction'].sum()
+    # Get the top 2 most purchased items
+    top_2_items = item_purchases.nlargest(2)
+    print(top_2_items)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    # Filter transactions on weekends
+    weekend_transactions = df[df['weekday_weekend'] == 'Weekend']['Item'].value_counts()
+    # Get the top 2 items with ties sorted alphabetically
+    top_2_items = weekend_transactions.head(2).sort_index()
+    print(top_2_items)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    filtered_df = df[(df['period_day'] == 'Evening') & (df['Transaction'] == 'Buy')]
+    item_counts = filtered_df['Item'].value_counts()
+    items_bought_twice = item_counts[item_counts == 2].index.tolist()
+    return items_bought_twice
+```
+Response: []
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    top_transactions = df.groupby('Transaction')['Item'].count().nlargest(4)
+    print(top_transactions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['Transaction']
+    top_5_transactions = df['Transaction'].nlargest(5)
+    print(top_5_transactions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['Item', 'Transaction']
+    return df[df['Item'] == 'Bread']['Transaction'].nlargest(4)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['Item', 'Transaction']
+    return df[df['Item'] == 'Bread']['Transaction'].nlargest(4)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    morning_transactions = df[df['period_day'] == 'Morning']['Transaction'].nsmallest(2)
+    return morning_transactions
+```
+Response: Series([], Name: Transaction, dtype: int64)
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Reviewer_Location']
+    return all((df['Reviewer_Location'] == 'Australia') & (df['Rating'] > 3))
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    return (df['Branch'] == 'Disneyland_HongKong').sum() > 0
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating']
+    return (df['Rating'] == 1).any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    return df[df['Rating'] == 5]['Reviewer_Location'].nunique() == df['Reviewer_Location'].nunique()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Reviewer_Location']
+    return len(df['Reviewer_Location'].unique())
+```
+Response: 9
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    # The columns used in the solution : ['Rating', 'Branch']
+    return df[df['Branch'] == 'Disneyland_HongKong']['Rating'].mean()
+```
+Response: 4.25
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    max_id = df['Review_ID'].max()
+    return max_id
+```
+Response: 644423763
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Year_Month']
+    return len(df[df['Year_Month'].str.startswith('2019')])
+```
+Response: 2
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Reviewer_Location']
+    return df['Reviewer_Location'].mode()[0]
+```
+Response: United States
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    result = df.groupby('Branch')['Rating'].mean().idxmin()
+    return result
+```
+Response: Disneyland_California
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    # The columns used in the solution : ["Rating", "Year_Month"]
+    most_negative_review = df[df['Rating'] == 1].sort_values(by='Year_Month').head(1)
+    return most_negative_review['Year_Month'].values[0]
+```
+Response: 2011-10
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']  # Retain original column names
+    # Calculate the average rating for each reviewer location
+    avg_ratings = df.groupby('Reviewer_Location')['Rating'].mean()
+    # Sort by average rating in descending order and then by reviewer location in ascending order
+    sorted_locations = avg_ratings.sort_values(by=['Rating', 'Reviewer_Location'], ascending=[False, True])
+    # Get the top location
+    top_location = sorted_locations.index[0]
+    return top_location
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']  # Retain original column names
+    # Calculate the average rating for each reviewer location
+    avg_ratings = df.groupby('Reviewer_Location')['Rating'].mean()
+    # Sort by average rating in descending order and then by reviewer location in ascending order
+    sorted_locations = avg_ratings.sort_values(by='Rating', ascending=False).sort_index(ascending=True)
+    # Get the top location
+    top_location = sorted_locations.index[0]
+    return top_location
+```
+Response: __CODE_ERROR__: Series.sort_values() got an unexpected keyword argument 'by'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Reviewer_Location']
+    return df['Reviewer_Location'].value_counts().head(3)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']  # Retain original column names
+    # The columns used in the solution : ['Reviewer_Location']
+    return df['Reviewer_Location'].value_counts().head(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Branch']
+    bottom_2_branches = df.groupby('Branch')['Rating'].mean().nsmallest(2).index.tolist()
+    print(bottom_2_branches)
+```
+Response: None
+--------------------
+```python
+df['Year_Month'].mode().tolist()
+```
+```python
+import pandas as pd
+
+# Assuming df is already defined and loaded with data
+result = df['Year_Month'].mode().tolist()
+```
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Reviewer_Location']
+    bottom_3_locations = df.groupby('Reviewer_Location')['Rating'].mean().sort_values(ascending=True).head(3)
+    print(bottom_3_locations)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Review_ID']
+    top_5_reviews = df.sort_values(by='Rating', ascending=False).head(5)
+    top_5_review_ids = top_5_reviews['Review_ID'].drop_duplicates().sort_values(ascending=False)
+    return top_5_review_ids
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Review_ID']
+    top_5_reviews = df.sort_values(by='Rating', ascending=False).head(5)
+    top_5_review_ids = top_5_reviews['Review_ID'].drop_duplicates()
+    return top_5_review_ids
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Review_ID']
+    return df.sort_values(by=['Rating', 'Review_ID']).head(4)['Review_ID']
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']  # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Review_ID']
+    return df.sort_values(by=['Rating', 'Review_ID']).head(4)['Review_ID']
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Reviewer_Location']
+    return df.loc[df['Reviewer_Location'] == 'Australia', 'Rating'].nlargest(3)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Reviewer_Location']
+    return df.loc[df['Reviewer_Location'] == 'Australia', 'Rating'].nlargest(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating']
+    lowest_ratings = df[df['Branch'] == 'Disneyland_HongKong']['Rating'].nsmallest(2)
+    print(lowest_ratings)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    return (df['lang'] == 'en').all()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    return (df['retweets'] > 0).any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    return (df['retweets'] > 10000).any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ["favorites"]
+    return (df['favorites'] > 50000).any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ["author_name"]
+    return len(df['author_name'].unique())
+```
+Response: 1
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    return df['retweets'].mean()
+```
+Response: 8111.15
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    return df['favorites'].max()
+```
+Response: 105448
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    return df[df['date'].str.contains(r'\b2018\b')].shape[0]
+```
+Response: 2
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['author_name']
+    return df['author_name'].mode()[0]
+```
+Response: Donald J. Trump
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    max_favorites_index = df['favorites'].idxmax()
+    return df.loc[max_favorites_index, 'text']
+```
+Response: I have great confidence that China will properly deal with North Korea. If they are unable to do so, the U.S., with its allies, will! U.S.A.
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    max_retweets = df['retweets'].max()
+    most_retweeted_tweet = df[df['retweets'] == max_retweets]
+    return most_retweeted_tweet['lang'].values[0]
+```
+Response: en
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ["lang"]
+    return df['lang'].mode()[0]
+```
+Response: en
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    return df['author_handler'].value_counts().head(3)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']  # Retain original column names 
+    return df['author_handler'].value_counts().head(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    lang_counts = df['lang'].value_counts()
+    bottom_2_langs = lang_counts.nsmallest(2)
+    if len(bottom_2_langs) > 1:
+        bottom_2_langs = bottom_2_langs[bottom_2_langs.index.str.startswith('p')]
+    return bottom_2_langs
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    lang_counts = df['lang'].value_counts()
+    bottom_2_langs = lang_counts.nsmallest(2)
+    if len(bottom_2_langs) > 1:
+        bottom_2_langs = bottom_2_langs[bottom_2_langs.index.str.startswith('p')]
+    return bottom_2_langs
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    mention_counts = df['mention_names'].str.split(',', expand=True).stack().value_counts()
+    top_4_mentions = mention_counts.head(4)
+    print(top_4_mentions)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    return df['author_name'].value_counts().tail(3)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    return df['author_name'].value_counts().tail(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    return df['id'].nlargest(5)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']  # Retain original column names
+    return df['id'].nlargest(5)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['id', 'favorites']
+    bottom_4_ids = df.nsmallest(4, 'favorites')['id'].tolist()
+    print(bottom_4_ids)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['favorites']
+    top_favorites = df['favorites'].nlargest(6)
+    print(top_favorites)
+```
+Response: None
+--------------------
+```python
+df['retweets'].nsmallest(3)
+```
+```python
+import pandas as pd
+
+# Assuming df is already defined and loaded with data
+result = df['retweets'].nsmallest(3)
+result
+```
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['is_organization']
+    return df['is_organization'].any()
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']  # Retain original column names 
+    # The columns used in the solution : ['is_organization']
+    return df['is_organization'].any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['is_organization']
+    return df['is_organization'].eq(False).any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['pic']
+    return df['pic'].notnull().all()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight']
+    return (df['weight'] > 500).any()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['community']
+    return len(df['community'].unique())
+```
+Response: 6
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['page_rank_norm']
+    return df['page_rank_norm'].mean()
+```
+Response: 0.0923955552240227
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    return df['weight'].max()
+```
+Response: 324.5
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['community']
+    return df[df['community'] == 16744206].shape[0]
+```
+Response: 11
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name']
+    most_common_name = df['name'].mode()[0]
+    return most_common_name
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']  # Retain original column names 
+    # The columns used in the solution : ['name']
+    most_common_name = df['name'].mode()[0]
+    return most_common_name
+```
+Response: Alberto Perdomo
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    max_page_rank_norm = df['page_rank_norm'].max()
+    entity_with_max_page_rank_norm = df[df['page_rank_norm'] == max_page_rank_norm]['name'].values[0]
+    return entity_with_max_page_rank_norm
+```
+Response: Data Science Fact
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    max_weight_index = df['weight'].idxmax()
+    return df.at[max_weight_index, 'pic']
+```
+Response: https://storage.googleapis.com/pics.contexto.io/photos/paperclips/000/016/416/thumb/8f8493dfc040e56ef7ff8f59f9474774_normal.jpeg?1517502015
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    max_y_index = df['y'].idxmax()
+    return df.loc[max_y_index, 'name']
+```
+Response: Paul Klemm
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    return df.sort_values(by='weight', ascending=False)['name'].head(3)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']  # Retain original column names 
+    return df.sort_values(by='weight', ascending=False)['name'].head(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['page_rank_norm']
+    bottom_2_entities = df.sort_values(by='page_rank_norm').head(2)
+    print(bottom_2_entities[['name', 'page_rank_norm']])
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    return df.nlargest(4, 'x')
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']  # Retain original column names 
+    return df.nlargest(4, 'x')
+```
+Response: __CODE_ERROR__: 'DataFrame' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['y']
+    return df.sort_values(by='y').head(3)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.DataFrame:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['y']
+    return df.sort_values(by='y').head(3)
+```
+Response: __CODE_ERROR__: 'DataFrame' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['id', 'weight']
+    return df.sort_values(by='weight', ascending=False).head(5)['id']
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['id', 'weight']
+    return df.sort_values(by='weight', ascending=False).head(5)['id']
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['id', 'page_rank_norm']
+    return df.sort_values(by='page_rank_norm').head(4)['id']
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']  # Retain original column names 
+    # The columns used in the solution : ['id', 'page_rank_norm']
+    return df.sort_values(by='page_rank_norm').head(4)['id']
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    top_6_page_rank_norms = df['page_rank_norm'].nlargest(6)
+    print(top_6_page_rank_norms)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight']
+    return df['weight'].nsmallest(3)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight']
+    return df['weight'].nsmallest(3)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    return df['feathers'].any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    return df['venomous'].any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    return df['breathes'].all()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['domestic']
+    return df['domestic'].any()
+```
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    # The columns used in the solution : ['class_type']
+    return len(df['class_type'].unique())
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    # The columns used in the solution : ['class_type']
+    return len(df['class_type'].unique())
+```
+Response: 5
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    return df['legs'].mean()
+```
+Response: 3.1
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    max_legs = df['legs'].max()
+    return max_legs
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']  # Retain original column names 
+    # The columns used in the solution : ['legs']
+    max_legs = df['legs'].max()
+    return max_legs
+```
+Response: 6
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    return len(df[df['legs'] == 2])
+```
+Response: 4
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ["class_type"]
+    return df['class_type'].mode()[0]
+```
+Response: 1
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ["animal_name", "legs"]
+    return df.loc[df['legs'] == 8, 'animal_name'].iloc[0]
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ["animal_name", "legs"]
+    return df.loc[df['legs'] == 8, 'animal_name'].values[0]
+```
+Response: __CODE_ERROR__: index 0 is out of bounds for axis 0 with size 0
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    max_legs = df['legs'].max()
+    result = df.loc[df['legs'] == max_legs, 'class_type'].values[0]
+    return result
+```
+Response: 6
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    return df.loc[df['venomous'] == True, 'animal_name'].iloc[0]
+```
+Response: honeybee
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    # Sort by 'legs' in descending order and then by 'animal_name' in ascending order
+    sorted_df = df.sort_values(by=['legs', 'animal_name'], ascending=[False, True])
+    # Get the top 3 animal names
+    top_3_animals = sorted_df['animal_name'].head(3).tolist()
+    return top_3_animals
+```
+Response: ['gnat', 'honeybee', 'wasp']
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs', 'animal_name']
+    sorted_df = df.sort_values(by='legs').head(2)
+    if len(sorted_df) > 1 and sorted_df['legs'].nunique() == 1:
+        sorted_df = sorted_df.sort_values(by='animal_name')
+    return sorted_df['animal_name'].tail(2)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']  # Retain original column names 
+    # The columns used in the solution : ['legs', 'animal_name']
+    sorted_df = df.sort_values(by='legs').head(2)
+    if len(sorted_df) > 1 and sorted_df['legs'].nunique() == 1:
+        sorted_df = sorted_df.sort_values(by='animal_name')
+    return sorted_df['animal_name'].tail(2)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['class_type']
+    result = df['class_type'].value_counts().head(4)
+    print(result)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['class_type']
+    result = df['class_type'].value_counts(ascending=True).head(3)
+    print(result)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    grouped = df.groupby('class_type')['legs'].sum().sort_values(ascending=False)
+    return grouped.head(5)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    grouped = df.groupby('class_type')['legs'].sum().sort_values(ascending=False)
+    return grouped.head(5)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs', 'class_type']
+    return df.groupby('class_type')['legs'].sum().nsmallest(4)
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs', 'class_type']
+    return df.groupby('class_type')['legs'].sum().nlargest(4)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    most_common_legs = df['legs'].value_counts().head(4)
+    print(most_common_legs)
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']  # Retain original column names 
+    # The columns used in the solution : ['legs']
+    most_common_legs = df['legs'].value_counts().head(4)
+    print(most_common_legs)
+```
+Response: None
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    least_common_legs = df['legs'].value_counts(ascending=True).head(3)
+    print(least_common_legs)
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']  # Retain original column names 
+    # The columns used in the solution : ['legs']
+    least_common_legs = df['legs'].value_counts(ascending=True).head(3)
+    print(least_common_legs)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    return (df['Quantity'] > 0).all()
+```
+Response: False
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    return (df['UnitPrice'] > 0).all()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    # Check if there are any missing customer IDs
+    return df['CustomerID'].isnull().any()
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    return 'United Kingdom' in df['Country'].values
+```
+Response: True
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['StockCode']
+    return len(df['StockCode'].unique())
+```
+Response: 20
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ["UnitPrice"]
+    return df['UnitPrice'].mean()
+```
+Response: 3.5410000000000004
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Quantity']
+    return df['Quantity'].max()
+```
+Response: 25
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country', 'InvoiceNo']
+    return df[df['Country'] == 'United Kingdom'].shape[0]
+```
+Response: 19
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country']
+    return df['Country'].mode()[0]
+```
+Response: United Kingdom
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    max_unit_price = df['UnitPrice'].max()
+    description = df[df['UnitPrice'] == max_unit_price]['Description'].values[0]
+    return description
+```
+Response: RETROSPOT LAMP
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    max_quantity = df['Quantity'].max()
+    description = df[df['Quantity'] == max_quantity]['Description'].values[0]
+    return description
+```
+Response: BLUE POLKADOT WRAP
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country', 'CustomerID']
+    return df.loc[df['CustomerID'].idxmin(), 'Country']
+```
+Response: Australia
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    top_3_items = df.nlargest(3, 'Quantity')[['Description']]
+    print(top_3_items)
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']  # Retain original column names
+    top_3_items = df.nlargest(3, 'Quantity')[['Description']]
+    print(top_3_items)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    sorted_df = df.sort_values(by=['Quantity', 'Description']).head(2)
+    return sorted_df['Description'].tolist()
+```
+Response: ['HANGING METAL STAR LANTERN', 'LARGE CAKE TOWEL CHOCOLATE SPOTS']
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country']
+    top_countries = df['Country'].value_counts().head(2).index.tolist()
+    print(top_countries)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country']
+    return df['Country'].value_counts().tail(2)
+```
+```python
+import pandas as pd
+
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country']
+    return df['Country'].value_counts().tail(2)
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['InvoiceNo', 'Quantity']
+    top_5_invoices = df.nlargest(5, 'Quantity')['InvoiceNo']
+    return top_5_invoices
+```
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> pd.Series:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['InvoiceNo', 'Quantity']
+    top_5_invoices = df.nlargest(5, 'Quantity')['InvoiceNo']
+    return top_5_invoices
+```
+Response: __CODE_ERROR__: 'Series' object has no attribute 'split'
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['StockCode', 'Quantity']
+    result = df.nsmallest(5, 'Quantity')['StockCode'].tolist()
+    print(result)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ["Quantity"]
+    top_quantities = df['Quantity'].value_counts().head(4)
+    print(top_quantities)
+```
+Response: None
+--------------------
+```python
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ["Description"]
+    description_counts = df['Description'].value_counts()
+    most_common_descriptions = description_counts.head(2)
+    repetition_times = most_common_descriptions.sum()
+    print(repetition_times)
+```
+Response: None
+--------------------

@@ -1,11 +1,4 @@
-from tqdm import tqdm
-from transformers import (
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    BitsAndBytesConfig,
-    Pipeline,
-)
-import torch
+from transformers import Pipeline
 
 
 class CodeFixer:

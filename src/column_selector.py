@@ -1,24 +1,15 @@
 from typing import List
 
-from databench_eval.utils import load_sample
-from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_groq import ChatGroq
-from databench_eval import utils
 import pandas as pd
-
-from datasets import Dataset
-
-from tqdm import tqdm
+import torch
+from databench_eval import utils
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
     BitsAndBytesConfig,
-    pipeline,
     Pipeline,
-    BitsAndBytesConfig,
+    pipeline,
 )
-
-import torch
 
 
 class ColumnSelector:
