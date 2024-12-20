@@ -45,7 +45,7 @@ class CodeFixer:
             },
         ]
 
-        outputs = self.pipe(messages, max_new_tokens=512, return_full_text=False)
+        outputs = self.pipe(messages, max_new_tokens=2048, return_full_text=False)
         output = outputs[0]["generated_text"]
         return output
 

@@ -27,71 +27,110 @@ def call_model(prompts):
             {"role": "system", "content": content},
             {"role": "user", "content": question},
         ]
-        outputs = pipe(messages, max_new_tokens=512, return_full_text=False)
+        outputs = pipe(messages, max_new_tokens=2048, return_full_text=False)
         output = outputs[0]["generated_text"]
         results.append(output)
     return results
 
 
-def _format_promt(row: dict, df: pd.DataFrame, selected_columns: pd.Index) -> str:
+def _format_prompt(row: dict, df: pd.DataFrame, selected_columns: pd.Index, columns_unique) -> str:
     """IMPORTANT:
     **Only the question and dataset keys will be available during the actual competition**.
     You can, however, try to predict the answer type or columns used
     with another modeling task if that helps, then use them here.
     """
     question = row["question"]
-    return f"""
-        Role and Context
-        You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
+    
+    if columns_unique is not None:
+        return f"""
+            Role and Context
+            You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
 
-        Task Description:
-        Generate Python code to address a query based on the provided dataset. The output must:
+            Task Description:
+            Generate Python code to address a query based on the provided dataset. The output must:
 
-        - Use the dataset and query as given, avoiding any external assumptions.
-        - Adhere to strict syntax rules for Python, ensuring the code runs flawlessly without external modifications.
-        - Retain the original column names of the dataset in your script.
-        
-        Input Specification
-            dataset: A Pandas DataFrame containing the data to be analyzed.
-            question: A string outlining the specific query.
-        
-        Output Specification
-            Return only the Python code that solves the query in the function, excluding any introductory explanations or comments. The function must:
-                Include all essential imports.
-                Be concise and functional, ensuring the script can be executed without additional modifications.
-                Use the dataset and return a result of type number, categorical value, boolean value, or a list of values.
+            - Use the dataset and query as given, avoiding any external assumptions.
+            - Adhere to strict syntax rules for Python, ensuring the code runs flawlessly without external modifications.
+            - Retain the original column names of the dataset in your script.
+            
+            Input Specification
+                dataset: A Pandas DataFrame containing the data to be analyzed.
+                question: A string outlining the specific query.
+            
+            Output Specification
+                Return only the Python code that solves the query in the function, excluding any introductory explanations or comments. The function must:
+                    Include all essential imports.
+                    Be concise and functional, ensuring the script can be executed without additional modifications.
+                    Use the dataset and return a result of type number, categorical value, boolean value, or a list of values.
 
-        Code Template
-            Below is a reusable code structure for reference:
-            Return only the code inside the function, without any outer indentation.
-            Complete the function with your solution, ensuring the code is functional and concise.
-        
-        import pandas as pd
-        def answer(df: pd.DataFrame) -> None:
-            df.columns = {list(df.columns)} # Retain original column names 
-            # The columns used in the solution : {selected_columns}
-            # Your solution goes here
-            ... 
-            >>>{question}
-        """
+            Code Template
+                Below is a reusable code structure for reference:
+                Return only the code inside the function, without any outer indentation.
+                Complete the function with your solution, ensuring the code is functional and concise.
+            
+            import pandas as pd
+            def answer(df: pd.DataFrame) -> None:
+                df.columns = {list(df.columns)} # Retain original column names 
+                # The columns used in the solution : {selected_columns}
+                # The unique values of the columns used in the solution : {columns_unique}
+                # Your solution goes here
+                ... 
+                >>>{row["question"]}
+            """
+    else:
+        return f"""
+            Role and Context
+            You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
+
+            Task Description:
+            Generate Python code to address a query based on the provided dataset. The output must:
+
+            - Use the dataset and query as given, avoiding any external assumptions.
+            - Adhere to strict syntax rules for Python, ensuring the code runs flawlessly without external modifications.
+            - Retain the original column names of the dataset in your script.
+            
+            Input Specification
+                dataset: A Pandas DataFrame containing the data to be analyzed. 
+                question: A string outlining the specific query.
+            
+            Output Specification
+                Return only the Python code that solves the query in the function, excluding any introductory explanations or comments. The function must:
+                    Include all essential imports.
+                    Be concise and functional, ensuring the script can be executed without additional modifications.
+                    Use the dataset and return a result of type number, string value, boolean value, or a list of values. There are no categorical values in the dataset, so don't use categorical functions or methods.
+
+            Code Template
+                Below is a reusable code structure for reference:
+                Return only the code inside the function, without any outer indentation.
+                Complete the function with your solution, ensuring the code is functional and concise.
+            
+            import pandas as pd
+            def answer(df: pd.DataFrame) -> None:
+                df.columns = {list(df.columns)} # Retain original column names 
+                # The columns used in the solution : {selected_columns}
+                # Your solution goes here
+                ... 
+                >>>{question}
+            """
 
 
 def example_generator(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
     df = utils.load_table(row["dataset"])
-    selected_columns = column_selector.select_relevant_columns(
-        df.columns, row["question"]
-    )
-    return _format_promt(row, df, selected_columns)
+    selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
+    #print("Model response of selected cols:" + selected_columns)
+    columns_unique = column_selector.columns_unique(df, selected_columns)
+    
+    return _format_prompt(row, df, selected_columns, columns_unique)
 
 
 def example_generator_lite(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
     df = utils.load_sample(row["dataset"])
-    selected_columns = column_selector.select_relevant_columns(
-        df.columns, row["question"]
-    )
-    return _format_promt(row, df, selected_columns)
+    selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
+    columns_unique = column_selector.columns_unique(df, selected_columns)
+    
+    return _format_prompt(row, df, selected_columns, columns_unique)
 
 
 def extract_answer_code(response_text):
@@ -129,6 +168,7 @@ def example_postprocess(response: str, dataset: str, loader):
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
+    
     if n_rows:
         qa = Dataset.from_pandas(pd.DataFrame(qa).head(n_rows))
     evaluator = Evaluator(qa=qa)

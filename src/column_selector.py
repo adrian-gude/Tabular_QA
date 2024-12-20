@@ -1,4 +1,5 @@
 from typing import List
+import re
 
 import pandas as pd
 import torch
@@ -28,17 +29,17 @@ class ColumnSelector:
                     Based on the question, analyze the provided column names and determine which ones are likely to contain the information required to answer the question. You only have to answer the question based on the provided column names in the formmating described below.
                 
                     Input Format:
-                        column_names: A list of column names from the dataset.
+                        column_names: A list of column names from the dataset. Each column name is enclosed in single quotes and separated by commas. The column names may contain spaces and special characters.
                         question: A string containing the question to be answered.
 
                     Output Format:
-                        A list of the relevant column names. The output should be a subset of the provided column names.If no columns are relevant, return an empty list. 
+                        A list of the relevant column names. The output should be a subset of the provided column names. Maintain the names EXACTLY as provided, special characters and all, for example < or >. If no columns are relevant, return an empty list. 
                         Only the relevant column names should be returned in list format, without any additional information or formatting.
                         
                     Example:
-                        column_names: ["Name", "Age", "Email", "Purchase Date", "Product"]
-                        question: "Which product was purchased?"
-                        Output: ["Product"]
+                        column_names: ['Name', 'Age', 'Email', 'Purchase Date', 'Product']
+                        question: 'Which product was purchased?'
+                        Output: ['Product']
                     
                     Input:
                         column_names: {column_names}
@@ -54,9 +55,45 @@ class ColumnSelector:
             },
         ]
 
-        outputs = self.pipe(messages, max_new_tokens=512, return_full_text=False)
+        outputs = self.pipe(messages, max_new_tokens=2048, return_full_text=False)
         output = outputs[0]["generated_text"]
         return output
+    
+    
+    def columns_unique(self, df: pd.DataFrame, selected_columns):
+        
+        # selected_columns is given as a string, so we need to convert it to a list of strings. aLlow for the possibility of being denoted by either single or double quotes
+        found_columns = re.findall(r"'(.*?)'", selected_columns)
+        found_columns += re.findall(r'"(.*?)"', selected_columns)
+
+        # Take the columns of the dataframe that are in the selected_columns list
+        try:
+            df = df[found_columns]
+        except KeyError:
+            return None
+
+        # Remove all rows that contain any NaN values
+        df = df.dropna()
+        
+        # Remove all columns that contain anything other than strings
+        df = df.select_dtypes(include="category")
+        
+        # Count all the unique values of the columns
+        counts = [df[col_name].nunique() for col_name in df.columns]
+        # If the column has more than 10 unique values, remove it
+        for i, col_name in enumerate(df.columns):
+            if counts[i] > 10:
+                df = df.drop(col_name, axis=1)
+        
+        # Print all the unique values of the columns
+        result = [df[col_name].unique() for col_name in df.columns]
+        
+        result_str = ""
+        
+        for i, col_name in enumerate(df.columns):
+            result_str += f"Column {col_name} has the following unique values: {result[i]}\n"
+        
+        return result_str
 
 
 def process_row(row, column_selector):
