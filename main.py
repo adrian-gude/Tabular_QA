@@ -162,8 +162,8 @@ def example_postprocess(response: str, dataset: str, loader):
             fixed_code = extract_answer_code(response_fixed)
             result = execute_answer_code(fixed_code, df)
             return (f"{response}\n{response_fixed}", result)
-        except Exception as e:
-            return (f"{response}\n{response_fixed}", f"__CODE_ERROR__: {e}")
+        except Exception as code_error:
+            return (f"{response}\n{response_fixed}", f"__CODE_ERROR__: {code_error}")
 
 
 def main():
