@@ -1,6 +1,6 @@
 accelerate~=1.2.0
 bitsandbytes~=0.45.0
-databench_eval~=2.1.1
+databench_eval~=3.0.1
 pandas~=2.2.3
 protobuf~=5.29.1
 sentencepiece~=0.2.0
