@@ -33,14 +33,16 @@ def call_model(prompts):
     return results
 
 
-def _format_prompt(row: dict, df: pd.DataFrame, selected_columns: pd.Index, columns_unique) -> str:
+def _format_prompt(
+    row: dict, df: pd.DataFrame, selected_columns: pd.Index, columns_unique
+) -> str:
     """IMPORTANT:
     **Only the question and dataset keys will be available during the actual competition**.
     You can, however, try to predict the answer type or columns used
     with another modeling task if that helps, then use them here.
     """
     question = row["question"]
-    
+
     if columns_unique is not None:
         return f"""
             Role and Context
@@ -117,24 +119,29 @@ def _format_prompt(row: dict, df: pd.DataFrame, selected_columns: pd.Index, colu
 def example_generator(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
     df = utils.load_table(row["dataset"])
-    selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
-    #print("Model response of selected cols:" + selected_columns)
+    selected_columns = column_selector.select_relevant_columns(
+        df.columns, row["question"]
+    )
+    # print("Model response of selected cols:" + selected_columns)
     columns_unique = column_selector.columns_unique(df, selected_columns)
-    
+
     return _format_prompt(row, df, selected_columns, columns_unique)
 
 
 def example_generator_lite(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
     df = utils.load_sample(row["dataset"])
-    selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
+    selected_columns = column_selector.select_relevant_columns(
+        df.columns, row["question"]
+    )
     columns_unique = column_selector.columns_unique(df, selected_columns)
-    
+
     return _format_prompt(row, df, selected_columns, columns_unique)
 
 
 def extract_answer_code(response_text):
-    matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", response_text)
+    clean_response = response_text.split("</think>")[1]
+    matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", clean_response)
     if not matches:
         raise ValueError("No function answer definition found in response.")
     code = matches.group(1)
@@ -168,7 +175,7 @@ def example_postprocess(response: str, dataset: str, loader):
 
 def main():
     qa = utils.load_qa(name="semeval", split="dev")
-    
+
     if n_rows:
         qa = Dataset.from_pandas(pd.DataFrame(qa).head(n_rows))
     evaluator = Evaluator(qa=qa)
@@ -192,11 +199,11 @@ def main():
             open(f"{date}_debug.txt", "w", encoding="utf-8") as f2,
         ):
             if debug:
-                f2.write(f"Model:{model_name}\nAccuracy:{accuracy}\n{'-'*10}\n")
+                f2.write(f"Model:{model_name}\nAccuracy:{accuracy}\n{'-' * 10}\n")
             for code, response in responses:
                 f1.write(str(response) + "\n")
                 if debug:
-                    f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
+                    f2.write(f"{code}\nResponse: {str(response)}\n{'-' * 20}\n")
         print("Created predictions.txt")
 
     if task in ["task-2", "all"]:
@@ -218,11 +225,11 @@ def main():
             open(f"{date}_debug_lite.txt", "w", encoding="utf-8") as f2,
         ):
             if debug:
-                f2.write(f"Model:{model_name}\nAccuracy:{accuracy_lite}\n{'-'*10}\n")
+                f2.write(f"Model:{model_name}\nAccuracy:{accuracy_lite}\n{'-' * 10}\n")
             for code, response in responses_lite:
                 f1.write(str(response) + "\n")
                 if debug:
-                    f2.write(f"{code}\nResponse: {str(response)}\n{'-'*20}\n")
+                    f2.write(f"{code}\nResponse: {str(response)}\n{'-' * 20}\n")
         print("Created predictions_lite.txt")
 
     if zip_file:
