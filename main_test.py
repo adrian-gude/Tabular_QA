@@ -5,7 +5,7 @@ import zipfile
 
 import pandas as pd
 import torch
-from databench_eval import Evaluator, Runner, utils
+from databench_eval import Evaluator, Runner
 from datasets import Dataset
 from tqdm import tqdm
 from transformers import (
@@ -18,32 +18,17 @@ from transformers import (
 from src.code_fixer import CodeFixer
 from src.column_selector import ColumnSelector
 
-def clean_column_names(df):
-    """
-    Cleans the column names of a pandas DataFrame by:
-    - Removing emojis.
-    - Removing text enclosed in < > (only text enclosed between them).
-    - Removing Twitter mentions (@somename).
+def load_table(name):
+    return pd.read_parquet(
+        f"./competition/{name}/all.parquet"
+    )
+
+
+def load_sample(name):
+    return pd.read_parquet(
+        f"./competition/{name}/sample.parquet"
+    )
     
-    Args:
-        df (pd.DataFrame): The input pandas DataFrame.
-    
-    Returns:
-        pd.DataFrame: A DataFrame with cleaned column names.
-    """
-    def clean_name(name):
-        # Remove emojis
-        name = re.sub(r'[^\w\s,.<>@]', '', name, flags=re.UNICODE)
-        # Remove text enclosed in < >
-        name = re.sub(r'<[^>]*>', '', name)
-        # Remove Twitter mentions (@somename)
-        name = re.sub(r'@\w+', '', name)
-        # Remove leading and trailing spaces
-        return name.strip()
-    
-    # Rename columns
-    df.columns = [clean_name(col) for col in df.columns]
-    return df
 
 def call_model(prompts):
     results = []
@@ -107,9 +92,7 @@ def _format_prompt(row: dict, df: pd.DataFrame, selected_columns: pd.Index, colu
 
 def example_generator(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
-    df = utils.load_table(row["dataset"])
-    
-    df = clean_column_names(df)
+    df = load_table(row["dataset"])
     
     selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
     #print("Model response of selected cols:" + selected_columns)
@@ -122,9 +105,7 @@ def example_generator(row: dict) -> str:
 
 def example_generator_lite(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
-    df = utils.load_sample(row["dataset"])
-    
-    df = clean_column_names(df)
+    df = load_sample(row["dataset"])
     
     selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
     columns_unique = column_selector.extract_unique_column_values(df, selected_columns)
@@ -152,9 +133,6 @@ def execute_answer_code(code, dataset):
 
 def example_postprocess(response: str, dataset: str, loader):
     df = loader(dataset)
-    
-    df = clean_column_names(df)
-        
     try:
         code = extract_answer_code(response)
         result = execute_answer_code(code, df)
@@ -171,33 +149,32 @@ def example_postprocess(response: str, dataset: str, loader):
 
 
 def main():
-    qa = utils.load_qa(name="semeval", split="dev")
-    
+    #qa = load_qa(name="semeval", split="dev")
+    qa = Dataset.from_pandas(pd.read_csv("competition/test_qa.csv"))
     if n_rows:
-        qa = Dataset.from_pandas(pd.DataFrame(qa).head(n_rows))
-        
-    evaluator = Evaluator(qa=qa)
+        qa = Dataset.from_pandas(pd.read_csv("competition/test_qa.csv").head(n_rows))
+    #evaluator = Evaluator(qa=qa)
     date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     if task in ["task-1", "all"]:
         runner = Runner(
             model_call=call_model,
             prompt_generator=example_generator,
             postprocess=lambda response, dataset: example_postprocess(
-                response, dataset, utils.load_table
+                response, dataset, load_table
             ),
             qa=qa,
             batch_size=batch_size,
         )
         responses = runner.run()
         resp_eval = [str(response) for _, response in responses]
-        accuracy = evaluator.eval(resp_eval)
-        print(f"DataBench accuracy is {accuracy}")  # ~0.16
+        #accuracy = evaluator.eval(resp_eval)
+        #print(f"DataBench accuracy is {accuracy}")  # ~0.16
         with (
             open("predictions.txt", "w", encoding="utf-8") as f1,
             open(f"{date}_debug.txt", "w", encoding="utf-8") as f2,
         ):
-            if debug:
-                f2.write(f"Model:{model_name}\nAccuracy:{accuracy}\n{'-'*10}\n")
+            # if debug:
+            #     f2.write(f"Model:{model_name}\nAccuracy:{accuracy}\n{'-'*10}\n")
             for code, response in responses:
                 f1.write(str(response) + "\n")
                 if debug:
@@ -209,21 +186,21 @@ def main():
             model_call=call_model,
             prompt_generator=example_generator_lite,
             postprocess=lambda response, dataset: example_postprocess(
-                response, dataset, utils.load_sample
+                response, dataset, load_sample
             ),
             qa=qa,
             batch_size=batch_size,
         )
         responses_lite = runner_lite.run()
         resp_eval = [str(response) for _, response in responses_lite]
-        accuracy_lite = evaluator.eval(resp_eval, lite=True)
-        print(f"DataBench_lite accuracy is {accuracy_lite}")  # ~0.08
+        #accuracy_lite = evaluator.eval(resp_eval, lite=True)
+        #print(f"DataBench_lite accuracy is {accuracy_lite}")  # ~0.08
         with (
             open("predictions_lite.txt", "w", encoding="utf-8") as f1,
             open(f"{date}_debug_lite.txt", "w", encoding="utf-8") as f2,
         ):
-            if debug:
-                f2.write(f"Model:{model_name}\nAccuracy:{accuracy_lite}\n{'-'*10}\n")
+            # if debug:
+            #     f2.write(f"Model:{model_name}\nAccuracy:{accuracy_lite}\n{'-'*10}\n")
             for code, response in responses_lite:
                 f1.write(str(response) + "\n")
                 if debug:
