@@ -14,6 +14,7 @@ from transformers import (
     BitsAndBytesConfig,
     pipeline,
 )
+from urllib3.exceptions import ReadTimeoutError
 
 from src.code_fixer import CodeFixer
 from src.column_selector import ColumnSelector
@@ -22,14 +23,15 @@ from src.column_selector import ColumnSelector
 def call_model(prompts):
     results = []
     for p in tqdm(prompts, total=len(prompts), dynamic_ncols=True, position=1):
-        content, question = p.split(">>>")
-        messages = [
-            {"role": "system", "content": content},
-            {"role": "user", "content": question},
-        ]
-        outputs = pipe(messages, max_new_tokens=2048, return_full_text=False)
-        output = outputs[0]["generated_text"]
-        results.append(output)
+        if p:
+            content, question = p.split(">>>")
+            messages = [
+                {"role": "system", "content": content},
+                {"role": "user", "content": question},
+            ]
+            outputs = pipe(messages, max_new_tokens=2048, return_full_text=False)
+            output = outputs[0]["generated_text"]
+            results.append(output)
     return results
 
 
@@ -118,7 +120,10 @@ def _format_prompt(
 
 def example_generator(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
-    df = utils.load_table(row["dataset"])
+    try:
+        df = utils.load_table(row["dataset"])
+    except ReadTimeoutError:
+        return None
     selected_columns = column_selector.select_relevant_columns(
         df.columns, row["question"]
     )
@@ -130,7 +135,10 @@ def example_generator(row: dict) -> str:
 
 def example_generator_lite(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
-    df = utils.load_sample(row["dataset"])
+    try:
+        df = utils.load_sample(row["dataset"])
+    except ReadTimeoutError:
+        return None
     selected_columns = column_selector.select_relevant_columns(
         df.columns, row["question"]
     )
