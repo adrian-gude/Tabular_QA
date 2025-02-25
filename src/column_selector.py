@@ -59,11 +59,9 @@ class ColumnSelector:
         outputs = self.pipe(messages, max_new_tokens=2048, return_full_text=False)
         output = outputs[0]["generated_text"]
         return output
-    
-    
+
     # This function is only called for the selected columns, thus reducing the info passed to the model
     def extract_unique_column_values(self, df: pd.DataFrame, selected_columns):
-        
         # selected_columns is given as a string, so we need to convert it to a list of strings. aLlow for the possibility of being denoted by either single or double quotes
         found_columns = re.findall(r"'(.*?)'", selected_columns)
         found_columns += re.findall(r'"(.*?)"', selected_columns)
@@ -76,35 +74,38 @@ class ColumnSelector:
 
         # Remove all rows that contain any NaN values
         df = df.dropna()
-        
+
         # Remove all columns that contain anything other than strings
         df = df.select_dtypes(include="category")
-        
+
         # Count all the unique values of the columns
         counts = [df[col_name].nunique() for col_name in df.columns]
-        
+
         # If the column has more than 20 unique values, remove it
         for i, col_name in enumerate(df.columns):
             if counts[i] > 20:
                 df = df.drop(col_name, axis=1)
-        
+
         # Print all the unique values of the columns
         result = [df[col_name].unique() for col_name in df.columns]
-        
-        result_str = ""
-        
-        for i, col_name in enumerate(df.columns):
-            result_str += f" # Column {col_name} can have the following values: {result[i]}\n"
-                
-        if result_str != "":
-            result_str = "# The following columns contain a value from the following list :\n" + result_str
-            
-        return result_str
 
+        result_str = ""
+
+        for i, col_name in enumerate(df.columns):
+            result_str += (
+                f" # Column {col_name} can have the following values: {result[i]}\n"
+            )
+
+        if result_str != "":
+            result_str = (
+                "# The following columns contain a value from the following list :\n"
+                + result_str
+            )
+
+        return result_str
 
     # This function is only called for the selected columns, thus reducing the info passed to the model
     def extract_dict_column_values(self, df: pd.DataFrame, selected_columns):
-        
         # selected_columns is given as a string, so we need to convert it to a list of strings. aLlow for the possibility of being denoted by either single or double quotes
         found_columns = re.findall(r"'(.*?)'", selected_columns)
         found_columns += re.findall(r'"(.*?)"', selected_columns)
@@ -118,34 +119,37 @@ class ColumnSelector:
         # Remove all rows that contain any NaN values
         df = df.dropna()
 
-        #convert all columns to string
+        # convert all columns to string
         df = df.astype(str)
-        
+
         # Check for the columns that contain lists by searching if the string starts with a '[' and ends with a ']'. Trim the string to remove any leading or trailing whitespaces before checking
         for i, col_name in enumerate(df.columns):
-            #print(df[col_name])
+            # print(df[col_name])
             try:
-                if df[col_name][0].strip().startswith("{") & df[col_name][0].strip().endswith("}") == False:
+                if (
+                    df[col_name][0].strip().startswith("{")
+                    & df[col_name][0].strip().endswith("}")
+                    is False
+                ):
                     df = df.drop(col_name, axis=1)
-            except (KeyError,IndexError):
+            except (KeyError, IndexError):
                 continue
-        
+
         result_str = ""
-        
+
         # For each column, we have to parse the string to a dictionary. The format of the dictionary is the following: 'key': value, 'key': value, ...
         for i, col_name in enumerate(df.columns):
-            
             column = df[col_name]
-            
+
             # Remove all rows that contain empty dicts
             column = column[column.str.strip() != "{}"]
-            
-            #Get the number of unique values in the column
-            #unique_values = len(column.unique())
+
+            # Get the number of unique values in the column
+            # unique_values = len(column.unique())
             rows = column.shape[0]
-            
+
             keys = set()
-            
+
             for j in range(rows):
                 try:
                     try:
@@ -154,36 +158,38 @@ class ColumnSelector:
                         continue
                 except KeyError:
                     continue
-                
+
                 try:
                     keys.update(dict_str.keys())
                 except AttributeError:
                     continue
-                
-            #print(f"Column {col_name} has {rows} rows and {len(keys)} unique values")
-                    
+
+            # print(f"Column {col_name} has {rows} rows and {len(keys)} unique values")
+
             # If the number of unique values is greater than 25, then we skip the column
             if len(keys) > 25 or len(keys) == 0:
                 continue
-        
+
             result_str += f" # Column {col_name} is made of dictionaries that can contain the following keys: {keys}\n"
-        
+
         if result_str != "":
-            result_str = "# The following columns are dictionaries that can contain the following keys :\n" + result_str
-            
+            result_str = (
+                "# The following columns are dictionaries that can contain the following keys :\n"
+                + result_str
+            )
+
         return result_str
 
-                # The unique values of the columns used in the solution : {columns_unique}
-                # The following columns are lists that can contain the following values: {columns_lists}
-                # The following columns are dictionaries that can contain the following keys : {columns_dicts}
+        # The unique values of the columns used in the solution : {columns_unique}
+        # The following columns are lists that can contain the following values: {columns_lists}
+        # The following columns are dictionaries that can contain the following keys : {columns_dicts}
 
     # This function is only called for the selected columns, thus reducing the info passed to the model
     def extract_list_column_values(self, df: pd.DataFrame, selected_columns):
-        
         # selected_columns is given as a string, so we need to convert it to a list of strings. aLlow for the possibility of being denoted by either single or double quotes
         found_columns = re.findall(r"'(.*?)'", selected_columns)
         found_columns += re.findall(r'"(.*?)"', selected_columns)
-        
+
         # Take the columns of the dataframe that are in the selected_columns list
         try:
             df = df[found_columns]
@@ -193,38 +199,40 @@ class ColumnSelector:
         # Remove all rows that contain any NaN values
         df = df.dropna()
 
-        #convert all columns to string
+        # convert all columns to string
         df = df.astype(str)
-        
+
         # Check for the columns that contain lists by searching if the string starts with a '[' and ends with a ']'. Trim the string to remove any leading or trailing whitespaces before checking
         for i, col_name in enumerate(df.columns):
             try:
-                if df[col_name][0].strip().startswith("[") & df[col_name][0].strip().endswith("]") == False:
+                if (
+                    df[col_name][0].strip().startswith("[")
+                    & df[col_name][0].strip().endswith("]")
+                    is False
+                ):
                     df = df.drop(col_name, axis=1)
-            except (KeyError,IndexError):
+            except (KeyError, IndexError):
                 continue
 
-        
         result_str = "\n"
-        
+
         # For each column, we have to parse the string to a list. The format of the list is the following: ['value', 'value', ...] or ["value", "value", ...] or [value, value, ...] and the separator can be either a comma or a semicolon
         for i, col_name in enumerate(df.columns):
-            
             column = df[col_name]
-            
+
             # Remove all rows that contain empty lists
             column = column[column.str.strip() != "[]"]
-            
-            #Get the number of unique values in the column
-            #unique_values = len(column.unique())
+
+            # Get the number of unique values in the column
+            # unique_values = len(column.unique())
             rows = column.shape[0]
-            
+
             # result list
             values = []
-            
+
             # Check for semicolons in the first 20 rows of the column. This is done to determine if the values are separated by commas or semicolons
             semicolon = False
-            
+
             for j in range(rows):
                 try:
                     if ";" in column.iloc[j]:
@@ -237,32 +245,45 @@ class ColumnSelector:
             if semicolon:
                 for j in range(rows):
                     try:
-                        values += df[col_name].iloc[j].strip().replace("[", "").replace("]", "").split(";")
+                        values += (
+                            df[col_name]
+                            .iloc[j]
+                            .strip()
+                            .replace("[", "")
+                            .replace("]", "")
+                            .split(";")
+                        )
                     except KeyError:
                         continue
             # Values are only separated by commas, and are NOT enclosed in quotes, so we can split the string by commas
             else:
                 for j in range(rows):
                     try:
-                        values += df[col_name].iloc[j].strip().replace("[", "").replace("]", "").split(",")
+                        values += (
+                            df[col_name]
+                            .iloc[j]
+                            .strip()
+                            .replace("[", "")
+                            .replace("]", "")
+                            .split(",")
+                        )
                     except KeyError:
                         continue
-                    
+
             # Remove spaces from the values
             values = [value.strip() for value in values]
             # Remove duplicates from the list of keys
             values = list(set(values))
-            
-            #print(f"Column {col_name} has {rows} rows and {len(values)} unique values")
-                    
+
+            # print(f"Column {col_name} has {rows} rows and {len(values)} unique values")
+
             # If the number of unique values is greater than 25, then we skip the column
             if len(values) > 25 or len(values) == 0:
                 continue
-        
-            result_str += f"Column {col_name} is made of lists that can contain the following elements: {values}\n"
-            
-        return result_str
 
+            result_str += f"Column {col_name} is made of lists that can contain the following elements: {values}\n"
+
+        return result_str
 
 
 def process_row(row, column_selector):
