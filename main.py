@@ -161,8 +161,7 @@ def example_generator_lite(row: dict) -> str:
 
 
 def extract_answer_code(response_text):
-    clean_response = response_text.split("</think>")[1]
-    matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", clean_response)
+    matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", response_text)
     if not matches:
         raise ValueError("No function answer definition found in response.")
     code = matches.group(1)
