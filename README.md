@@ -6,7 +6,7 @@ Question Answering on Tabular Data SemEval 2025 - Task 8
 
 Requires:
 
-- Cuda
+- Cuda 12.4
 
 ```bash
 pip install -r requirements.txt
