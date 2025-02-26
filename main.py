@@ -64,13 +64,56 @@ def call_model(prompts):
     return results
 
 
+# def _format_prompt(
+#     row: dict,
+#     df: pd.DataFrame,
+#     selected_columns: pd.Index,
+#     columns_unique,
+# ) -> str:
+#     """IMPORTANT:
+#     **Only the question and dataset keys will be available during the actual competition**.
+#     You can, however, try to predict the answer type or columns used
+#     with another modeling task if that helps, then use them here.
+#     """
+
+#     return f"""
+#         Role and Context
+#         You are a Python-powered Tabular Data Question-Answering System. Your core expertise lies in understanding tabular datasets and crafting Python scripts to generate precise solutions to user queries.
+
+#         Task Description:
+#         Generate Python code to address a query based on the provided dataset. The output must:
+
+#         - Use the dataset and query as given, avoiding any external assumptions.
+#         - Adhere to strict syntax rules for Python, ensuring the code runs flawlessly without external modifications.
+#         - Retain the original column names of the dataset in your script.
+        
+#         Input Specification
+#             dataset: A Pandas DataFrame containing the data to be analyzed.
+#             question: A string outlining the specific query.
+        
+#         Output Specification
+#             Return only the Python code that solves the query in the function, excluding any introductory explanations or comments. The function must:
+#                 Include all essential imports.
+#                 Be concise and functional, ensuring the script can be executed without additional modifications.
+#                 Use the dataset and return a result of type number, categorical value, boolean value, or a list of values.
+
+#         Code Template
+#             Below is a reusable code structure for reference:
+#             Return only the code inside the function, without any outer indentation.
+#             Complete the function with your solution, ensuring the code is functional and concise.
+        
+#         import pandas as pd
+#         def answer(df: pd.DataFrame) -> None:
+#             df.columns = {list(df.columns)} # Retain original column names 
+#             # The columns used in the solution : {selected_columns}
+#             {columns_unique}
+#             # Your solution goes here
+#             ... 
+#             >>>{row["question"]}
+#         """
 def _format_prompt(
     row: dict,
     df: pd.DataFrame,
-    selected_columns: pd.Index,
-    columns_unique,
-    columns_lists,
-    columns_dicts,
 ) -> str:
     """IMPORTANT:
     **Only the question and dataset keys will be available during the actual competition**.
@@ -107,18 +150,13 @@ def _format_prompt(
         import pandas as pd
         def answer(df: pd.DataFrame) -> None:
             df.columns = {list(df.columns)} # Retain original column names 
-            # The columns used in the solution : {selected_columns}
-            {columns_unique}
-            {columns_lists}
-            {columns_dicts}
             # Your solution goes here
             ... 
             >>>{row["question"]}
         """
 
-
 def example_generator(row: dict) -> str:
-    column_selector = ColumnSelector(pipe)
+    #column_selector = ColumnSelector(pipe)
     try:
         df = utils.load_table(row["dataset"])
     except ReadTimeoutError:
@@ -126,17 +164,12 @@ def example_generator(row: dict) -> str:
 
     df = clean_column_names(df)
 
-    selected_columns = column_selector.select_relevant_columns(
-        df.columns, row["question"]
-    )
+    # selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
     # print("Model response of selected cols:" + selected_columns)
-    columns_unique = column_selector.extract_unique_column_values(df, selected_columns)
-    columns_lists = column_selector.extract_list_column_values(df, selected_columns)
-    columns_dicts = column_selector.extract_dict_column_values(df, selected_columns)
+    # columns_unique = column_selector.extract_unique_column_values(df, selected_columns)
 
-    return _format_prompt(
-        row, df, selected_columns, columns_unique, columns_lists, columns_dicts
-    )
+    # return _format_prompt(row, df, selected_columns, columns_unique)
+    return _format_prompt(row, df)
 
 
 def example_generator_lite(row: dict) -> str:
@@ -152,11 +185,9 @@ def example_generator_lite(row: dict) -> str:
         df.columns, row["question"]
     )
     columns_unique = column_selector.extract_unique_column_values(df, selected_columns)
-    columns_lists = column_selector.extract_list_column_values(df, selected_columns)
-    columns_dicts = column_selector.extract_dict_column_values(df, selected_columns)
 
     return _format_prompt(
-        row, df, selected_columns, columns_unique, columns_lists, columns_dicts
+        row, df, selected_columns, columns_unique
     )
 
 
@@ -182,18 +213,32 @@ def example_postprocess(response: str, dataset: str, loader):
     df = clean_column_names(df)
 
     try:
-        code = extract_answer_code(response)
-        result = execute_answer_code(code, df)
+        # print("-" * 30)
+        # print("Response")
+        # print("-" * 30)
+        # print(response)
+        #code = extract_answer_code(response)
+        # print("-" * 30)
+        # print("Code")
+        # print("-" * 30)
+        # print(code)
+        #result = execute_answer_code(code, df)
+        result = execute_answer_code(response, df)
+        # print("-" * 30)
+        # print("Result")
+        # print("-" * 30)
+        # print(result)
         return (response, result)
     except Exception as e:
-        code_fixer = CodeFixer(pipe)
-        response_fixed = code_fixer.code_fix(response, str(e))
-        try:
-            fixed_code = extract_answer_code(response_fixed)
-            result = execute_answer_code(fixed_code, df)
-            return (f"{response}\n{response_fixed}", result)
-        except Exception as code_error:
-            return (f"{response}\n{response_fixed}", f"__CODE_ERROR__: {code_error}")
+        # code_fixer = CodeFixer(pipe)
+        # response_fixed = code_fixer.code_fix(response, str(e))
+        # try:
+        #     fixed_code = extract_answer_code(response_fixed)
+        #     result = execute_answer_code(fixed_code, df)
+        #     return (f"{response}\n{response_fixed}", result)
+        # except Exception as code_error:
+        #     return (f"{response}\n{response_fixed}", f"__CODE_ERROR__: {code_error}")
+        return (f"{response}\n", f"__CODE_ERROR__: {e}")
 
 
 def main():
