@@ -68,8 +68,9 @@ python main.py -m Qwen/Qwen2.5-Coder-32B-Instruct -z
 
 | Model | Accuracy Task 1 | Accuracy Task 2 |
 | ----- | --------------- |---------------- |
-| [Codestral-22B-v0.1](https://huggingface.co/mistralai/Codestral-22B-v0.1) | 0.65625 | 0.71875 |
-| [Mistral-7B-Instruct-v0.3](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3) | 0.503125 | 0.453125 |
-| [Qwen2.5-Coder-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct) | 0.425 | 0.515625 |
-| [Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct) | **0.7594** | **0.8438** |
-| [Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct) | **0.85** | **0.8438** |
+| [Codestral-22B-v0.1](https://huggingface.co/mistralai/Codestral-22B-v0.1) | 0.6562 | 0.7187 |
+| [Mistral-7B-Instruct-v0.3](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3) | 0.5031 | 0.4531 |
+| [Qwen2.5-Coder-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct) | 0.4250 | 0.5156 |
+| [Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct) | 0.7280 | 0.8090 |
+| [Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct)<br>(CodeFixer + ColumnSelector) | 0.7594 | 0.8438 |
+| [Qwen2.5-Coder-32B-Instruct](https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct)<br>  (CodeFixer + ColumnSelector + FixEnum) | **0.8500** | **0.8438** |
