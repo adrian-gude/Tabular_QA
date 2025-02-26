@@ -21,18 +21,6 @@ from src.column_selector import ColumnSelector
 
 
 def clean_column_names(df):
-    """
-    Cleans the column names of a pandas DataFrame by:
-    - Removing emojis.
-    - Removing text enclosed in < > (only text enclosed between them).
-    - Removing Twitter mentions (@somename).
-
-    Args:
-        df (pd.DataFrame): The input pandas DataFrame.
-
-    Returns:
-        pd.DataFrame: A DataFrame with cleaned column names.
-    """
 
     def clean_name(name):
         # Remove emojis
@@ -69,14 +57,7 @@ def _format_prompt(
     df: pd.DataFrame,
     selected_columns: pd.Index,
     columns_unique,
-    columns_lists,
-    columns_dicts,
 ) -> str:
-    """IMPORTANT:
-    **Only the question and dataset keys will be available during the actual competition**.
-    You can, however, try to predict the answer type or columns used
-    with another modeling task if that helps, then use them here.
-    """
 
     return f"""
         Role and Context
@@ -109,8 +90,6 @@ def _format_prompt(
             df.columns = {list(df.columns)} # Retain original column names 
             # The columns used in the solution : {selected_columns}
             {columns_unique}
-            {columns_lists}
-            {columns_dicts}
             # Your solution goes here
             ... 
             >>>{row["question"]}
@@ -126,17 +105,10 @@ def example_generator(row: dict) -> str:
 
     df = clean_column_names(df)
 
-    selected_columns = column_selector.select_relevant_columns(
-        df.columns, row["question"]
-    )
-    # print("Model response of selected cols:" + selected_columns)
+    selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
     columns_unique = column_selector.extract_unique_column_values(df, selected_columns)
-    columns_lists = column_selector.extract_list_column_values(df, selected_columns)
-    columns_dicts = column_selector.extract_dict_column_values(df, selected_columns)
 
-    return _format_prompt(
-        row, df, selected_columns, columns_unique, columns_lists, columns_dicts
-    )
+    return _format_prompt(row, df, selected_columns, columns_unique)
 
 
 def example_generator_lite(row: dict) -> str:
@@ -148,24 +120,18 @@ def example_generator_lite(row: dict) -> str:
 
     df = clean_column_names(df)
 
-    selected_columns = column_selector.select_relevant_columns(
-        df.columns, row["question"]
-    )
+    selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
     columns_unique = column_selector.extract_unique_column_values(df, selected_columns)
-    columns_lists = column_selector.extract_list_column_values(df, selected_columns)
-    columns_dicts = column_selector.extract_dict_column_values(df, selected_columns)
 
-    return _format_prompt(
-        row, df, selected_columns, columns_unique, columns_lists, columns_dicts
-    )
+    return _format_prompt(row, df, selected_columns, columns_unique)
 
 
-def extract_answer_code(response_text):
-    matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", response_text)
-    if not matches:
-        raise ValueError("No function answer definition found in response.")
-    code = matches.group(1)
-    return code
+# def extract_answer_code(response_text):
+#     matches = re.search(r"(def answer\(df:(.*\n)*)\`\`\`", response_text)
+#     if not matches:
+#         raise ValueError("No function answer definition found in response.")
+#     code = matches.group(1)
+#     return code
 
 
 def execute_answer_code(code, dataset):
@@ -182,15 +148,28 @@ def example_postprocess(response: str, dataset: str, loader):
     df = clean_column_names(df)
 
     try:
-        code = extract_answer_code(response)
-        result = execute_answer_code(code, df)
+        # print("-" * 30)
+        # print("Response")
+        # print("-" * 30)
+        # print(response)
+        #code = extract_answer_code(response)
+        # print("-" * 30)
+        # print("Code")
+        # print("-" * 30)
+        # print(code)
+        #result = execute_answer_code(code, df)
+        result = execute_answer_code(response, df)
+        # print("-" * 30)
+        # print("Result")
+        # print("-" * 30)
+        # print(result)
         return (response, result)
     except Exception as e:
         code_fixer = CodeFixer(pipe)
         response_fixed = code_fixer.code_fix(response, str(e))
         try:
-            fixed_code = extract_answer_code(response_fixed)
-            result = execute_answer_code(fixed_code, df)
+            #fixed_code = extract_answer_code(response_fixed)
+            result = execute_answer_code(response_fixed, df)
             return (f"{response}\n{response_fixed}", result)
         except Exception as code_error:
             return (f"{response}\n{response_fixed}", f"__CODE_ERROR__: {code_error}")
@@ -217,7 +196,7 @@ def main():
         responses = runner.run()
         resp_eval = [str(response) for _, response in responses]
         accuracy = evaluator.eval(resp_eval)
-        print(f"DataBench accuracy is {accuracy}")  # ~0.16
+        print(f"DataBench accuracy is {accuracy}")
         with (
             open("predictions.txt", "w", encoding="utf-8") as f1,
             open(f"{date}_debug.txt", "w", encoding="utf-8") as f2,
@@ -243,7 +222,7 @@ def main():
         responses_lite = runner_lite.run()
         resp_eval = [str(response) for _, response in responses_lite]
         accuracy_lite = evaluator.eval(resp_eval, lite=True)
-        print(f"DataBench_lite accuracy is {accuracy_lite}")  # ~0.08
+        print(f"DataBench_lite accuracy is {accuracy_lite}")
         with (
             open("predictions_lite.txt", "w", encoding="utf-8") as f1,
             open(f"{date}_debug_lite.txt", "w", encoding="utf-8") as f2,

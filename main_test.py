@@ -5,7 +5,7 @@ import zipfile
 
 import pandas as pd
 import torch
-from databench_eval import Evaluator, Runner
+from databench_eval import Runner
 from datasets import Dataset
 from tqdm import tqdm
 from transformers import (
@@ -29,6 +29,21 @@ def load_sample(name):
         f"./competition/{name}/sample.parquet"
     )
     
+def clean_column_names(df):
+
+    def clean_name(name):
+        # Remove emojis
+        name = re.sub(r"[^\w\s,.<>@]", "", name, flags=re.UNICODE)
+        # Remove text enclosed in < >
+        name = re.sub(r"<[^>]*>", "", name)
+        # Remove Twitter mentions (@somename)
+        name = re.sub(r"@\w+", "", name)
+        # Remove leading and trailing spaces
+        return name.strip()
+
+    # Rename columns
+    df.columns = [clean_name(col) for col in df.columns]
+    return df
 
 def call_model(prompts):
     results = []
@@ -44,12 +59,7 @@ def call_model(prompts):
     return results
 
 
-def _format_prompt(row: dict, df: pd.DataFrame, selected_columns: pd.Index, columns_unique, columns_lists, columns_dicts) -> str:
-    """IMPORTANT:
-    **Only the question and dataset keys will be available during the actual competition**.
-    You can, however, try to predict the answer type or columns used
-    with another modeling task if that helps, then use them here.
-    """
+def _format_prompt(row: dict, df: pd.DataFrame, selected_columns: pd.Index, columns_unique) -> str:
     
     return f"""
         Role and Context
@@ -82,8 +92,6 @@ def _format_prompt(row: dict, df: pd.DataFrame, selected_columns: pd.Index, colu
             df.columns = {list(df.columns)} # Retain original column names 
             # The columns used in the solution : {selected_columns}
             {columns_unique}
-            {columns_lists}
-            {columns_dicts}
             # Your solution goes here
             ... 
             >>>{row["question"]}
@@ -92,27 +100,28 @@ def _format_prompt(row: dict, df: pd.DataFrame, selected_columns: pd.Index, colu
 
 def example_generator(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
+
     df = load_table(row["dataset"])
+
+    df = clean_column_names(df)
     
     selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
-    #print("Model response of selected cols:" + selected_columns)
     columns_unique = column_selector.extract_unique_column_values(df, selected_columns)
-    columns_lists = column_selector.extract_list_column_values(df, selected_columns)
-    columns_dicts = column_selector.extract_dict_column_values(df, selected_columns)
     
-    return _format_prompt(row, df, selected_columns, columns_unique, columns_lists, columns_dicts)
+    return _format_prompt(row, df, selected_columns, columns_unique)
 
 
 def example_generator_lite(row: dict) -> str:
     column_selector = ColumnSelector(pipe)
+
     df = load_sample(row["dataset"])
+
+    df = clean_column_names(df)
     
     selected_columns = column_selector.select_relevant_columns(df.columns, row["question"])
     columns_unique = column_selector.extract_unique_column_values(df, selected_columns)
-    columns_lists = column_selector.extract_list_column_values(df, selected_columns)
-    columns_dicts = column_selector.extract_dict_column_values(df, selected_columns)
     
-    return _format_prompt(row, df, selected_columns, columns_unique, columns_lists, columns_dicts)
+    return _format_prompt(row, df, selected_columns, columns_unique)
 
 
 def extract_answer_code(response_text):
@@ -133,16 +142,32 @@ def execute_answer_code(code, dataset):
 
 def example_postprocess(response: str, dataset: str, loader):
     df = loader(dataset)
+    
+    df = clean_column_names(df)
+    
     try:
-        code = extract_answer_code(response)
-        result = execute_answer_code(code, df)
+        # print("-" * 30)
+        # print("Response")
+        # print("-" * 30)
+        # print(response)
+        #code = extract_answer_code(response)
+        # print("-" * 30)
+        # print("Code")
+        # print("-" * 30)
+        # print(code)
+        #result = execute_answer_code(code, df)
+        result = execute_answer_code(response, df)
+        # print("-" * 30)
+        # print("Result")
+        # print("-" * 30)
+        # print(result)
         return (response, result)
     except Exception as e:
         code_fixer = CodeFixer(pipe)
         response_fixed = code_fixer.code_fix(response, str(e))
         try:
-            fixed_code = extract_answer_code(response_fixed)
-            result = execute_answer_code(fixed_code, df)
+            #fixed_code = extract_answer_code(response_fixed)
+            result = execute_answer_code(response_fixed, df)
             return (f"{response}\n{response_fixed}", result)
         except Exception as code_error:
             return (f"{response}\n{response_fixed}", f"__CODE_ERROR__: {code_error}")
@@ -151,8 +176,10 @@ def example_postprocess(response: str, dataset: str, loader):
 def main():
     #qa = load_qa(name="semeval", split="dev")
     qa = Dataset.from_pandas(pd.read_csv("competition/test_qa.csv"))
+    
     if n_rows:
         qa = Dataset.from_pandas(pd.read_csv("competition/test_qa.csv").head(n_rows))
+        
     #evaluator = Evaluator(qa=qa)
     date = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     if task in ["task-1", "all"]:
@@ -166,9 +193,9 @@ def main():
             batch_size=batch_size,
         )
         responses = runner.run()
-        resp_eval = [str(response) for _, response in responses]
+        #resp_eval = [str(response) for _, response in responses]
         #accuracy = evaluator.eval(resp_eval)
-        #print(f"DataBench accuracy is {accuracy}")  # ~0.16
+        #print(f"DataBench accuracy is {accuracy}")
         with (
             open("predictions.txt", "w", encoding="utf-8") as f1,
             open(f"{date}_debug.txt", "w", encoding="utf-8") as f2,
@@ -192,9 +219,9 @@ def main():
             batch_size=batch_size,
         )
         responses_lite = runner_lite.run()
-        resp_eval = [str(response) for _, response in responses_lite]
+        #resp_eval = [str(response) for _, response in responses_lite]
         #accuracy_lite = evaluator.eval(resp_eval, lite=True)
-        #print(f"DataBench_lite accuracy is {accuracy_lite}")  # ~0.08
+        #print(f"DataBench_lite accuracy is {accuracy_lite}")
         with (
             open("predictions_lite.txt", "w", encoding="utf-8") as f1,
             open(f"{date}_debug_lite.txt", "w", encoding="utf-8") as f2,
