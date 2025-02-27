@@ -1,0 +1,3010 @@
+Model:Qwen/Qwen2.5-Coder-32B-Instruct
+Accuracy:0.0
+----------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    most_favorited_author = df.loc[df['favorites'].idxmax(), 'author_name']
+    author_lang_count = df[df['author_name'] == most_favorited_author]['lang'].value_counts()
+    
+    return author_lang_count.idxmax() == 'Spanish'
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    longest_name_author = df.loc[df['author_name'].str.len().idxmax(), 'author_name']
+    author_content_types = df[df['author_name'] == longest_name_author]['type'].value_counts()
+    
+    return author_content_types.idxmax() == 'original'
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    # Check if there's any author with zero retweets for all their posts
+    authors_with_zero_retweets = df.groupby('author_name')['retweets'].sum() == 0
+    return authors_with_zero_retweets.any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['links']
+    
+    return df['links'].eq('').any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    return len(df['author_name'].unique())
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    # Calculate the number of words in each post
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    
+    # Find the maximum word count
+    max_word_count = df['word_count'].max()
+    
+    return max_word_count
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].sum()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['mention_ids']
+    
+    return (df['mention_ids'].isna() | (df['mention_ids'] == '')).sum()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    # Find the index of the row with the maximum retweets
+    max_retweets_index = df['retweets'].idxmax()
+    
+    # Get the author_name of the tweet with the most retweets
+    author_with_most_retweets = df.loc[max_retweets_index, 'author_name']
+    
+    return author_with_most_retweets
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    most_favorited_post = df.loc[df['favorites'].idxmax()]
+    return most_favorited_post['lang']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    max_word_count_author = df.loc[df['word_count'].idxmax(), 'author_name']
+    return max_word_count_author
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    
+    return df['type'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    top_authors = df.sort_values(by='retweets', ascending=False).head(3)['author_name'].tolist()
+    return top_authors
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    # The columns used in the solution : ['favorites', 'lang']
+    
+    least_favorited_posts = df.sort_values(by='favorites').head(5)
+    return least_favorited_posts['lang'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    # Calculate the number of words in each post
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    
+    # Sort by word count and get the top 4 shortest posts
+    shortest_posts = df.sort_values(by='word_count').head(4)
+    
+    # Extract the author names of these posts
+    authors_of_shortest_posts = shortest_posts['author_name'].tolist()
+    
+    return authors_of_shortest_posts
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    
+    return df['type'].value_counts().head(6).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    top_5_favorites = df.sort_values(by='favorites', ascending=False).head(5)
+    return top_5_favorites['retweets'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['text']
+    
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    longest_posts = df.nlargest(3, 'word_count')['word_count'].tolist()
+    return longest_posts
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    return df.sort_values(by='favorites').head(4)['retweets'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['text']
+    
+    # Calculate word counts for each post
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    
+    # Sort by word count and get the 6 shortest posts
+    shortest_posts = df.sort_values(by='word_count').head(6)
+    
+    # Return the word counts of the 6 shortest posts
+    return shortest_posts['word_count'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['name']
+    
+    return 'Pikachu' in df['name'].values
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['total']
+    
+    return (df['total'] > 700).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    return df[df['generation'] == 1]['legendary'].all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['speed']
+    
+    return (df['speed'] > 150).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['type1']
+    
+    return len(df['type1'].unique())
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['total']
+    
+    return df['total'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    return len(df[df['generation'] == 3])
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['attack']
+    
+    return df['attack'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    max_defense_pokemon = df.loc[df['defense'].idxmax()]
+    return max_defense_pokemon['type1']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['speed', 'name']
+    
+    min_speed_pokemon = df.loc[df['speed'].idxmin(), 'name']
+    return min_speed_pokemon
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    # The columns used in the solution : ['type1', 'legendary']
+    
+    result = df[df['legendary'] == True]['type1'].mode()[0]
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['sp_attack', 'name']
+    
+    return df.loc[df['sp_attack'].idxmax(), 'name']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    
+    top_3_pokemon = df.sort_values(by='total', ascending=False).head(3)['name'].tolist()
+    return top_3_pokemon
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['hp', 'name']
+    
+    return df.sort_values(by='hp').head(5)['name'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    
+    type_counts = df['type1'].value_counts()
+    top_2_types = type_counts.head(2).index.tolist()
+    return top_2_types
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['name', 'generation', 'attack']
+    
+    result = df[df['generation'] == 2].sort_values(by='attack', ascending=False).head(6)['name'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['sp_defense']
+    
+    return df['sp_defense'].nlargest(5).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['defense', 'legendary']
+    
+    result = df[df['legendary'] == True].nsmallest(2, 'defense')['defense'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['speed', 'generation']
+    
+    result = df[df['generation'] == 4].nlargest(2,'speed')['speed'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['total', 'legendary', 'name']
+    
+    result = df[df['legendary'] == False].nsmallest(6, 'total')['total'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+
+    return df['Extraversion'].max() > df['Agreeableness'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names
+    
+    profession_max_openness = df.loc[df['Openness'].idxmax()]['Profession']
+    profession_max_conscientousness = df.loc[df['Conscientousness'].idxmax()]['Profession']
+    
+    return profession_max_openness == profession_max_conscientousness
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    min_emotional_range_profession = df.loc[df['Emotional_Range'].idxmin(), 'Profession']
+    min_conversation_level = df.loc[df['Profession'] == min_emotional_range_profession, 'Conversation'].values[0]
+    
+    overall_min_conversation_level = df['Conversation'].min()
+    
+    return min_conversation_level == overall_min_conversation_level
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    avg_openness_to_change = df['Openness to Change'].mean()
+    avg_hedonism = df['Hedonism'].mean()
+    
+    return avg_openness_to_change > avg_hedonism
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    return df['Selfenhancement'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    return len(df[df['Emotional_Range'] > 0.5]['Profession'].unique())
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    profession_with_max_n = df.loc[df['n'].idxmax(), 'Profession']
+    average_extraversion = df[df['Profession'] == profession_with_max_n]['Extraversion'].mean()
+    
+    return average_extraversion
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    return df['Selftranscendence'].min()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    profession_with_highest_conscientiousness = df.loc[df['Conscientousness'].idxmax(), 'Profession']
+    return profession_with_highest_conscientiousness
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    profession_with_lowest_hedonism = df.loc[df['Hedonism'].idxmin(), 'Profession']
+    return profession_with_lowest_hedonism
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    return df.loc[df['Emotional_Range'].idxmax(), 'Profession']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    profession_with_max_n = df.loc[df['n'].idxmax(), 'Profession']
+    return profession_with_max_n
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Profession', 'Openness']
+    
+    top_professions = df.groupby('Profession')['Openness'].mean().nlargest(3).index.tolist()
+    return top_professions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    bottom_4_professions = df.groupby('Profession')['Agreeableness'].mean().nsmallest(4).index.tolist()
+    return bottom_4_professions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Conversation', 'Profession']
+    
+    top_professions = df.groupby('Profession')['Conversation'].mean().nlargest(5).index.tolist()
+    return top_professions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    bottom_2_professions = df[['Profession', 'Selfenhancement']].sort_values(by='Selfenhancement').head(2)['Profession'].tolist()
+    return bottom_2_professions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    top_values = df['Openness to Change'].nlargest(3).tolist()
+    return top_values
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Emotional_Range']
+    
+    return df['Emotional_Range'].nsmallest(4).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    return df['Extraversion'].nlargest(5).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Selftranscendence']
+    
+    return df['Selftranscendence'].nsmallest(6).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['title']
+    
+    return df['title'].str.contains('communication', case=False).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization']
+    
+    return df['organization'].isin(['IBM']).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['abstract']
+    
+    return df['abstract'].str.contains('software', case=False).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']
+    return 'design' in df['type'].values
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization']
+    
+    return df['organization'].nunique()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims']
+    
+    return df['num_claims'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims']
+    
+    return df['num_claims'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    
+    return (df['type'] == 'utility').sum()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']
+    
+    max_claims_organization = df.loc[df['num_claims'].idxmax(), 'organization']
+    return max_claims_organization
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']
+    
+    return df['kind'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    
+    return df['lang'].unique().tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['graphext_cluster']
+    
+    return df['graphext_cluster'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization']
+    
+    result = df['organization'].value_counts().reset_index()
+    result.columns = ['organization', 'count']
+    top_3 = result.sort_values(by=['count', 'organization'], ascending=[False, True]).head(3)
+    return top_3['organization'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    
+    return df['type'].value_counts().head(2).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['kind']
+    
+    kind_counts = df['kind'].value_counts()
+    top_two_kinds = kind_counts.head(2).index.tolist()
+    return top_two_kinds
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['graphext_cluster']
+    
+    cluster_counts = df['graphext_cluster'].value_counts()
+    least_common_clusters = cluster_counts[cluster_counts == cluster_counts.min()]
+    sorted_clusters = least_common_clusters.sort_index(ascending=False)
+    result = sorted_clusters.head(2).index.tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims']
+    
+    return df['num_claims'].nlargest(4).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims', 'id']
+    
+    return df.sort_values(by='num_claims', ascending=False).head(3)['id'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['kind', 'num_claims']
+    
+    median_B2 = df[df['kind'] == 'B2']['num_claims'].median()
+    median_S1 = df[df['kind'] == 'S1']['num_claims'].median()
+    return [median_B2, median_S1]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['date', 'id']
+    
+    return df.sort_values(by='date', ascending=False).head(3)['id'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    max_followers_author = df.loc[df['user_followers_count'].idxmax()]
+    return max_followers_author['user_verified']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    author_with_most_favorites = df.loc[df['user_favourites_count'].idxmax()]['author_id']
+    author_with_most_retweets = df.loc[df['retweets'].idxmax()]['author_id']
+    
+    return author_with_most_favorites == author_with_most_retweets
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    # Split mention_names into lists and flatten
+    mention_names_flat = [name for names in df['mention_names'].str.split(', ') if names for name in names]
+    
+    # Count mentions
+    mention_counts = pd.Series(mention_names_flat).value_counts()
+    
+    # Get the most mentioned user
+    most_mentioned_user = mention_counts.idxmax()
+    
+    # Filter rows where the most mentioned user is in mention_names
+    most_mentioned_user_rows = df[df['mention_names'].str.contains(most_mentioned_user, na=False)]
+    
+    # Sum retweets for the most mentioned user
+    total_retweets_most_mentioned = most_mentioned_user_rows['retweets'].sum()
+    
+    # Sum retweets for all users
+    total_retweets_all_users = df['retweets'].sum()
+    
+    # Find the user with the highest retweets
+    user_with_most_retweets = df.loc[df['retweets'].idxmax(),'mention_names']
+    
+    # Check if the most mentioned user is also the most retweeted mentioned user
+    return most_mentioned_user == user_with_most_retweets
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    author_with_most_retweets = df.loc[df['retweets'].idxmax()]['author_id']
+    author_with_most_replies = df.loc[df['replies'].idxmax()]['author_id']
+    
+    return author_with_most_retweets == author_with_most_replies
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    return df['user_followers_count'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    # Your solution goes here
+    return len(df[df['favorites'] > 10000]['author_id'].unique())
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    # Split mention_names into separate rows
+    mention_df = df['mention_names'].str.split(', ', expand=True).stack().reset_index(level=1, drop=True)
+    
+    # Count occurrences of each mentioned user
+    mention_counts = mention_df.value_counts()
+    
+    # Get the maximum count
+    max_mentions = mention_counts.max()
+    
+    max_mentions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['author_name', 'user_followers_count']
+    
+    max_followers_author = df.loc[df['user_followers_count'].idxmax(), 'author_name']
+    return max_followers_author
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    author_with_most_favorites = df.loc[df['user_favourites_count'].idxmax(), 'author_name']
+    return author_with_most_favorites
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    # Split mention_names into separate entries and count occurrences
+    mention_counts = df['mention_names'].str.split(', ').explode().value_counts()
+    
+    # Get the most mentioned user
+    most_mentioned_user = mention_counts.idxmax()
+    
+    return most_mentioned_user
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    return df.loc[df['retweets'].idxmax(), 'author_name']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    top_authors = df[['author_name', 'user_followers_count']].sort_values(by='user_followers_count', ascending=False).head(3)
+    return top_authors['author_name'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    top_authors = df.groupby('author_name')['user_favourites_count'].sum().nlargest(4).index.tolist()
+    return top_authors
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    # Split mention_names into separate rows
+    mention_df = df['mention_names'].str.split(', ', expand=True).stack().reset_index(level=1, drop=True)
+    mention_df = mention_df[mention_df!= df['author_name']]
+    
+    # Count occurrences of each mention
+    mention_counts = mention_df.value_counts()
+    
+    # Get the top 4 most mentioned users
+    top_mentions = mention_counts.head(4).index.tolist()
+    
+    return top_mentions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['author_name','retweets']
+    
+    top_authors = df.groupby('author_name')['retweets'].sum().nlargest(2).index.tolist()
+    return top_authors
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['user_followers_count']
+    
+    return df['user_followers_count'].nlargest(3).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['favorites']
+    
+    return df['favorites'].nlargest(3).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    mention_counts = df['mention_ids'].str.split(',').explode().value_counts()
+    top_5_mentions = mention_counts.nlargest(5).index.tolist()
+    
+    return top_5_mentions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].nlargest(2).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    max_loan_amount = df['Loan Amount'].max()
+    borrower_with_max_loan = df[df['Loan Amount'] == max_loan_amount]
+    max_duration = df['Loan Duration  Months'].max()
+    
+    return borrower_with_max_loan['Loan Duration  Months'].values[0] == max_duration
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    max_loans_borrower = df.loc[df['Number of Existing Loans'].idxmax()]
+    max_loan_amount_borrower = df.loc[df['Loan Amount'].idxmax()]
+    
+    return max_loans_borrower['Loan Amount'] == max_loan_amount_borrower['Loan Amount']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    longest_duration_borrower = df.loc[df['Loan Duration  Months'].idxmax()]
+    max_existing_loans = df['Number of Existing Loans'].max()
+    
+    return longest_duration_borrower['Number of Existing Loans'] == max_existing_loans
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    oldest_borrower_age = df['Age'].max()
+    oldest_borrower_loan_amount = df.loc[df['Age'] == oldest_borrower_age, 'Loan Amount'].max()
+    highest_loan_amount = df['Loan Amount'].max()
+    
+    return oldest_borrower_loan_amount == highest_loan_amount
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    return df['Loan Amount'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    return len(df[df['Number of Existing Loans'] > 1])
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ['Loan Duration  Months']
+    
+    return df['Loan Duration  Months'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    return (df['Age'] > 50).sum()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Purpose of Loan']
+    
+    return df['Purpose of Loan'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    return df['Job'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    return df['Credit History'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    return df['Savings Account'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    top_jobs = df.groupby('Job')['Loan Amount'].sum().nlargest(3).index.tolist()
+    return top_jobs
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    top_jobs = df.sort_values(by='Loan Duration  Months', ascending=False).head(4)['Job'].tolist()
+    return top_jobs
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    result = df.groupby('Job')['Number of Existing Loans'].sum().nlargest(5).index.tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    oldest_borrowers = df.sort_values(by='Age', ascending=False).head(2)
+    return oldest_borrowers['Job'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    top_3_loan_amounts = df['Loan Amount'].nlargest(3).tolist()
+    return top_3_loan_amounts
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    top_durations = df['Loan Duration  Months'].nlargest(4).tolist()
+    return top_durations
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    return df['Number of Existing Loans'].nlargest(3).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    return df['Age'].nlargest(2).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    
+    return (df['Calories kcal'] == 0).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    
+    return (df['Total Sugar g'] > 0).all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return (df['Total Fat g'] == 0).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df['Protein g'].eq(0).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return len(df[df['Calories kcal'] > 500])
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df['Total Fat g'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return len(df[df['Sodium g'] > 1000])
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df['Protein g'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    
+    max_calories_food = df.loc[df['Calories kcal'].idxmax(), 'name']
+    return max_calories_food
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df.loc[df['Total Sugar g'].idxmax(), 'name']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df.loc[df['Total Fat g'].idxmin(), 'name']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df.loc[df['Protein g'].idxmax(), 'name']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    top_5_foods = df.sort_values(by='Calories kcal', ascending=False).head(5)['name'].tolist()
+    return top_5_foods
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    # The columns used in the solution : ['name', 'Total Sugar g']
+    
+    top_3_least_sugar = df.sort_values(by='Total Sugar g').head(3)['name'].tolist()
+    return top_3_least_sugar
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    
+    top_foods = df.sort_values(by='Total Fat g', ascending=False).head(4)['name'].tolist()
+    return top_foods
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df.sort_values(by='Protein g').head(6)['name'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g'] # Retain original column names 
+    # The columns used in the solution : ['Calories kcal']
+    
+    return df['Calories kcal'].nlargest(5).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g'] # Retain original column names 
+    # The columns used in the solution : ['Total Sugar g']
+    
+    return df['Total Sugar g'].nsmallest(3).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    # The columns used in the solution : ['Total Fat g']
+    
+    return df.nlargest(4, 'Total Fat g')['Total Fat g'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    # The columns used in the solution : ['Protein g']
+    
+    return df.nsmallest(6, 'Protein g')['Protein g'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return (df['edu'] == 'Did not complete primary education').any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    return df['polInterest'].all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return 'Not Voting' in df['Vote Intention'].values
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['User selfplacement on LeftRight economic values axis'].max() == 10
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    count = (df['User self placement on ProgressiveConservative economic values axis'] == 10).sum()
+    return count
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Age']
+    
+    return df['Age'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return (df['It should be more difficult for companies to lay off workers'] == 'Yes').sum()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    max_age = df[df['gender'] == 'prefer not to disclose']['Age'].max()
+    return max_age
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    return df['Vote Intention'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['voteReason'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    most_common_party = df['partyId'].mode()[0]
+    return most_common_party
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    
+    return df['lang'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Vote Intention']
+    
+    return df['Vote Intention'].value_counts().head(5).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['voteReason'].value_counts().head(3).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    return df['partyId'].value_counts().head(3).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['edu'].value_counts().head(3).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Age']
+    
+    return df['Age'].value_counts().head(3).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['User selfplacement on LeftRight economic values axis']
+    
+    return df['User selfplacement on LeftRight economic values axis'].value_counts().head(3).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['User self placement on ProgressiveConservative economic values axis']
+    
+    return df['User self placement on ProgressiveConservative economic values axis'].value_counts().head(4).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    # The columns used in the solution : ['Constitutional organisation of the country More Descentralization']
+    
+    return df['Constitutional organisation of the country More Descentralization'].value_counts().head(2).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    return (df['Are you registered to vote'] == 'No').any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    result = df[(df['Did you vote in the 2016 Presidential election Four years ago'] == 'Yes') & 
+                (df['How likely are you to vote in the forthcoming US Presidential election Early Voting Open'].isin(['Not at all likely', 'Not very likely']))]
+    
+    return not result.empty
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    result = df[(df['Did you vote in the 2016 Presidential election Four years ago'] == 'No') & 
+                (df['How likely are you to vote in the forthcoming US Presidential election Early Voting Open'].isin(['Very Likely', 'Somewhat Likely']))]
+    
+    return not result.empty
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    shifted_voters = df[df['Who did you vote for in the 2016 Presidential election Four years ago']!= df['Who are you most likely to vote for on election day']]
+    return not shifted_voters.empty
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    return (df['Are you registered to vote'] == 'Yes').sum()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    count_biden = (df['Who are you most likely to vote for on election day'] == 'Biden').sum()
+    return count_biden
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    high_school_or_less = df[df['What is the highest degree or level of school you have completed'].isin(['High School', 'Less than High School'])]
+    return len(high_school_or_less)
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['Division']
+    
+    adjacent_regions = ['Southeastern', 'Mid-Atlantic', 'New England']
+    return df[df['Division'].isin(adjacent_regions)].shape[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['How old are you']
+    
+    # Determine the most frequent age group
+    age_counts = df['How old are you'].value_counts()
+    most_frequent_age = age_counts.idxmax()
+    return most_frequent_age
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    preferred_choice = df['Who are you most likely to vote for on election day'].mode()[0]
+    return preferred_choice
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    return df['What is the highest degree or level of school you have completed'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    division_counts = df['Division'].value_counts()
+    max_count = division_counts.max()
+    top_divisions = division_counts[division_counts == max_count].index.tolist()
+    return sorted(top_divisions, reverse=True)[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    state_counts = df['State'].value_counts().head(6).index.tolist()
+    return state_counts
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    profession_counts = df['Which of these best describes the kind of work you do'].value_counts()
+    most_common = profession_counts.nlargest(2, keep='first')
+    return sorted(most_common.index)
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    ethnic_counts = df['Which of the following best describes your ethnic heritage'].value_counts()
+    top_two_ethnic_groups = ethnic_counts.head(2).index.tolist()
+    
+    return top_two_ethnic_groups
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['How old are you']
+    
+    age_counts = df['How old are you'].value_counts().head(6)
+    return age_counts.index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    unique_county_codes = df['County FIPS'].unique()
+    highest_3_county_codes = sorted(unique_county_codes, reverse=True)[:3]
+    return highest_3_county_codes
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['Weight']
+    
+    unique_weights = df['Weight'].unique()
+    sorted_unique_weights = sorted(unique_weights, reverse=True)
+    top_4_weights = sorted_unique_weights[:4]
+    return top_4_weights
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['NCHS Urbanrural']
+    
+    top_categories = df['NCHS Urbanrural'].value_counts().head(4).index.tolist()
+    return top_categories
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    return df['likelihood'].value_counts().head(2).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['model']
+    
+    return 'Golf' in df['model'].values
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['dealer']
+    
+    return df['dealer'].eq('Autos Raymara').any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['version']
+    
+    return df['version'].str.contains('BMW').any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['shift']
+    
+    return 'Manual' in df['shift'].values
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    return df['model'].nunique()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['photos']
+    
+    return df['photos'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['price']
+    
+    return df['price'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    return len(df[df['year'] == 2020])
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    max_price_dealer = df.loc[df['price'].idxmax(), 'dealer']
+    return max_price_dealer
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    make_counts = df['make'].value_counts()
+    max_count = make_counts.max()
+    most_common_makes = make_counts[make_counts == max_count].index.tolist()
+    return sorted(most_common_makes)[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['fuel']
+    
+    return df['fuel'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    province_counts = df['province'].value_counts()
+    most_common_province = province_counts.idxmax()
+    return most_common_province
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['province']
+    
+    province_counts = df['province'].value_counts()
+    top_provinces = province_counts.sort_values(ascending=False).sort_index(ascending=False)
+    return top_provinces.head(3).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['color']
+    
+    return df['color'].value_counts().head(3).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['make']
+    
+    return df['make'].value_counts().head(5).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['fuel']
+    
+    return df['fuel'].value_counts().nsmallest(2).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['year']
+    
+    return df['year'].value_counts().head(4).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['kms']
+    
+    return df['kms'].nlargest(3).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['photos']
+    
+    return df.nlargest(5, 'photos')['photos'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['power']
+    
+    return df['power'].nlargest(6).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    return df['Transaction'].is_unique
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    return 'Night' in df['period_day'].values
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    # Check if all items have transactions recorded on weekdays
+    items_with_weekday_transactions = df[df['weekday_weekend'] == 'weekday']['Item'].unique()
+    all_items = df['Item'].unique()
+    
+    return set(all_items).issubset(set(items_with_weekday_transactions))
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    return (df['period_day'] == 'evening') & (df['weekday_weekend'] == 'weekend').any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend'] # Retain original column names 
+    # The columns used in the solution : ['Item']
+    
+    return df['Item'].nunique()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    unique_days = df['date_time'].dt.date.nunique()
+    return unique_days
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    return df['Transaction'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    return df[df['period_day'] == 'afternoon']['Transaction'].nunique()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    result = df.groupby('period_day')['Transaction'].nunique().idxmax()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    # Filter for weekdays and find the most common item
+    weekdays_df = df[df['weekday_weekend'] == 'weekday']
+    most_common_item = weekdays_df['Item'].mode()[0]
+    
+    return most_common_item
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    weekday_df = df[df['weekday_weekend'] == 'weekday']
+    least_popular_item = weekday_df['Item'].value_counts().idxmin()
+    
+    return least_popular_item
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    brownie_sales = df[df['Item'] == 'Brownie']
+    most_frequent_period = brownie_sales['period_day'].mode()[0]
+    return most_frequent_period
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    morning_items = df[df['period_day'] =='morning']['Item']
+    top_items = morning_items.value_counts().head(3).index.tolist()
+    return top_items
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    afternoon_sales = df[df['period_day'] == 'afternoon']
+    top_items = afternoon_sales['Item'].value_counts().head(2).index.tolist()
+    return top_items
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    weekend_sales = df[df['weekday_weekend'] == 'weekend']
+    top_items = weekend_sales.groupby('Item')['Transaction'].sum().reset_index()
+    top_items_sorted = top_items.sort_values(by=['Transaction', 'Item'], ascending=[False, True])
+    top_2_items = top_items_sorted.head(2)['Item'].tolist()
+    
+    return top_2_items
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    result = df[df['period_day'] == 'evening']['Item'].value_counts()
+    return result[result == 2].index.tolist()[:4]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    transaction_counts = df.groupby('Transaction')['Item'].count().reset_index()
+    top_transactions = transaction_counts.nlargest(4, 'Item')['Transaction'].tolist()
+    
+    return top_transactions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    # The columns used in the solution : ['Transaction']
+    
+    return df['Transaction'].nlargest(5).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    result = df[df['Item'] == 'Bread'].nlargest(4, 'Transaction')['Transaction'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    morning_transactions = df[df['period_day'] =='morning']['Transaction']
+    lowest_two_transactions = morning_transactions.nsmallest(2).tolist()
+    return lowest_two_transactions
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    # The columns used in the solution : ['Rating', 'Reviewer_Location']
+    
+    return df.loc[df['Reviewer_Location'] == 'Australia', 'Rating'].gt(3).all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    review_counts = df['Branch'].value_counts()
+    most_reviewed_branch = review_counts.idxmax()
+    
+    return most_reviewed_branch == 'Disneyland_HongKong'
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    return (df['Rating'] == 1).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    unique_locations = df['Reviewer_Location'].unique()
+    locations_with_5_rating = df[df['Rating'] == 5]['Reviewer_Location'].unique()
+    
+    return set(unique_locations).issubset(set(locations_with_5_rating))
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    return df['Reviewer_Location'].nunique()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    # Filter the DataFrame for Disneyland_HongKong and calculate the average rating
+    avg_rating = df[df['Branch'] == 'Disneyland_HongKong']['Rating'].mean()
+    return avg_rating
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    return df['Review_ID'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    # The columns used in the solution : ['Year_Month']
+    
+    return (df['Year_Month'].str.startswith('2019')).sum()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    # The columns used in the solution : ['Reviewer_Location']
+    
+    return df['Reviewer_Location'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    branch_avg_rating = df.groupby('Branch')['Rating'].mean()
+    lowest_avg_branch = branch_avg_rating.idxmin()
+    return lowest_avg_branch
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Year_Month']
+    
+    result = df[df['Rating'] == 1]['Year_Month'].min()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    avg_ratings = df.groupby('Reviewer_Location')['Rating'].mean().reset_index()
+    max_avg_rating = avg_ratings['Rating'].max()
+    locations_with_max_avg = avg_ratings[avg_ratings['Rating'] == max_avg_rating]['Reviewer_Location']
+    return locations_with_max_avg.min()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    top_locations = df['Reviewer_Location'].value_counts().head(3).index.tolist()
+    return top_locations
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    average_ratings = df.groupby('Branch')['Rating'].mean().reset_index()
+    bottom_2_branches = average_ratings.nsmallest(2, 'Rating')['Branch'].tolist()
+    
+    return bottom_2_branches
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Year_Month']
+    
+    review_counts = df['Year_Month'].value_counts().sort_values(ascending=False)
+    top_dates = review_counts.head(4).index.tolist()
+    all_dates = df['Year_Month'].unique().tolist()
+    
+    return [date for date in all_dates if date in top_dates]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Reviewer_Location']
+    
+    result = df.groupby('Reviewer_Location')['Rating'].mean().nsmallest(3).index.tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Review_ID']
+    
+    # Solution
+    result = df.sort_values(by=['Rating', 'Review_ID'], ascending=[False, False]).head(5)['Review_ID'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    # The columns used in the solution : ['Rating', 'Review_ID']
+    
+    sorted_df = df.sort_values(by=['Rating', 'Review_ID'])
+    lowest_ratings = sorted_df['Rating'].unique()[0]
+    result = sorted_df[sorted_df['Rating'] == lowest_ratings]['Review_ID'].head(4).tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    top_ratings = df[df['Reviewer_Location'] == 'Australia']['Rating'].head(3).tolist()
+    return top_ratings
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating']
+    
+    # Solution
+    lowest_ratings = df[df['Branch'] == 'Disneyland_HongKong'].nsmallest(2, 'Rating')['Rating'].tolist()
+    return lowest_ratings
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    
+    return df['lang'].eq('en').all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].max() > 0
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    return (df['retweets'] > 10000).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['favorites']
+    
+    return (df['favorites'] > 50000).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    return df['author_name'].nunique()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['favorites']
+    
+    return df['favorites'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    # Convert the 'date' column to datetime format
+    df['date'] = pd.to_datetime(df['date'])
+    
+    # Filter tweets posted in 2018
+    tweets_2018 = df[df['date'].dt.year == 2018]
+    
+    # Count the number of tweets
+    count_2018 = len(tweets_2018)
+    
+    return count_2018
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    most_common_author = df['author_name'].mode()[0]
+    return most_common_author
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    max_favorites_tweet = df.loc[df['favorites'].idxmax(), 'text']
+    return max_favorites_tweet
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    max_retweets_lang = df.loc[df['retweets'].idxmax(), 'lang']
+    return max_retweets_lang
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    
+    return df['lang'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['author_handler']
+    
+    top_authors = df['author_handler'].value_counts().head(3).index.tolist()
+    return top_authors
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    
+    lang_counts = df['lang'].value_counts().reset_index()
+    lang_counts.columns = ['lang', 'count']
+    bottom_langs = lang_counts.sort_values(by=['count', 'lang'], ascending=[True, True]).head(2)
+    return bottom_langs['lang'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    # Split the mention_names by comma and flatten the list
+    mentions = [name for names in df['mention_names'].str.split(',') if names for name in names]
+    
+    # Count the occurrences of each mention
+    mention_counts = Counter(mentions)
+    
+    # Get the top 4 most common mentions
+    top_mentions = mention_counts.most_common(4)
+    
+    # Extract just the names from the top mentions
+    top_mention_names = [name for name, count in top_mentions]
+    
+    return top_mention_names
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    tweet_count = df['author_name'].value_counts().sort_values(ascending=True)
+    bottom_3_authors = tweet_count.head(3).index.tolist()
+    
+    return bottom_3_authors
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['id','retweets']
+    
+    top_5_ids = df.sort_values(by='retweets', ascending=False).head(5)['id'].tolist()
+    return top_5_ids
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    bottom_4_ids = df.sort_values(by='favorites').head(4)['id'].tolist()
+    return bottom_4_ids
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    top_6_favorites = df['favorites'].nlargest(6).tolist()
+    return top_6_favorites
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    return df['retweets'].nsmallest(3).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    return df['is_organization'].any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    # The columns used in the solution : ['is_organization']
+    
+    return df['is_organization'].eq(False).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['pic']
+    
+    return df['pic'].notna().all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight']
+    
+    return (df['weight'] > 500).any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    return df['community'].nunique()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['page_rank_norm']
+    
+    return df['page_rank_norm'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight']
+    
+    return df['weight'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    return (df['community'] == 16744206).sum()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name']
+    
+    return df['name'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name', 'page_rank_norm']
+    
+    return df.loc[df['page_rank_norm'].idxmax(), 'name']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight', 'pic']
+    
+    max_weight_pic = df.loc[df['weight'].idxmax(), 'pic']
+    return max_weight_pic
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name', 'y']
+    
+    return df.loc[df['y'].idxmax(), 'name']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name', 'weight']
+    
+    top_3_entities = df.sort_values(by='weight', ascending=False).head(3)['name'].tolist()
+    return top_3_entities
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name', 'page_rank_norm']
+    
+    result = df.nsmallest(2, 'page_rank_norm')['name'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name', 'x']
+    
+    return df.sort_values(by='x', ascending=False).head(4)['name'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['y']
+    
+    return df.nsmallest(3, 'y')['name'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    # The columns used in the solution : ['id', 'weight']
+    
+    top_5_ids = df.sort_values(by='weight', ascending=False).head(5)['id'].tolist()
+    return top_5_ids
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['id', 'page_rank_norm']
+    
+    return df.sort_values(by='page_rank_norm').head(4)['id'].tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['page_rank_norm']
+    
+    return df['page_rank_norm'].nlargest(6).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight']
+    
+    return df['weight'].nsmallest(3).tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    return df['feathers'].any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    return df['venomous'].any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    return df['breathes'].all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    return df['domestic'].any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['animal_name']
+    
+    return df['animal_name'].nunique()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    return df['legs'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    
+    return df['legs'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    
+    return len(df[df['legs'] == 2])
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    return df['class_type'].mode()[0]
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs', 'animal_name']
+    
+    result = df[df['legs'] == 8]['animal_name'].iloc[0]
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs', 'class_type']
+    
+    max_legs = df['legs'].max()
+    class_type_with_max_legs = df[df['legs'] == max_legs]['class_type'].iloc[0]
+    return class_type_with_max_legs
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    venomous_animals = df[df['venomous'] == True]
+    return venomous_animals.iloc[0]['animal_name'] if not venomous_animals.empty else None
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    result = df.sort_values(by=['legs', 'animal_name'], ascending=[False, True]).head(3)['animal_name'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    result = df.sort_values(by=['legs', 'animal_name']).head(2)['animal_name'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['class_type']
+    
+    return df['class_type'].value_counts().head(4).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    class_counts = df['class_type'].value_counts().sort_values(ascending=True)
+    least_common_classes = class_counts.head(3).index.tolist()
+    return least_common_classes
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs', 'class_type']
+    
+    result = df.groupby('class_type')['legs'].sum().nlargest(5).index.tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    result = df.groupby('class_type')['legs'].sum().nsmallest(4).index.tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    # The columns used in the solution : ['legs']
+    
+    return df['legs'].value_counts().head(4).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    
+    leg_counts = df['legs'].value_counts().sort_values()
+    least_common_legs = leg_counts.head(3).index.tolist()
+    return least_common_legs
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    
+    return (df['Quantity'] > 0).all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['UnitPrice']
+    
+    return (df['UnitPrice'] > 0).all()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['CustomerID']
+    
+    return df['CustomerID'].isnull().any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country']
+    
+    return (df['Country'] == 'United Kingdom').any()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    
+    return len(df['StockCode'].unique())
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    return df['UnitPrice'].mean()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Quantity']
+    
+    return df['Quantity'].max()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country']
+    
+    return len(df[df['Country'] == 'United Kingdom'])
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country', 'InvoiceNo']
+    
+    country_transactions = df.groupby('Country')['InvoiceNo'].nunique()
+    return country_transactions.idxmax()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Description', 'UnitPrice']
+    
+    max_price_index = df['UnitPrice'].idxmax()
+    return df.loc[max_price_index, 'Description']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    
+    max_quantity = df['Quantity'].max()
+    description_of_max_quantity = df.loc[df['Quantity'] == max_quantity, 'Description'].iloc[0]
+    description_of_max_quantity
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country', 'CustomerID']
+    
+    # Find the customer with the lowest ID
+    lowest_id_customer = df.loc[df['CustomerID'].idxmin()]
+    
+    # Return the country of the customer with the lowest ID
+    return lowest_id_customer['Country']
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Description', 'Quantity']
+    
+    result = df.groupby('Description')['Quantity'].sum().nlargest(3).index.tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Description', 'Quantity']
+    
+    result = df.sort_values(by=['Quantity', 'Description']).head(2)['Description'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    
+    top_countries = df['Country'].value_counts().head(2).index.tolist()
+    return top_countries
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Country', 'InvoiceNo']
+    
+    country_transactions = df.groupby('Country')['InvoiceNo'].nunique().reset_index()
+    least_countries = country_transactions.nsmallest(2, 'InvoiceNo')['Country'].tolist()
+    return least_countries
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['InvoiceNo', 'Quantity']
+    
+    top_invoices = df.sort_values(by='Quantity', ascending=False).head(5)['InvoiceNo'].tolist()
+    return top_invoices
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    
+    result = df.sort_values(by=['Quantity', 'StockCode']).head(5)['StockCode'].tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    # The columns used in the solution : ['Quantity']
+    
+    return df['Quantity'].value_counts().head(4).index.tolist()
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Description']
+    
+    description_counts = df['Description'].value_counts()
+    top_two_descriptions = description_counts.head(2).index.tolist()
+    result = df[df['Description'].isin(top_two_descriptions)]['Description'].value_counts().tolist()
+    return result
+
+Response: __CODE_ERROR__: No function answer definition found in response.
+--------------------

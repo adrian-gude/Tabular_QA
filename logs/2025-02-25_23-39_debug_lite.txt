@@ -1,0 +1,2739 @@
+Model:Qwen/Qwen2.5-Coder-32B-Instruct
+Accuracy:0.85625
+----------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    most_favorited_author = df.loc[df['favorites'].idxmax(), 'author_name']
+    author_lang_count = df[df['author_name'] == most_favorited_author]['lang'].value_counts()
+    
+    return author_lang_count.idxmax() == 'Spanish'
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    longest_name_author = df.loc[df['author_name'].str.len().idxmax(), 'author_name']
+    author_content_types = df[df['author_name'] == longest_name_author]['type']
+    
+    return author_content_types.value_counts().idxmax() == 'original'
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    return (df['retweets'] == 0).any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    return df['links'].eq('').any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['author_name']
+    
+    return df['author_name'].nunique()
+Response: 20
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    # Calculate the number of words in each post
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    
+    # Find the maximum word count
+    max_word_count = df['word_count'].max()
+    
+    return max_word_count
+Response: 49
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].sum()
+Response: 2
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['mention_ids']
+    
+    return (df['mention_ids'].isna() | (df['mention_ids'] == '')).sum()
+Response: 0
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    # Find the index of the row with the maximum retweets
+    max_retweet_index = df['retweets'].idxmax()
+    
+    # Get the author_name of the tweet with the most retweets
+    author_with_most_retweets = df.loc[max_retweet_index, 'author_name']
+    
+    return author_with_most_retweets
+Response: Manuel
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    # The columns used in the solution : ['favorites', 'lang']
+    
+    most_favorited_post = df.loc[df['favorites'].idxmax()]
+    return most_favorited_post['lang']
+Response: es
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    max_word_count_author = df.loc[df['word_count'].idxmax(), 'author_name']
+    return max_word_count_author
+Response:  🇪🇸 Bearded.LocutusBorg  🇮🇪 🏳️‍🌈
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    
+    return df['type'].mode()[0]
+Response: reply
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    top_authors = df.sort_values(by='retweets', ascending=False).head(3)['author_name'].tolist()
+    return top_authors
+Response: ['Manuel', 'ING enfurecido \xa0🦁', 'Marita Calafell']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    return df.sort_values(by='favorites').head(5)['lang'].tolist()
+Response: ['es', 'es', 'es', 'es', 'es']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    # Calculate the number of words in each post
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    
+    # Sort by word count and get the top 4 shortest posts
+    shortest_posts = df.sort_values(by='word_count').head(4)
+    
+    # Extract the authors of these posts
+    authors_of_shortest_posts = shortest_posts['author_name'].tolist()
+    
+    return authors_of_shortest_posts
+Response: ['Vito!!', 'Albert Navarro', 'JEEVES', 'Leo Tarda']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    # The columns used in the solution : ['type']
+    
+    return df['type'].value_counts().head(6).index.tolist()
+Response: ['reply', 'original']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    
+    top_5_favorites = df.sort_values(by='favorites', ascending=False).head(5)
+    return top_5_favorites['retweets'].tolist()
+Response: [0, 1, 1, 0, 0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['text']
+    
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    longest_posts = df.sort_values(by='word_count', ascending=False).head(3)['word_count'].tolist()
+    return longest_posts
+Response: [49, 44, 41]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids'] # Retain original column names 
+    # The columns used in the solution : ['favorites','retweets']
+    
+    return df.sort_values(by='favorites').head(4)['retweets'].tolist()
+Response: [0, 0, 0, 0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'links', 'author_name', 'text', 'lang','retweets', 'type','mention_ids']
+    # The columns used in the solution : ['text']
+    
+    df['word_count'] = df['text'].apply(lambda x: len(x.split()))
+    shortest_posts = df.sort_values(by='word_count').head(6)['word_count'].tolist()
+    return shortest_posts
+Response: [2, 3, 4, 6, 12, 13]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['name']
+    
+    return 'Pikachu' in df['name'].values
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['total']
+    
+    return (df['total'] > 700).any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['generation', 'legendary']
+    
+    first_gen_pokemon = df[df['generation'] == 1]
+    return first_gen_pokemon['legendary'].all()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    return (df['speed'] > 150).any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['type1']
+    
+    return df['type1'].nunique()
+Response: 13
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['total']
+    
+    return df['total'].max()
+Response: 618
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['generation']
+    
+    return len(df[df['generation'] == 3])
+Response: 5
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['attack']
+    
+    return df['attack'].mean()
+Response: 84.2
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    
+    max_defense_pokemon = df.loc[df['defense'].idxmax()]
+    return max_defense_pokemon['type1']
+Response: Water
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['name','speed']
+    
+    min_speed_pokemon = df.loc[df['speed'].idxmin(), 'name']
+    return min_speed_pokemon
+Response: Whismur
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['type1', 'legendary']
+    
+    legend_df = df[df['legendary'] == True]
+    most_common_type = legend_df['type1'].mode()[0]
+    return most_common_type
+Response: Dragon
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['sp_attack', 'name']
+    
+    return df.loc[df['sp_attack'].idxmax(), 'name']
+Response: Mega Slowbro
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    
+    top_3_pokemon = df.sort_values(by='total', ascending=False).head(3)['name'].tolist()
+    return top_3_pokemon
+Response: ['Mega Gallade', 'Latias', 'Metagross']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    
+    return df.sort_values(by='hp').head(5)['name'].tolist()
+Response: ['Alolan Dugtrio', 'Arrokuda', 'Helioptile', 'Steenee', 'Orbeetle']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    
+    type_counts = df['type1'].value_counts().head(2).index.tolist()
+    return type_counts
+Response: ['Grass', 'Normal']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['name', 'attack', 'generation']
+    
+    result = df[df['generation'] == 2].sort_values(by='attack', ascending=False).head(6)['name'].tolist()
+    return result
+Response: []
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['sp_defense']
+    
+    return df['sp_defense'].nlargest(5).tolist()
+Response: [130, 120, 115, 90, 90]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    
+    legendary_df = df[df['legendary'] == True]
+    lowest_defense = legendary_df.nsmallest(2, 'defense')['defense'].tolist()
+    return lowest_defense
+Response: [50, 90]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation'] # Retain original column names 
+    # The columns used in the solution : ['speed', 'generation']
+    
+    result = df[df['generation'] == 4].nlargest(2,'speed')['speed'].tolist()
+    return result
+Response: [110, 71]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['hp', 'attack', 'name','sp_attack', 'type1', 'defense','sp_defense', 'legendary', 'total','speed', 'type2', 'generation']
+    
+    non_legendary_df = df[df['legendary'] == False]
+    sorted_non_legendary_df = non_legendary_df.sort_values(by='total')
+    lowest_totals = sorted_non_legendary_df.head(6)['total'].tolist()
+    
+    return lowest_totals
+Response: [240, 280, 289, 290, 365, 380]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    max_extraversion = df['Extraversion'].max()
+    max_agreeableness = df['Agreeableness'].max()
+    
+    return max_extraversion > max_agreeableness
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+
+    profession_max_openness = df.loc[df['Openness'].idxmax(), 'Profession']
+    profession_max_conscientousness = df.loc[df['Conscientousness'].idxmax(), 'Profession']
+    
+    return profession_max_openness == profession_max_conscientousness
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    min_emotional_range_profession = df.loc[df['Emotional_Range'].idxmin(), 'Profession']
+    min_conversation_level = df.loc[df['Profession'] == min_emotional_range_profession, 'Conversation'].values[0]
+    
+    overall_min_conversation_level = df['Conversation'].min()
+    
+    return min_conversation_level == overall_min_conversation_level
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    
+    avg_openness_to_change = df['Openness to Change'].mean()
+    avg_hedonism = df['Hedonism'].mean()
+    
+    return avg_openness_to_change > avg_hedonism
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    return df['Selfenhancement'].max()
+Response: 0.6291001325102317
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    return len(df[df['Emotional_Range'] > 0.5]['Profession'].unique())
+Response: 18
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    max_n_profession = df.loc[df['n'].idxmax(), 'Profession']
+    average_extraversion = df[df['Profession'] == max_n_profession]['Extraversion'].mean()
+    
+    return average_extraversion
+Response: 0.3521943338191243
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    return df['Selftranscendence'].min()
+Response: 0.0355792960526332
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    return df.loc[df['Conscientousness'].idxmax(), 'Profession']
+Response: U.S. Representative
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    profession_with_lowest_hedonism = df.loc[df['Hedonism'].idxmin(), 'Profession']
+    return profession_with_lowest_hedonism
+Response: U.S. Representative
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    return df.loc[df['Emotional_Range'].idxmax(), 'Profession']
+Response: U.S. Representative
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    return df.loc[df['n'].idxmax(), 'Profession']
+Response: Data Analyst
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Profession', 'Openness']
+    
+    top_professions = df.groupby('Profession')['Openness'].mean().nlargest(3).index.tolist()
+    return top_professions
+Response: ['User Experience Designer (UX Designer)', 'Sustainability Coach', 'Insurance Writer']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    bottom_4_professions = df.groupby('Profession')['Agreeableness'].mean().nsmallest(4).index.tolist()
+    return bottom_4_professions
+Response: ['Automation Engineer', 'Stock Trader', 'Data Analyst', 'User Experience Designer (UX Designer)']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Profession', 'Conversation']
+    
+    top_professions = df.groupby('Profession')['Conversation'].mean().nlargest(5).index.tolist()
+    return top_professions
+Response: ['U.S. Representative', 'Media Executive', 'Bookkeeper', 'Music Promoter', 'Director of Sales Marketing']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    bottom_2_professions = df[['Profession', 'Selfenhancement']].sort_values(by='Selfenhancement').head(2)['Profession'].tolist()
+    return bottom_2_professions
+Response: ['U.S. Representative', 'Examiner']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Openness to Change']
+    
+    top_values = df['Openness to Change'].nlargest(3).tolist()
+    return top_values
+Response: [0.5907415983292473, 0.5853143224995465, 0.5741970926130652]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    
+    return df['Emotional_Range'].nsmallest(4).tolist()
+Response: [0.3282629326553239, 0.3454430761347227, 0.5168284093531004, 0.5454469457823092]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness'] # Retain original column names 
+    # The columns used in the solution : ['Extraversion']
+    
+    return df['Extraversion'].nlargest(5).tolist()
+Response: [0.7997301042051191, 0.7874815418605556, 0.786896532913159, 0.7780772474605324, 0.7595518653914357]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Emotional_Range', 'Conscientousness', 'Selftranscendence', 'Openness to Change', 'Selfenhancement', 'n', 'Hedonism', 'Profession', 'Agreeableness', 'Conversation', 'Extraversion', 'Openness']
+    return df['Selftranscendence'].nsmallest(6).tolist()
+Response: [0.0355792960526332, 0.1108088371055385, 0.1436964701751416, 0.1772058461581069, 0.2179965189872425, 0.2289998631350671]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['title']
+    
+    return df['title'].str.contains('communication', case=False).any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization']
+    
+    return 'IBM' in df['organization'].values
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['abstract']
+    
+    return df['abstract'].str.contains('software', case=False).any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']
+    return 'design' in df['type'].values
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization']
+    
+    return df['organization'].nunique()
+Response: 18
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']
+    
+    return df['num_claims'].mean()
+Response: 17.65
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims']
+    
+    return df['num_claims'].max()
+Response: 41
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['type']
+    
+    return (df['type'] == 'utility').sum()
+Response: 19
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization', 'num_claims']
+    
+    max_claims_organization = df.loc[df['num_claims'].idxmax(), 'organization']
+    return max_claims_organization
+Response: Samsung Electronics Co., Ltd.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['kind']
+    
+    return df['kind'].mode()[0]
+Response: B2
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    
+    return df['lang'].unique().tolist()
+Response: ['en']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['graphext_cluster']
+    
+    return df['graphext_cluster'].mode()[0]
+Response: video, display, mobile, content
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['organization']
+    
+    top_organizations = df['organization'].value_counts().reset_index()
+    top_organizations.columns = ['organization', 'count']
+    top_organizations = top_organizations.sort_values(by=['count', 'organization'], ascending=[False, True]).head(3)
+    return top_organizations['organization'].tolist()
+Response: ['Samsung Electronics Co., Ltd.', 'Airmaster Aerator L.L.C.', 'Apple Inc.']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']
+    
+    # The columns used in the solution : ['type']
+    return df['type'].value_counts().head(2).index.tolist()
+Response: ['utility', 'design']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['kind']
+    
+    kind_counts = df['kind'].value_counts()
+    most_prevalent_kinds = kind_counts.head(2).index.tolist()
+    return most_prevalent_kinds
+Response: ['B2', 'S1']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['graphext_cluster']
+    
+    cluster_counts = df['graphext_cluster'].value_counts().reset_index()
+    cluster_counts.columns = ['graphext_cluster', 'count']
+    least_common_clusters = cluster_counts.sort_values(by=['count', 'graphext_cluster'], ascending=[True, False]).head(2)['graphext_cluster'].tolist()
+    return least_common_clusters
+Response: ['voltage, power, current, circuit', 'signal, frequency, station, transmission']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['num_claims']
+    
+    return df['num_claims'].nlargest(4).tolist()
+Response: [41, 32, 30, 27]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization']
+    
+    top_3_patents = df.sort_values(by='num_claims', ascending=False).head(3)['id'].tolist()
+    return top_3_patents
+Response: [9479911.0, 9323438.0, 9480043.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    
+    # Calculate the median number of claims for B2 and S1 kinds separately
+    median_claims_B2 = df[df['kind'] == 'B2']['num_claims'].median()
+    median_claims_S1 = df[df['kind'] == 'S1']['num_claims'].median()
+    
+    return [median_claims_B2, median_claims_S1]
+Response: [np.float64(18.0), np.float64(1.0)]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['kind', 'num_claims', 'title', 'date', 'lang', 'id', 'abstract', 'type', 'target', 'graphext_cluster', 'organization'] # Retain original column names 
+    # The columns used in the solution : ['date', 'id']
+    
+    # Convert date column to datetime and sort by date in descending order
+    df['date'] = pd.to_datetime(df['date'])
+    sorted_df = df.sort_values(by='date', ascending=False)
+    
+    # Get the top 3 IDs
+    result = sorted_df['id'].head(3).tolist()
+    return result
+Response: [9480049.0, 9480043.0, 9479911.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    max_followers_author = df.loc[df['user_followers_count'].idxmax()]
+    return max_followers_author['user_verified']
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    author_with_most_favorites = df.loc[df['user_favourites_count'].idxmax()]['author_id']
+    author_with_most_retweets = df.loc[df['retweets'].idxmax()]['author_id']
+    
+    return author_with_most_favorites == author_with_most_retweets
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+
+    # Split mention_names into separate rows
+    mention_df = df.assign(mention_names=df['mention_names'].str.split(',')).explode('mention_names')
+
+    # Count mentions
+    mention_counts = mention_df['mention_names'].value_counts()
+
+    # Find the most mentioned user
+    most_mentioned_user = mention_counts.idxmax()
+
+    # Calculate total retweets for each mentioned user
+    mention_retweets = mention_df.groupby('mention_names')['retweets'].sum()
+
+    # Find the most retweeted mentioned user
+    most_retweeted_user = mention_retweets.idxmax()
+
+    return most_mentioned_user == most_retweeted_user
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+
+    author_with_most_retweets = df.groupby('author_id')['retweets'].sum().idxmax()
+    author_with_most_replies = df.groupby('author_id')['replies'].sum().idxmax()
+
+    return author_with_most_retweets == author_with_most_replies
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['user_followers_count']
+    
+    return df['user_followers_count'].max()
+Response: 30308043
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    unique_authors = df[df['favorites'] > 10000]['author_id'].nunique()
+    return unique_authors
+Response: 1
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].max()
+Response: 50625
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    # Split mention_names into separate rows
+    mention_df = df.assign(mention_names=df['mention_names'].str.split(',')).explode('mention_names')
+    
+    # Count mentions
+    mention_counts = mention_df['mention_names'].value_counts()
+    
+    # Get the maximum mention count
+    max_mentions = mention_counts.max() if not mention_counts.empty else 0
+    
+    return max_mentions
+Response: 16
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    author_with_most_followers = df.loc[df['user_followers_count'].idxmax(), 'author_name']
+    return author_with_most_followers
+Response: Joe Biden
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    return df.loc[df['user_favourites_count'].idxmax(), 'author_name']
+Response: Joe Biden
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['mention_names']
+    
+    mention_names = df['mention_names'].str.split(', ').explode()
+    most_mentioned_user = mention_names.value_counts().idxmax()
+    return most_mentioned_user
+Response: []
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    max_retweets_author = df.loc[df['retweets'].idxmax(), 'author_name']
+    return max_retweets_author
+Response: Joe Biden
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    top_authors = df[['author_name', 'user_followers_count']].sort_values(by='user_followers_count', ascending=False).head(3)
+    return top_authors['author_name'].tolist()
+Response: ['Joe Biden', 'Joe Biden', 'Joe Biden']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    top_authors = df.groupby('author_name')['user_favourites_count'].sum().nlargest(4).index.tolist()
+    return top_authors
+Response: ['Joe Biden']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    # Split mention_names into separate rows
+    mention_df = df['mention_names'].str.split(', ', expand=True).stack().reset_index(level=1, drop=True).to_frame(name='mentioned_name')
+    
+    # Filter out mentions that are the same as the author_name
+    mention_df = mention_df[~mention_df['mentioned_name'].isin(df['author_name'])]
+    
+    # Count the occurrences of each mentioned user
+    mention_counts = mention_df['mentioned_name'].value_counts()
+    
+    # Get the top 4 mentioned users
+    top_4_mentions = mention_counts.head(4).index.tolist()
+    
+    return top_4_mentions
+Response: ['[]', '["KeishaBottoms"]', '["ChristieVilsack"]', '["NRA"]']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    top_authors = df.groupby('author_name')['retweets'].sum().nlargest(2).index.tolist()
+    return top_authors
+Response: ['Joe Biden']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    # The columns used in the solution : ['user_followers_count']
+    
+    top_3_followers = df['user_followers_count'].nlargest(3).tolist()
+    return top_3_followers
+Response: [30308043, 30212714, 30212713]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    # The columns used in the solution : ['favorites']
+    
+    return df['favorites'].nlargest(3).tolist()
+Response: [195121, 110921, 87668]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search']
+    
+    # Split mention_ids by comma and explode into separate rows
+    mention_counts = df['mention_ids'].str.split(',').explode().value_counts()
+    
+    # Filter out empty mentions and get the top 5
+    top_5_mentions = mention_counts[mention_counts > 0].head(5).index.tolist()
+    
+    return top_5_mentions
+Response: ['[]', '["305818748"]', '["282721598"]', '["21829541"]', '["50348682"]']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['id', 'author_id', 'author_name', 'author_handler', 'author_avatar', 'user_created_at', 'user_description', 'user_favourites_count', 'user_followers_count', 'user_following_count', 'user_listed_count', 'user_tweets_count', 'user_verified', 'user_location', 'lang', 'type', 'text', 'date','mention_ids','mention_names','retweets', 'favorites','replies', 'quotes', 'links', 'links_first', 'image_links', 'image_links_first', 'rp_user_id', 'rp_user_name', 'location', 'tweet_link','source','search'] # Retain original column names 
+    
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].nlargest(2).tolist()
+Response: [50625, 13690]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    max_loan_amount_borrower_duration = df.loc[df['Loan Amount'].idxmax(), 'Loan Duration  Months']
+    max_loan_duration_borrower_amount = df.loc[df['Loan Duration  Months'].idxmax(), 'Loan Amount']
+    
+    return max_loan_amount_borrower_duration == max_loan_duration_borrower_amount
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    max_loans_borrower = df.loc[df['Number of Existing Loans'].idxmax()]
+    max_amount_borrower = df.loc[df['Loan Amount'].idxmax()]
+    
+    return max_loans_borrower['Loan Amount'] == max_amount_borrower['Loan Amount']
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    longest_duration_borrower = df.loc[df['Loan Duration  Months'].idxmax()]
+    max_existing_loans = df['Number of Existing Loans'].max()
+    
+    return longest_duration_borrower['Number of Existing Loans'] == max_existing_loans
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    oldest_borrower_age = df['Age'].max()
+    oldest_borrowers = df[df['Age'] == oldest_borrower_age]
+    max_loan_amount_among_oldest = oldest_borrowers['Loan Amount'].max()
+    
+    highest_loan_amount = df['Loan Amount'].max()
+    
+    return max_loan_amount_among_oldest == highest_loan_amount
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    return df['Loan Amount'].max()
+Response: 8613
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    return len(df[df['Number of Existing Loans'] > 1])
+Response: 7
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    return df['Loan Duration  Months'].max()
+Response: 60
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    return (df['Age'] > 50).sum()
+Response: 2
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan'] # Retain original column names 
+    # The columns used in the solution : ['Purpose of Loan']
+    
+    return df['Purpose of Loan'].mode()[0]
+Response: Radio/TV
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ['Job']
+    
+    return df['Job'].mode()[0]
+Response: Skilled
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ['Credit History']
+    
+    return df['Credit History'].mode()[0]
+Response: Existing Credits Paid Back Duly Till Now
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    most_common_savings_account = df['Savings Account'].mode()[0]
+    return most_common_savings_account
+Response: Less than 100 DM
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    top_jobs = df.groupby('Job')['Loan Amount'].sum().nlargest(3).index.tolist()
+    return top_jobs
+Response: ['Skilled', 'Unskilled - Resident', 'Highly Skilled']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    # Solution
+    top_jobs = df.sort_values(by='Loan Duration  Months', ascending=False).head(4)['Job'].tolist()
+    return top_jobs
+Response: ['Skilled', 'Skilled', 'Skilled', 'Highly Skilled']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    result = df.groupby('Job')['Number of Existing Loans'].sum().nlargest(5).index.tolist()
+    return result
+Response: ['Skilled', 'Unskilled - Resident', 'Highly Skilled', 'Unemployed / Unskilled  - Non-Resident']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    oldest_borrowers = df.sort_values(by='Age', ascending=False).head(2)
+    return oldest_borrowers['Job'].tolist()
+Response: ['Unemployed / Unskilled  - Non-Resident', 'Unskilled - Resident']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    top_3_loan_amounts = df['Loan Amount'].nlargest(3).tolist()
+    return top_3_loan_amounts
+Response: [8613, 7297, 7253]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    
+    top_durations = df['Loan Duration  Months'].nlargest(4).tolist()
+    return top_durations
+Response: [60, 60, 42, 33]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ['Number of Existing Loans']
+    
+    return df['Number of Existing Loans'].nlargest(3).tolist()
+Response: [3, 2, 2]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Loan Amount', 'Credit History', 'Loan Duration  Months', 'Age', 'Savings Account', 'Job', 'Number of Existing Loans', 'Purpose of Loan']
+    # The columns used in the solution : ['Age']
+    
+    return df['Age'].nlargest(2).tolist()
+Response: [65, 64]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return (df['Calories kcal'] == 0).any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    
+    return (df['Total Sugar g'] > 0).all()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return (df['Total Fat g'] == 0).any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df['Protein g'].eq(0).any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return len(df[df['Calories kcal'] > 500])
+Response: 0
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df['Total Fat g'].mean()
+Response: 0.06386499999999999
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return len(df[df['Sodium g'] > 1])
+Response: 5
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df['Protein g'].max()
+Response: 0.2403
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    
+    max_calories = df['Calories kcal'].max()
+    food_with_max_calories = df.loc[df['Calories kcal'] == max_calories, 'name'].values[0]
+    return food_with_max_calories
+Response: chocolate bar
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df.loc[df['Total Sugar g'].idxmax(), 'name']
+Response: chocolate bar
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df.loc[df['Total Fat g'].idxmin(), 'name']
+Response: pineapple
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    max_protein_food = df.loc[df['Protein g'].idxmax(), 'name']
+    return max_protein_food
+Response: chicken
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    
+    top_5_foods = df.sort_values(by='Calories kcal', ascending=False).head(5)['name'].tolist()
+    return top_5_foods
+Response: ['chocolate bar', 'cookie', 'french fries', 'bread', 'hotdog']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    # The columns used in the solution : ['name', 'Total Sugar g']
+    
+    result = df.sort_values(by='Total Sugar g').head(3)['name'].tolist()
+    return result
+Response: ['milk', 'chicken', 'hotdog']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    # The columns used in the solution : ['Total Fat g', 'name']
+    
+    return df.sort_values(by='Total Fat g', ascending=False).head(4)['name'].tolist()
+Response: ['chocolate bar', 'cookie', 'hotdog', 'french fries']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    result = df.sort_values(by='Protein g').head(6)['name'].tolist()
+    return result
+Response: ['green apple', 'pineapple', 'strawberry', 'grapes', 'tangerine', 'banana']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    return df['Calories kcal'].nlargest(5).tolist()
+Response: [5.18, 4.97, 3.12, 2.74, 2.47]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    # The columns used in the solution : ['Total Sugar g']
+    
+    return df['Total Sugar g'].nsmallest(3).tolist()
+Response: [0.0, 0.0, 0.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g']
+    # The columns used in the solution : ['Total Fat g']
+    
+    return df.nlargest(4, 'Total Fat g')['Total Fat g'].tolist()
+Response: [0.2599, 0.252, 0.1484, 0.1473]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Calories kcal', 'Total Fat g', 'name', 'Sodium g', 'Protein g', 'Total Sugar g'] # Retain original column names 
+    # The columns used in the solution : ['Protein g']
+    
+    return df.nsmallest(6, 'Protein g')['Protein g'].tolist()
+Response: [0.0044, 0.0054, 0.0067, 0.0072, 0.0081, 0.0109]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return (df['edu'] == 'Did not complete primary').any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    return df['polInterest'].all() == 1
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return 'Not Voting' in df['Vote Intention'].values
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['User selfplacement on LeftRight economic values axis'].max() == 'Extreme Right'
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    count = (df['User self placement on ProgressiveConservative economic values axis'] == 10).sum()
+    return count
+Response: 0
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['Age']
+    
+    return df['Age'].mean()
+Response: 38.72222222222222
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    count = (df['It should be more difficult for companies to lay off workers'] == 'Yes').sum()
+    return count
+Response: 0
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    max_age = df[df['gender'] == 'Not disclosed']['Age'].max()
+    return max_age
+Response: nan
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    most_common_vote_intention = df['Vote Intention'].mode()[0]
+    return most_common_vote_intention
+Response: [Ciudadanos]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['voteReason'].mode()[0]
+Response: The party ideas are close to my own
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['partyId'].mode()[0]
+Response: Ciudadanos
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    # The columns used in the solution : ['lang']
+    
+    return df['lang'].mode()[0]
+Response: Castellano
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['Vote Intention'].value_counts().head(5).index.tolist()
+Response: ['[Ciudadanos]', '[I prefer not to say]', '[]', '[I am undeceided]', '[Podemos]']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    # The columns used in the solution : ['voteReason']
+    
+    return df['voteReason'].value_counts().head(3).index.tolist()
+Response: ['The party ideas are close to my own', 'The party is the most competent', 'I prefer not to say']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['partyId']
+    
+    return df['partyId'].value_counts().head(3).index.tolist()
+Response: ['Ciudadanos', 'I prefer not to say', 'PSOE']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    return df['edu'].value_counts().head(3).index.tolist()
+Response: ['University degree', 'I prefer not to say', 'Technical/Vocational education']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    return df['Age'].value_counts().head(3).index.tolist()
+Response: [33.0, 22.0, 38.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    # The columns used in the solution : ['User selfplacement on LeftRight economic values axis']
+    
+    return df['User selfplacement on LeftRight economic values axis'].value_counts().head(3).index.tolist()
+Response: [5.0, 6.0, 3.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis'] # Retain original column names 
+    # The columns used in the solution : ['User self placement on ProgressiveConservative economic values axis']
+    
+    return df['User self placement on ProgressiveConservative economic values axis'].value_counts().head(4).index.tolist()
+Response: [5.0, 3.0, 4.0, 0.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['partyId', 'Vote Intention', 'User self placement on ProgressiveConservative economic values axis', 'polInterest', 'Age', 'gender', 'lang', 'edu', 'voteReason', 'Constitutional organisation of the country More Descentralization', 'It should be more difficult for companies to lay off workers', 'User selfplacement on LeftRight economic values axis']
+    
+    # The columns used in the solution : ['Constitutional organisation of the country More Descentralization']
+    
+    return df['Constitutional organisation of the country More Descentralization'].value_counts().head(2).index.tolist()
+Response: [2.0, 4.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    return (df['Are you registered to vote'] == 'No').any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    result = df[(df['Did you vote in the 2016 Presidential election Four years ago'] == 'Yes') & 
+                (df['How likely are you to vote in the forthcoming US Presidential election Early Voting Open'].isin(['Not at all likely', 'Somewhat unlikely']))].shape[0] > 0
+    return result
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    result = df[(df['Did you vote in the 2016 Presidential election Four years ago'] == 'No') & (df['How likely are you to vote in the forthcoming US Presidential election Early Voting Open']!= 'Not at all likely')]
+    return not result.empty
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    shifted_voters = df[df['Who did you vote for in the 2016 Presidential election Four years ago']!= df['Who are you most likely to vote for on election day']]
+    return not shifted_voters.empty
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['Are you registered to vote']
+    
+    return len(df[df['Are you registered to vote'] == 'Yes'])
+Response: 11
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    count_biden = df[df['Who are you most likely to vote for on election day'] == 'Biden'].shape[0]
+    return count_biden
+Response: 0
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    high_school_or_less = df[df['What is the highest degree or level of school you have completed'].isin(['No high school diploma', 'High school graduate'])]
+    return len(high_school_or_less)
+Response: 0
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    # The columns used in the solution : ['Division']
+    adjacent_regions = ['Southeast', 'Mid-Atlantic']
+    return df[df['Division'].isin(adjacent_regions)].shape[0]
+Response: 0
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['How old are you']
+    
+    # Define age groups
+    bins = [0, 18, 30, 45, 60, 75, 100]
+    labels = ['0-17', '18-29', '30-44', '45-59', '60-74', '75+']
+    df['Age Group'] = pd.cut(df['How old are you'], bins=bins, labels=labels, right=False)
+    
+    # Find the most frequent age group
+    most_frequent_age_group = df['Age Group'].mode()[0]
+    return most_frequent_age_group
+
+Response: __CODE_ERROR__: '<' not supported between instances of 'int' and 'str'
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    preferred_choice = df['Who are you most likely to vote for on election day'].mode()[0]
+    return preferred_choice
+Response: Joe Biden (Democrat)
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    return df['What is the highest degree or level of school you have completed'].mode()[0]
+Response: High school graduate (includes equivalency)
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    division_counts = df['Division'].value_counts()
+    max_count = division_counts.max()
+    tied_divisions = division_counts[division_counts == max_count].index.tolist()
+    return sorted(tied_divisions, reverse=True)[0]
+Response: South Atlantic
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['State']
+    
+    top_states = df['State'].value_counts().head(6).index.tolist()
+    return top_states
+Response: ['MI', 'AL', 'CA', 'TX', 'GA', 'NJ']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    profession_counts = df['Which of these best describes the kind of work you do'].value_counts().reset_index()
+    profession_counts.columns = ['profession', 'count']
+    top_professions = profession_counts.sort_values(by=['count', 'profession'], ascending=[False, True]).head(2)
+    return top_professions['profession'].tolist()
+Response: ['Education and training', 'Healthcare']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['Which of the following best describes your ethnic heritage']
+    
+    ethnic_counts = df['Which of the following best describes your ethnic heritage'].value_counts()
+    top_2_ethnic_groups = ethnic_counts.head(2).index.tolist()
+    return top_2_ethnic_groups
+Response: ['White (not Hispanic, Latino or Spanish origin)', 'Black or African American (not Hispanic, Latino or Spanish origin)']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['How old are you']
+    
+    age_counts = df['How old are you'].value_counts().head(6).index.tolist()
+    return age_counts
+Response: ['25-34', '55-64', '65+', '35-44', '18-24', '45-54']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    unique_county_fips = df['County FIPS'].unique()
+    top_3_county_fips = sorted(unique_county_fips)[-3:]
+    return top_3_county_fips
+Response: [np.int64(48113), np.int64(51143), np.int64(53009)]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    unique_weights = df['Weight'].unique()
+    sorted_unique_weights = sorted(unique_weights, reverse=True)
+    top_4_weights = sorted_unique_weights[:4]
+    
+    return top_4_weights
+Response: [np.float64(4.871233760276248), np.float64(2.273869489671245), np.float64(1.969631929375061), np.float64(1.875535313329686)]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you'] # Retain original column names 
+    # The columns used in the solution : ['NCHS Urbanrural']
+    
+    top_categories = df['NCHS Urbanrural'].value_counts().head(4).index.tolist()
+    return top_categories
+Response: [1, 2, 5, 3]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Are you registered to vote', 'Which of the following best describes your ethnic heritage', 'Who are you most likely to vote for on election day', 'Division', 'Did you vote in the 2016 Presidential election Four years ago', 'Weight', 'How likely are you to vote in the forthcoming US Presidential election Early Voting Open', 'State', 'County FIPS', 'Who did you vote for in the 2016 Presidential election Four years ago', 'What is the highest degree or level of school you have completed', 'NCHS Urbanrural', 'likelihood', 'Which of these best describes the kind of work you do', 'How old are you']
+    
+    return df['likelihood'].value_counts().head(2).index.tolist()
+Response: [10.0, 11.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    return 'Golf' in df['model'].values
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['dealer']
+    
+    return df['dealer'].eq('Autos Raymara').any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['version']
+    
+    return df['version'].str.contains('BMW').any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    return 'Manual' in df['shift'].values
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['model']
+    
+    return df['model'].nunique()
+Response: 19
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['photos']
+    
+    return df['photos'].mean()
+Response: 19.1
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['price']
+    
+    return df['price'].max()
+Response: 61990
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['year']
+    
+    return (df['year'] == 2020).sum()
+Response: 3
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    max_price_dealer = df.loc[df['price'].idxmax(), 'dealer']
+    return max_price_dealer
+Response: automotorDURSAN.com A
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    make_counts = df['make'].value_counts()
+    max_count = make_counts.max()
+    most_common_makes = make_counts[make_counts == max_count].index.tolist()
+    return sorted(most_common_makes)[0]
+Response: BMW
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['fuel']
+    
+    return df['fuel'].mode()[0]
+Response: Diésel
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    province_counts = df['province'].value_counts()
+    return province_counts.idxmax()
+Response: Madrid
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version']
+    
+    province_counts = df['province'].value_counts().reset_index()
+    province_counts.columns = ['province', 'count']
+    top_provinces = province_counts.sort_values(by=['count', 'province'], ascending=[False, False]).head(3)
+    
+    return top_provinces['province'].tolist()
+Response: ['Madrid', 'Palencia', 'Málaga']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['color']
+    
+    return df['color'].value_counts().head(3).index.tolist()
+Response: ['Gris / Plata', 'Negro', 'Azul']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['make']
+    
+    return df['make'].value_counts().head(5).index.tolist()
+Response: ['MERCEDES-BENZ', 'BMW', 'AUDI', 'SEAT', 'HONDA']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['fuel']
+    
+    least_common_fuels = df['fuel'].value_counts().nsmallest(2).index.tolist()
+    return least_common_fuels
+Response: ['Eléctrico', 'Híbrido']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['year']
+    
+    return df['year'].value_counts().head(4).index.tolist()
+Response: [2016.0, 2020.0, 2017.0, 2018.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['kms']
+    
+    return df['kms'].nlargest(3).tolist()
+Response: [370000, 300000, 254000]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['photos']
+    
+    return df.nlargest(5, 'photos')['photos'].tolist()
+Response: [54, 44, 40, 32, 29]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['fuel', 'color','shift','make','model', 'price', 'year', 'kms', 'power', 'province', 'dealer', 'photos','version'] # Retain original column names 
+    # The columns used in the solution : ['power']
+    
+    return df['power'].nlargest(6).tolist()
+Response: [258.0, 258.0, 218.0, 182.0, 180.0, 170.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    # The columns used in the solution : ['Transaction']
+    
+    return df['Transaction'].is_unique
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    return 'night' in df['period_day'].values
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    # Check if all items have transactions recorded on weekdays
+    items_with_weekday_transactions = set(df[df['weekday_weekend'] == 'weekday']['Item'].unique())
+    all_items = set(df['Item'].unique())
+    
+    return items_with_weekday_transactions == all_items
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    return (df['period_day'] == 'evening') & (df['weekday_weekend'] == 'weekend')).any()
+
+Response: __CODE_ERROR__: unmatched ')' (<string>, line 5)
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    return df['Item'].nunique()
+Response: 12
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    unique_days = df['date_time'].dt.date.nunique()
+    return unique_days
+
+Response: __CODE_ERROR__: Can only use .dt accessor with datetimelike values
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    return df['Transaction'].max()
+Response: 9133
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    # Filter transactions made during the afternoon
+    afternoon_transactions = df[df['period_day'] == 'afternoon']
+    
+    # Count unique transaction IDs
+    unique_ids_count = afternoon_transactions['Transaction'].nunique()
+    
+    return unique_ids_count
+Response: 11
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    result = df.groupby('period_day')['Transaction'].nunique().idxmax()
+    return result
+Response: afternoon
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    # Filter the dataframe for weekdays
+    weekdays_df = df[df['weekday_weekend'] == 'weekday']
+    
+    # Find the most commonly bought item on weekdays
+    most_common_item = weekdays_df['Item'].mode()[0]
+    
+    most_common_item
+Response: None
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    weekday_data = df[df['weekday_weekend'] == 'weekday']
+    least_popular_item = weekday_data['Item'].value_counts().idxmin()
+    
+    return least_popular_item
+Response: Farm House
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    brownie_sales = df[df['Item'] == 'Brownie']
+    most_frequent_period = brownie_sales['period_day'].mode()[0]
+    return most_frequent_period
+Response: afternoon
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    morning_items = df[df['period_day'] =='morning']['Item'].value_counts().head(3).index.tolist()
+    return morning_items
+Response: ['Coffee', 'Bread', 'Farm House']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    afternoon_purchases = df[df['period_day'] == 'afternoon']
+    top_items = afternoon_purchases['Item'].value_counts().head(2).index.tolist()
+    
+    return top_items
+Response: ['Coffee', 'Bread']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    weekend_sales = df[df['weekday_weekend'] == 'weekend']
+    top_items = weekend_sales.groupby('Item')['Transaction'].sum().reset_index()
+    top_items_sorted = top_items.sort_values(by=['Transaction', 'Item'], ascending=[False, True])
+    top_2_items = top_items_sorted.head(2)['Item'].tolist()
+    
+    return top_2_items
+Response: ['Tea', 'Focaccia']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    evening_items = df[df['period_day'] == 'evening']['Item']
+    item_counts = evening_items.value_counts()
+    result = item_counts[item_counts == 2].index.tolist()
+    
+    return result[:4]
+Response: []
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    transaction_counts = df.groupby('Transaction')['Item'].count().reset_index()
+    top_transactions = transaction_counts.nlargest(4, 'Item')['Transaction'].tolist()
+    
+    return top_transactions
+Response: [628, 956, 1152, 1259]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    # The columns used in the solution : ['Transaction']
+    
+    return df['Transaction'].nlargest(5).tolist()
+Response: [9133, 7776, 7497, 7435, 7221]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    bread_transactions = df[df['Item'] == 'Bread']['Transaction']
+    top_4_transactions = bread_transactions.nlargest(4).tolist()
+    
+    return top_4_transactions
+Response: [7776, 7104, 5816, 2850]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['date_time', 'Item', 'period_day', 'Transaction', 'weekday_weekend']
+    
+    morning_transactions = df[df['period_day'] =='morning']['Transaction'].nsmallest(2)
+    return morning_transactions.tolist()
+Response: [956, 2711]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    # The columns used in the solution : ['Rating', 'Reviewer_Location']
+    
+    australia_reviews = df[df['Reviewer_Location'] == 'Australia']
+    return australia_reviews['Rating'].min() > 3
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    review_counts = df['Branch'].value_counts()
+    most_reviewed_branch = review_counts.idxmax()
+    
+    return most_reviewed_branch == 'Disneyland_HongKong'
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    return (df['Rating'] == 1).any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    # Check if every unique Reviewer_Location has at least one review with a Rating of 5
+    return df[df['Rating'] == 5]['Reviewer_Location'].unique().size == df['Reviewer_Location'].unique().size
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Reviewer_Location']
+    
+    return df['Reviewer_Location'].nunique()
+Response: 9
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Branch']
+    
+    average_rating = df[df['Branch'] == 'Disneyland_HongKong']['Rating'].mean()
+    return average_rating
+Response: 4.25
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Review_ID']
+    
+    return df['Review_ID'].max()
+Response: 644423763
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    # Extract the year from Year_Month and count reviews in 2019
+    df['Year'] = df['Year_Month'].str[:4]
+    count_2019 = df[df['Year'] == '2019'].shape[0]
+    
+    return count_2019
+Response: 2
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Reviewer_Location']
+    
+    return df['Reviewer_Location'].mode()[0]
+Response: United States
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    branch_avg_rating = df.groupby('Branch')['Rating'].mean()
+    lowest_rated_branch = branch_avg_rating.idxmin()
+    
+    return lowest_rated_branch
+Response: Disneyland_California
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    # Filter for the most negative reviews (rating=1)
+    negative_reviews = df[df['Rating'] == 1]
+    
+    # Find the earliest date among the most negative reviews
+    earliest_date = negative_reviews['Year_Month'].min()
+    
+    return earliest_date
+Response: 2011-10
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    avg_ratings = df.groupby('Reviewer_Location')['Rating'].mean().reset_index()
+    sorted_avg_ratings = avg_ratings.sort_values(by=['Rating', 'Reviewer_Location'], ascending=[False, True])
+    return sorted_avg_ratings.iloc[0]['Reviewer_Location']
+Response: Australia
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    top_locations = df['Reviewer_Location'].value_counts().head(3).index.tolist()
+    return top_locations
+Response: ['United States', 'Australia', 'Malta']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    branch_avg_rating = df.groupby('Branch')['Rating'].mean().reset_index()
+    bottom_2_branches = branch_avg_rating.nsmallest(2, 'Rating')['Branch'].tolist()
+    return bottom_2_branches
+Response: ['Disneyland_California', 'Disneyland_HongKong']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    review_counts = df['Year_Month'].value_counts().reset_index()
+    review_counts.columns = ['Year_Month', 'Count']
+    
+    top_4_dates = review_counts.nlargest(4, 'Count', keep='first')['Year_Month'].tolist()
+    
+    return top_4_dates
+Response: ['missing', '2019-1', '2017-9', '2015-9']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    result = df.groupby('Reviewer_Location')['Rating'].mean().nsmallest(3).index.tolist()
+    return result
+Response: ['Canada', 'United States', 'United Kingdom']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Review_ID']
+    
+    result = df.sort_values(by=['Rating', 'Review_ID'], ascending=[False, False]).head(5)['Review_ID'].tolist()
+    return result
+Response: [644423763, 643982268, 635972926, 621724235, 576395715]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating', 'Review_ID']
+    
+    sorted_df = df.sort_values(by=['Rating', 'Review_ID'], ascending=[True, True])
+    lowest_reviews = sorted_df.head(4)['Review_ID'].tolist()
+    return lowest_reviews
+Response: [119781124, 124120037, 337648026, 620582661]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID']
+    
+    # Filter reviews from Australia and get the top 3 ratings
+    top_ratings = df[df['Reviewer_Location'] == 'Australia']['Rating'].head(3).tolist()
+    return top_ratings
+Response: [5, 5, 5]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['Rating', 'Reviewer_Location', 'Year_Month', 'Branch', 'Review_ID'] # Retain original column names 
+    # The columns used in the solution : ['Rating']
+    
+    lowest_ratings = df[df['Branch'] == 'Disneyland_HongKong'].nsmallest(2, 'Rating')['Rating'].tolist()
+    return lowest_ratings
+Response: [2, 5]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    
+    return df['lang'].eq('en').all()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].max() > 0
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    return (df['retweets'] > 10000).any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    return df['favorites'].max() > 50000
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['author_name']
+    
+    return len(df['author_name'].unique())
+Response: 1
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['retweets']
+    
+    return df['retweets'].mean()
+Response: 8111.15
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['favorites']
+    
+    return df['favorites'].max()
+Response: 105448
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    # Convert the 'date' column to datetime format
+    df['date'] = pd.to_datetime(df['date'])
+    
+    # Filter the DataFrame for tweets in 2018
+    tweets_2018 = df[df['date'].dt.year == 2018]
+    
+    # Count the number of tweets in 2018
+    count_2018 = tweets_2018.shape[0]
+    
+    return count_2018
+Response: 2
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['author_name']
+    
+    return df['author_name'].mode()[0]
+Response: Donald J. Trump
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    max_favorites = df['favorites'].max()
+    tweet_with_most_favorites = df.loc[df['favorites'] == max_favorites, 'text'].iloc[0]
+    return tweet_with_most_favorites
+Response: I have great confidence that China will properly deal with North Korea. If they are unable to do so, the U.S., with its allies, will! U.S.A.
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['lang','retweets']
+    
+    return df.loc[df['retweets'].idxmax(), 'lang']
+Response: en
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['lang']
+    
+    return df['lang'].mode()[0]
+Response: en
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    top_authors = df['author_handler'].value_counts().head(3).index.tolist()
+    return top_authors
+Response: ['realDonaldTrump']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    
+    lang_counts = df['lang'].value_counts().reset_index()
+    lang_counts.columns = ['lang', 'count']
+    
+    bottom_langs = lang_counts.sort_values(by=['count', 'lang'], ascending=[True, True]).head(2)
+    
+    return bottom_langs['lang'].tolist()
+Response: ['en']
+--------------------
+import pandas as pd
+from collections import Counter
+
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['mention_names']
+    
+    mention_list = [name for names in df['mention_names'].dropna() for name in names]
+    top_mentions = Counter(mention_list).most_common(4)
+    return [name for name, count in top_mentions]
+
+Response: __CODE_ERROR__: name 'Counter' is not defined
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['author_name']
+    
+    author_tweet_count = df['author_name'].value_counts().reset_index()
+    bottom_3_authors = author_tweet_count.nsmallest(3, 'count')['index'].tolist()
+    return bottom_3_authors
+
+Response: __CODE_ERROR__: 'index'
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['id','retweets']
+    
+    top_5_tweets = df.sort_values(by='retweets', ascending=False).head(5)['id'].tolist()
+    return top_5_tweets
+Response: [852508752142114816, 900150814081036288, 1017190186269184001, 822501939267141634, 761711856457125888]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['id', 'favorites']
+    
+    return df.sort_values(by='favorites').head(4)['id'].tolist()
+Response: [603361519192174592, 589632894177533953, 616672730319069185, 618552478653616128]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id'] # Retain original column names 
+    # The columns used in the solution : ['favorites']
+    
+    top_6_favorites = df['favorites'].nlargest(6).tolist()
+    return top_6_favorites
+Response: [105448, 85433, 84944, 79544, 67612, 59793]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['favorites', 'text', 'author_name', 'date', 'lang', 'id','retweets', 'author_handler','mention_names', 'rp_user_id']
+    return df['retweets'].nsmallest(3).tolist()
+Response: [10, 14, 376]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    return df['is_organization'].any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    # The columns used in the solution : ['is_organization']
+    
+    return not df['is_organization'].all()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['pic']
+    
+    return df['pic'].notna().all()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    # The columns used in the solution : ['weight']
+    
+    return df['weight'].gt(500).any()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['community']
+    
+    return df['community'].nunique()
+Response: 6
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['page_rank_norm']
+    
+    return df['page_rank_norm'].mean()
+Response: 0.0923955552240227
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight']
+    
+    return df['weight'].max()
+Response: 324.5
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['community']
+    
+    return (df['community'] == 16744206).sum()
+Response: 11
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name']
+    
+    return df['name'].mode()[0]
+Response: Alberto Perdomo
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    
+    max_page_rank_entity = df.loc[df['page_rank_norm'].idxmax(), 'name']
+    return max_page_rank_entity
+Response: Data Science Fact
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['weight', 'pic']
+    
+    max_weight_pic = df.loc[df['weight'].idxmax(), 'pic']
+    return max_weight_pic
+Response: https://storage.googleapis.com/pics.contexto.io/photos/paperclips/000/016/416/thumb/8f8493dfc040e56ef7ff8f59f9474774_normal.jpeg?1517502015
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name', 'y']
+    
+    max_y_entity = df.loc[df['y'].idxmax(), 'name']
+    return max_y_entity
+Response: Paul Klemm
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    
+    top_3_entities = df.sort_values(by='weight', ascending=False).head(3)['name'].tolist()
+    return top_3_entities
+Response: ['Peter Skomoroch', 'Nieman Lab', 'Munmun De Choudhury']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name', 'page_rank_norm']
+    
+    bottom_entities = df.sort_values(by='page_rank_norm').head(2)['name'].tolist()
+    return bottom_entities
+Response: ['Christopher', 'Chris J. Headleand']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['name', 'x']
+    
+    top_entities = df.sort_values(by='x', ascending=False).head(4)['name'].tolist()
+    return top_entities
+Response: ['Catherine Rampell', 'Nieman Lab', 'Deok Gun Park', 'ESFL']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    # The columns used in the solution : ['y']
+    
+    bottom_3_entities = df.sort_values(by='y').head(3)['name'].tolist()
+    return bottom_3_entities
+Response: ['ESFL', 'WikipediaLiveMonitor', 'Alberto Perdomo']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    
+    top_5_ids = df.sort_values(by='weight', ascending=False).head(5)['id'].tolist()
+    return top_5_ids
+Response: [527, 498, 411, 8031, 91203]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['id', 'page_rank_norm']
+    
+    result = df.sort_values(by='page_rank_norm').head(4)['id'].tolist()
+    return result
+Response: [35070, 35046, 35106, 35054]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic'] # Retain original column names 
+    # The columns used in the solution : ['page_rank_norm']
+    
+    return df['page_rank_norm'].nlargest(6).tolist()
+Response: [0.4905835057931528, 0.2858285808469396, 0.2194061763508274, 0.2171608658929857, 0.1213462154304343, 0.1023296876109954]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['name', 'weight', 'x', 'is_organization', 'community', 'id', 'page_rank_norm', 'y', 'pic']
+    # The columns used in the solution : ['weight']
+    
+    return df['weight'].nsmallest(3).tolist()
+Response: [3.0, 5.0, 7.0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    return df['feathers'].any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    return df['venomous'].any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['breathes']
+    
+    return df['breathes'].all()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['domestic']
+    
+    return df['domestic'].any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['animal_name']
+    
+    return len(df['animal_name'].unique())
+Response: 20
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    
+    return df['legs'].mean()
+Response: 3.1
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    
+    return df['legs'].max()
+Response: 6
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs']
+    
+    return len(df[df['legs'] == 2])
+Response: 4
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['class_type']
+    
+    return df['class_type'].mode()[0]
+Response: 1
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs', 'animal_name']
+    
+    result = df[df['legs'] == 8]['animal_name'].iloc[0]
+    return result
+
+Response: __CODE_ERROR__: single positional indexer is out-of-bounds
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['legs', 'class_type']
+    
+    max_legs = df['legs'].max()
+    class_type_of_max_legs = df.loc[df['legs'] == max_legs, 'class_type'].iloc[0]
+    return class_type_of_max_legs
+Response: 6
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['venomous', 'animal_name']
+    
+    result = df[df['venomous'] == True]['animal_name'].iloc[0]
+    return result
+Response: honeybee
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    # Sort by 'legs' in descending order, then by 'animal_name' in ascending order
+    sorted_df = df.sort_values(by=['legs', 'animal_name'], ascending=[False, True])
+    
+    # Get the top 3 animal names
+    top_3_animals = sorted_df['animal_name'].head(3).tolist()
+    
+    return top_3_animals
+Response: ['gnat', 'honeybee', 'wasp']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    # Solution
+    bottom_two = df.sort_values(by=['legs', 'animal_name']).head(2)['animal_name'].tolist()
+    return bottom_two
+Response: ['chub', 'dogfish']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['class_type']
+    
+    return df['class_type'].value_counts().head(4).index.tolist()
+Response: [1, 6, 4, 2]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name'] # Retain original column names 
+    # The columns used in the solution : ['class_type']
+    
+    least_common_classes = df['class_type'].value_counts().nsmallest(3).index.tolist()
+    return least_common_classes
+Response: [7, 4, 2]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    result = df.groupby('class_type')['legs'].sum().nlargest(5).index.tolist()
+    return result
+Response: [1, 6, 2, 4, 7]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    result = df.groupby('class_type')['legs'].sum().nsmallest(4).index.tolist()
+    return result
+Response: [4, 7, 2, 6]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    return df['legs'].value_counts().head(4).index.tolist()
+Response: [4, 2, 0, 6]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['legs', 'domestic', 'breathes', 'class_type','venomous', 'feathers', 'animal_name']
+    
+    leg_counts = df['legs'].value_counts()
+    least_common_legs = leg_counts.nsmallest(3).index.tolist()
+    
+    return least_common_legs
+Response: [6, 2, 0]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Quantity']
+    
+    return (df['Quantity'] > 0).all()
+Response: False
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['UnitPrice']
+    
+    return df['UnitPrice'].gt(0).all()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['CustomerID']
+    
+    return df['CustomerID'].isnull().any()
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> bool:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    return 'United Kingdom' in df['Country'].values
+Response: True
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['StockCode']
+    
+    return df['StockCode'].nunique()
+Response: 20
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> float:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['UnitPrice']
+    
+    return df['UnitPrice'].mean()
+Response: 3.5410000000000004
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Quantity']
+    
+    return df['Quantity'].max()
+Response: 25
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> int:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    return len(df[df['Country'] == 'United Kingdom'])
+Response: 19
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    # The columns used in the solution : ['Country', 'InvoiceNo']
+    
+    country_transactions = df.groupby('Country')['InvoiceNo'].nunique()
+    return country_transactions.idxmax()
+Response: United Kingdom
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Description', 'UnitPrice']
+    
+    # Your solution goes here
+    max_price_index = df['UnitPrice'].idxmax()
+    return df.loc[max_price_index, 'Description']
+Response: RETROSPOT LAMP
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Description', 'Quantity']
+    
+    return df.loc[df['Quantity'].idxmax(), 'Description']
+Response: BLUE POLKADOT WRAP
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> str:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    # The columns used in the solution : ['Country', 'CustomerID']
+    
+    return df.loc[df['CustomerID'].idxmin(), 'Country']
+Response: Australia
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    # The columns used in the solution : ['Description', 'Quantity']
+    
+    top_items = df.groupby('Description')['Quantity'].sum().nlargest(3).index.tolist()
+    return top_items
+Response: ['BLUE POLKADOT WRAP', 'HANGING JAM JAR T-LIGHT HOLDER', 'FAIRY CAKE FLANNEL ASSORTED COLOUR']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    
+    result = df.sort_values(by=['Quantity', 'Description']).head(2)['Description'].tolist()
+    return result
+Response: ['HANGING METAL STAR LANTERN', 'LARGE CAKE TOWEL CHOCOLATE SPOTS']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    # The columns used in the solution : ['Country', 'InvoiceNo']
+    
+    country_transactions = df.groupby('Country')['InvoiceNo'].nunique().sort_values(ascending=False)
+    return country_transactions.head(2).index.tolist()
+Response: ['United Kingdom', 'Australia']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice']
+    
+    country_counts = df['Country'].value_counts()
+    least_countries = country_counts.nsmallest(2).index.tolist()
+    
+    return least_countries
+Response: ['Australia', 'United Kingdom']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['InvoiceNo', 'Quantity']
+    
+    top_invoices = df.sort_values(by='Quantity', ascending=False).head(5)['InvoiceNo'].tolist()
+    return top_invoices
+Response: ['548005', '555200', '573399', '577076', '563745']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['StockCode', 'Quantity']
+    
+    result = df.sort_values(by=['Quantity', 'StockCode']).head(5)['StockCode'].tolist()
+    return result
+Response: ['22465', '21109', '22799', '82484', '82600']
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> None:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Quantity']
+    
+    return df['Quantity'].value_counts().head(4).index.tolist()
+Response: [1, 2, 4, 12]
+--------------------
+import pandas as pd
+def answer(df: pd.DataFrame) -> list:
+    df.columns = ['InvoiceNo', 'Country', 'StockCode', 'Description', 'Quantity', 'CustomerID', 'UnitPrice'] # Retain original column names 
+    # The columns used in the solution : ['Description']
+    
+    description_counts = df['Description'].value_counts()
+    top_two_descriptions = description_counts.head(2).index.tolist()
+    return top_two_descriptions
+Response: ['HANGING JAM JAR T-LIGHT HOLDER', 'GOLD FISHING GNOME']
+--------------------

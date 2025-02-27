@@ -1,0 +1,30 @@
+log,model,task,average,boolean,category,number,list[category],list[number]
+2024-12-05_13-08_debug_lite,mistralai/Mistral-7B-Instruct-v0.3,Task 2,0.471875,0.5,0.5625,0.6875,0.328125,0.28125
+2024-12-20_13-31_debug_lite,Qwen/Qwen2.5-Coder-32B-Instruct,Task 2,0.834375,0.84375,0.890625,0.90625,0.734375,0.796875
+2024-11-29_17-04_debug_lite,mistralai/Mistral-7B-Instruct-v0.3,Task 2,0.453125,0.46875,0.5625,0.65625,0.328125,0.25
+2024-12-13_13-32_debug_lite,mistralai/Codestral-22B-v0.1,Task 2,0.71875,0.71875,0.890625,0.84375,0.53125,0.609375
+2024-12-19_18-42_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.85,0.875,0.890625,0.84375,0.8125,0.828125
+2025-01-28_12-31_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.85,0.890625,0.859375,0.859375,0.78125,0.859375
+2024-12-05_13-13_debug,mistralai/Mistral-7B-Instruct-v0.3,Task 1,0.509375,0.515625,0.59375,0.734375,0.359375,0.34375
+2025-02-26_08-53_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.840625,0.828125,0.90625,0.84375,0.734375,0.890625
+2024-12-16_11-43_debug_lite,Qwen/Qwen2.5-Coder-7B-Instruct,Task 2,0.51875,0.8125,0.84375,0.859375,0.0625,0.015625
+2024-12-11_19-24_debug,Qwen/Qwen2.5-Coder-7B-Instruct,Task 1,0.434375,0.671875,0.6875,0.75,0.03125,0.03125
+2024-12-09_16-21_debug,mistralai/Codestral-22B-v0.1,Task 1,0.671875,0.734375,0.828125,0.828125,0.484375,0.484375
+2024-12-11_12-50_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.775,0.828125,0.78125,0.78125,0.6875,0.796875
+2024-12-12_12-20_god_debug_lite,Qwen/Qwen2.5-Coder-32B-Instruct,Task 2,0.846875,0.875,0.890625,0.875,0.765625,0.828125
+2025-02-25_18-05_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.0,0.0,0.0,0.0,0.0,0.0
+2025-01-28_12-46_debug,deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct,Task 1,0.675,0.421875,0.8125,0.828125,0.640625,0.671875
+2025-02-25_23-39_debug_lite,Qwen/Qwen2.5-Coder-32B-Instruct,Task 2,0.85625,0.859375,0.90625,0.90625,0.78125,0.828125
+2025-01-31_11-32_debug_lite,import pandas as pd,Task 2,0.0,0.0,0.0,0.0,0.0,0.0
+2024-12-19_18-42_debug_lite,Qwen/Qwen2.5-Coder-32B-Instruct,Task 2,0.846875,0.890625,0.890625,0.90625,0.765625,0.78125
+2024-12-20_13-31_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.84375,0.875,0.90625,0.859375,0.765625,0.8125
+2025-02-25_23-39_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.8375,0.875,0.890625,0.875,0.703125,0.84375
+2025-01-22_23-31_debug_lite,Qwen/Qwen2.5-Coder-32B-Instruct,Task 2,0.81875,0.84375,0.890625,0.859375,0.75,0.75
+2025-01-30_15-08_debug_lite,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,Task 2,0.2125,0.328125,0.296875,0.21875,0.09375,0.125
+2025-02-25_18-05_debug_lite,Qwen/Qwen2.5-Coder-32B-Instruct,Task 2,0.0,0.0,0.0,0.0,0.0,0.0
+2025-01-28_12-46_debug_lite,deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct,Task 2,0.675,0.453125,0.8125,0.875,0.609375,0.625
+2025-01-31_11-32_debug,import pandas as pd,Task 1,0.0,0.0,0.0,0.0,0.0,0.0
+2025-01-22_23-31_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.84375,0.890625,0.890625,0.875,0.75,0.8125
+2025-01-28_12-31_debug_lite,Qwen/Qwen2.5-Coder-32B-Instruct,Task 2,0.83125,0.859375,0.875,0.859375,0.75,0.8125
+2024-12-11_12-25_debug_lite,mistralai/Codestral-22B-v0.1,Task 2,0.653125,0.671875,0.875,0.859375,0.375,0.484375
+2024-12-12_12-20_god_debug,Qwen/Qwen2.5-Coder-32B-Instruct,Task 1,0.740625,0.8125,0.78125,0.75,0.65625,0.703125
